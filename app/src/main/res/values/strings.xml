@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ChillieWallet</string>
+    <string name="title_wallet">Wallet</string>
+    <string name="title_dex">Dex</string>
+    <string name="title_dapps">dApps</string>
+    <string name="title_settings">Settings</string>
+</resources>
