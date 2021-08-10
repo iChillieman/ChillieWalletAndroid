@@ -16,8 +16,8 @@ class DexFragment : BaseViewModelFragment<DexViewModel>(DexViewModel::class.java
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_wallet, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
+        val root = inflater.inflate(R.layout.fragment_dex, container, false)
+        val textView: TextView = root.findViewById(R.id.text_dex)
         viewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })

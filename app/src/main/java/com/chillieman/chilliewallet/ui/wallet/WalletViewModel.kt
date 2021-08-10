@@ -11,7 +11,7 @@ class WalletViewModel
 ) : BaseViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is Wallet Fragment"
+        value = "Launch the BarcodeActivity"
     }
     val text: LiveData<String> = _text
 }

@@ -4,4 +4,8 @@
     <string name="title_dex">Dex</string>
     <string name="title_dapps">dApps</string>
     <string name="title_settings">Settings</string>
+    <string name="generate_qr_code">Generate QR Code</string>
+    <string name="scan_qr_code">Scan QR Code</string>
+    <string name="address_colon">Address:</string>
+    <string name="qr_code">QR Code</string>
 </resources>
