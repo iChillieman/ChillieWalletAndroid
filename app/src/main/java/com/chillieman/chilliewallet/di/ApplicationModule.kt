@@ -2,7 +2,6 @@ package com.chillieman.chilliewallet.di
 
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
-import com.chillieman.chilliewallet.ChillieApplication
 import dagger.Binds
 import dagger.Module
 

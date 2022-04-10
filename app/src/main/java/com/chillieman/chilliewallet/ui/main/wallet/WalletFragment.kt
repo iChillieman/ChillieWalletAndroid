@@ -1,4 +1,4 @@
-package com.chillieman.chilliewallet.ui.wallet
+package com.chillieman.chilliewallet.ui.main.wallet
 
 import android.content.Intent
 import android.os.Bundle
@@ -18,9 +18,9 @@ class WalletFragment : BaseViewModelFragment<WalletViewModel>(WalletViewModel::c
             savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_wallet, container, false)
-        viewModel.text.observe(viewLifecycleOwner, Observer {
+        viewModel.text.observe(viewLifecycleOwner) {
             btn_launch_barcode_activity.text = it
-        })
+        }
 
         return root
     }

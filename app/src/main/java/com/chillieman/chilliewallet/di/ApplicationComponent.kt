@@ -1,6 +1,5 @@
 package com.chillieman.chilliewallet.di
 
-import com.chillieman.chilliewallet.ChillieApplication
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -12,6 +11,7 @@ import javax.inject.Singleton
     modules = [
         AndroidSupportInjectionModule::class,
         ApplicationModule::class,
+        ProviderModule::class,
         ActivityBindingModule::class,
         FragmentBindingModule::class,
         ViewModelBindingModule::class

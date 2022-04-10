@@ -1,4 +1,4 @@
-package com.chillieman.chilliewallet.ui
+package com.chillieman.chilliewallet.ui.main
 
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -27,4 +27,15 @@ class MainActivity : BaseActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
+
+    override fun onStart() {
+        super.onStart()
+        //Check if the user is logged in
+        
+        //If not, send to AuthActivity
+
+        //Observe a service that checks whether the user has been inactive
+        
+    }
+
 }

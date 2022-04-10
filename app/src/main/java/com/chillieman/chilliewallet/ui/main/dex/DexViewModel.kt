@@ -1,4 +1,4 @@
-package com.chillieman.chilliewallet.ui.dex
+package com.chillieman.chilliewallet.ui.main.dex
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

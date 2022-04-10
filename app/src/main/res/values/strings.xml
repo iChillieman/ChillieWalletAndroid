@@ -8,4 +8,12 @@
     <string name="scan_qr_code">Scan QR Code</string>
     <string name="address_colon">Address:</string>
     <string name="qr_code">QR Code</string>
+    <string name="title_activity_auth">AuthActivity</string>
+    <string name="disconnected">DISCONNECTED</string>
+    <string name="connecting">CONNECTING</string>
+    <string name="connected">CONNECTED</string>
+    <string name="error">ERROR</string>
+    <string name="error_check_network">ERROR:\nDo you have internet?</string>
+    <string name="not_detected">NOT DETECTED</string>
+    <string name="detected">DETECTED</string>
 </resources>

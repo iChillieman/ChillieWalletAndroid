@@ -1,17 +1,17 @@
-package com.chillieman.chilliewallet.ui.settings
+package com.chillieman.chilliewallet.ui.main.wallet
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.chillieman.chilliewallet.ui.base.BaseViewModel
 import javax.inject.Inject
 
-class SettingsViewModel
+class WalletViewModel
 @Inject constructor(
 
 ) : BaseViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is Settings Fragment"
+        value = "Launch the BarcodeActivity"
     }
     val text: LiveData<String> = _text
 }

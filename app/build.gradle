@@ -66,6 +66,9 @@ dependencies {
     kapt 'com.google.dagger:dagger-compiler:2.41'
     kapt 'com.google.dagger:dagger-android-processor:2.41'
 
+    //Web3j
+    implementation 'org.web3j:core:4.8.7-android'
+
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
