@@ -1,5 +1,6 @@
-package com.chillieman.chilliewallet.di
+package com.chillieman.chilliewallet
 
+import com.chillieman.chilliewallet.di.DaggerApplicationComponent
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import org.bouncycastle.jce.provider.BouncyCastleProvider
