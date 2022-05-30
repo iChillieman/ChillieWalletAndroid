@@ -4,111 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="?attr/fullscreenBackgroundColor"
-    android:theme="@style/ThemeOverlay.ChillieWallet.FullscreenContainer"
     tools:context=".ui.auth.AuthActivity">
 
     <TextView
-        android:id="@+id/tv_connection_status"
+        android:id="@+id/tv_auth_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="32sp"
-        android:text="@string/disconnected"
-        android:textColor="@color/red"
-        android:background="?attr/fullscreenBackgroundColor"
+        android:text="Welcome!"
         android:gravity="center_horizontal"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-    <Button
-        android:id="@+id/btn_connect"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Connect to BlockChain"
-        app:layout_constraintTop_toBottomOf="@id/tv_connection_status"/>
-
-    <TextView
-        android:id="@+id/tv_wallet_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="32sp"
-        android:text="@string/not_detected"
-        android:textColor="@color/red"
-        android:background="?attr/fullscreenBackgroundColor"
-        app:layout_constraintTop_toBottomOf="@id/btn_connect"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/btn_create_wallet"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Create Wallet"
-        app:layout_constraintTop_toBottomOf="@id/tv_wallet_status"/>
-
-    <Button
-        android:id="@+id/btn_load_wallet_information"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Load Wallet"
-        app:layout_constraintTop_toBottomOf="@id/btn_create_wallet"/>
-
-    <TextView
-        android:id="@+id/tv_wallet_address_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Wallet Address:"
-        android:textColor="@color/white"
-        android:background="?attr/fullscreenBackgroundColor"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_load_wallet_information" />
-
-    <TextView
-        android:id="@+id/tv_wallet_address"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/green"
-        android:background="?attr/fullscreenBackgroundColor"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_wallet_address_label" />
-
-    <TextView
-        android:id="@+id/tv_wallet_public_key_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Public Key:"
-        android:textColor="@color/white"
-        android:background="?attr/fullscreenBackgroundColor"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_wallet_address" />
-
-    <TextView
-        android:id="@+id/tv_wallet_public_key"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/green"
-        android:background="?attr/fullscreenBackgroundColor"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_wallet_public_key_label" />
-
-    <TextView
-        android:id="@+id/tv_wallet_private_key_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Private Key:"
-        android:textColor="@color/white"
-        android:background="?attr/fullscreenBackgroundColor"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_wallet_public_key" />
-
-    <TextView
-        android:id="@+id/tv_wallet_private_key"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/green"
-        android:background="?attr/fullscreenBackgroundColor"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_wallet_private_key_label" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

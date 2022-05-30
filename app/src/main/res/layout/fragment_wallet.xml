@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.dex.DexFragment">
+    tools:context=".ui.main.bot.BotFragment">
 
     <Button
         android:id="@+id/btn_launch_barcode_activity"

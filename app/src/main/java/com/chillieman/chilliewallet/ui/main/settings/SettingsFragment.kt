@@ -5,18 +5,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.lifecycle.Observer
 import com.chillieman.chilliewallet.R
-import com.chillieman.chilliewallet.ui.base.BaseViewModelFragment
+import com.chillieman.chilliewallet.databinding.FragmentSettingsBinding
+import com.chillieman.chilliewallet.ui.base.BaseSharedViewModelFragment
+import com.chillieman.chilliewallet.ui.main.MainViewModel
 
-class SettingsFragment : BaseViewModelFragment<SettingsViewModel>(SettingsViewModel::class.java) {
+class SettingsFragment : BaseSharedViewModelFragment<MainViewModel>(MainViewModel::class.java) {
+
+    private var _binding: FragmentSettingsBinding? = null
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.fragment_settings, container, false)
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentSettingsBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+
         val textView: TextView = root.findViewById(R.id.text_notifications)
         viewModel.text.observe(viewLifecycleOwner) {
             textView.text = it

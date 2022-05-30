@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/navigation_dex"
-        android:name="com.chillieman.chilliewallet.ui.main.dex.DexFragment"
-        android:label="@string/title_dex"
-        tools:layout="@layout/fragment_dex" />
+        android:name="com.chillieman.chilliewallet.ui.main.bot.BotFragment"
+        android:label="@string/title_bot"
+        tools:layout="@layout/fragment_bot" />
 
     <fragment
         android:id="@+id/navigation_settings"

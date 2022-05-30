@@ -7,7 +7,7 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider
 import java.security.Provider
 import java.security.Security
 
-class ChillieApplication: DaggerApplication() {
+class ChillieApplication : DaggerApplication() {
 
     override fun applicationInjector(): AndroidInjector<out ChillieApplication> {
         return DaggerApplicationComponent.builder()

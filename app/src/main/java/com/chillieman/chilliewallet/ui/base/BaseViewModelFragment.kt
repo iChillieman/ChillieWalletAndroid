@@ -11,7 +11,7 @@ abstract class BaseViewModelFragment<T : BaseViewModel>(
     protected lateinit var viewModelFactory: ViewModelProvider.Factory
 
     val viewModel: T by lazy(LazyThreadSafetyMode.NONE) {
-            ViewModelProvider(this, viewModelFactory)[viewModelClass]
+        ViewModelProvider(this, viewModelFactory)[viewModelClass]
     }
         @UiThread
         get

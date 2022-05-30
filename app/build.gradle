@@ -1,11 +1,12 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+}
 
 android {
     compileSdkVersion 32
-    buildToolsVersion "32.0.0"
 
     defaultConfig {
         applicationId "com.chillieman.chilliewallet"
@@ -30,6 +31,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding true
+    }
+    namespace 'com.chillieman.chilliewallet'
 }
 
 dependencies {
@@ -58,6 +63,12 @@ dependencies {
 
     //Zxing Wrapper for Scanning and creating QR Codes
     implementation 'com.journeyapps:zxing-android-embedded:4.2.0'
+
+    //Room
+    implementation "androidx.room:room-runtime:2.4.2"
+    annotationProcessor "androidx.room:room-compiler:2.4.2"
+    implementation "androidx.room:room-rxjava2:2.4.2"
+
 
     //Dagger
     implementation 'com.google.dagger:dagger:2.41'
