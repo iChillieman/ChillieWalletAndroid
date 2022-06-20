@@ -6,9 +6,15 @@ Wallet for use with ChillieToken
 
 Community:
 [🌍 Website](https://chillieman.com) 
+
 [👾 Discord](https://discord.gg/H8mbmDyYcz)
+
 [ಠ_ಠ Reddit](https://www.reddit.com/r/ChillieWallet)
+
 [💬 Telegram](https://t.me/OfficialChillieWallet)
+
 [🐦 Twitter](https://twitter.com/ChillieWallet)
+
 [🤖 GitHub](https://github.com/iChillieman)
+
 [📺 Youtube](https://www.youtube.com/channel/UCS4C5tlb3U5R4ZpO_QDJL-Q)
