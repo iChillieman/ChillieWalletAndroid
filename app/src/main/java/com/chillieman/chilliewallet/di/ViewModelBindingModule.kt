@@ -3,8 +3,10 @@ package com.chillieman.chilliewallet.di
 import androidx.lifecycle.ViewModel
 import com.chillieman.chilliewallet.di.annotation.ViewModelKey
 import com.chillieman.chilliewallet.ui.auth.AuthViewModel
+import com.chillieman.chilliewallet.ui.auth.password.PasswordViewModel
+import com.chillieman.chilliewallet.ui.auth.pin.PinViewModel
 import com.chillieman.chilliewallet.ui.main.MainViewModel
-import com.chillieman.chilliewallet.ui.main.bot.BotViewModel
+import com.chillieman.chilliewallet.ui.main.orders.OrdersViewModel
 import com.chillieman.chilliewallet.ui.main.settings.SettingsViewModel
 import com.chillieman.chilliewallet.ui.main.wallet.WalletViewModel
 import com.chillieman.chilliewallet.ui.playground.PlaygroundViewModel
@@ -22,8 +24,8 @@ abstract class ViewModelBindingModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(BotViewModel::class)
-    abstract fun bindDexViewModel(viewModel: BotViewModel): ViewModel
+    @ViewModelKey(OrdersViewModel::class)
+    abstract fun bindOrdersViewModel(viewModel: OrdersViewModel): ViewModel
 
     @Binds
     @IntoMap
@@ -44,4 +46,14 @@ abstract class ViewModelBindingModule {
     @IntoMap
     @ViewModelKey(PlaygroundViewModel::class)
     abstract fun bindPlaygroundViewModel(viewModel: PlaygroundViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(PinViewModel::class)
+    abstract fun bindPinViewModel(viewModel: PinViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(PasswordViewModel::class)
+    abstract fun bindPasswordViewModel(viewModel: PasswordViewModel): ViewModel
 }

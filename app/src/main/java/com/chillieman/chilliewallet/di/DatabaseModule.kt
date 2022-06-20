@@ -29,4 +29,7 @@ class DatabaseModule {
 
     @Provides
     fun provideTokenDao(chillieDatabase: ChillieDatabase) = chillieDatabase.tokenDao()
+
+    @Provides
+    fun provideAuthDatumDao(chillieDatabase: ChillieDatabase) = chillieDatabase.authDatumDao()
 }

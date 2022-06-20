@@ -1,13 +1,21 @@
 package com.chillieman.chilliewallet
 
+import android.util.Log
+import androidx.security.crypto.MasterKey
 import com.chillieman.chilliewallet.di.DaggerApplicationComponent
+import com.chillieman.chilliewallet.ui.main.wallet.WalletFragment
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import org.bouncycastle.jce.provider.BouncyCastleProvider
+import java.security.KeyStore
 import java.security.Provider
 import java.security.Security
+import javax.inject.Inject
 
 class ChillieApplication : DaggerApplication() {
+
+    @Inject
+    lateinit var keyStore: KeyStore
 
     override fun applicationInjector(): AndroidInjector<out ChillieApplication> {
         return DaggerApplicationComponent.builder()
@@ -33,6 +41,17 @@ class ChillieApplication : DaggerApplication() {
         // of that it's possible to have another BC implementation loaded in VM.
         Security.removeProvider(BouncyCastleProvider.PROVIDER_NAME)
         Security.insertProviderAt(BouncyCastleProvider(), 1)
+
+
+        //If a Master Key is not created, create one - It will be needed for all encryption.
+        if(keyStore.size() == 0) {
+            Log.d("ChillieCrypt", "Creating Master Key")
+            MasterKey.Builder(applicationContext)
+                .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+                .build()
+        }
     }
+
+
 
 }

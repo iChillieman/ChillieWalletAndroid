@@ -9,7 +9,7 @@
     <item
         android:id="@+id/navigation_dex"
         android:icon="@drawable/ic_exchange_24"
-        android:title="@string/title_bot" />
+        android:title="@string/title_orders" />
 
     <item
         android:id="@+id/navigation_settings"

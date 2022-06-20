@@ -19,8 +19,6 @@ class PlaygroundActivity : BaseViewModelActivity<PlaygroundViewModel>(Playground
 
         observeLiveData()
 
-//        viewModel.test()
-
         binding.btnConnect.setOnClickListener {
             viewModel.connectToEthNetwork()
         }
@@ -51,14 +49,17 @@ class PlaygroundActivity : BaseViewModelActivity<PlaygroundViewModel>(Playground
         }
 
         viewModel.walletKeys.observe(this) {
-            binding.tvWalletPrivateKey.text = String.format(it.privateKey.toString(16))
+            binding.tvWalletPrivateKey.text = "NEVER SHARE A PRIVATE KEY!!!! NEVER!!!"
             binding.tvWalletPublicKey.text = String.format(it.publicKey.toString(16))
+            binding.btnLoadWalletInformation.isEnabled = false
         }
 
         viewModel.walletFile.observe(this) {
             Log.d(TAG, "observeLiveData: Detected Wallet! ${it.absolutePath}")
             binding.tvWalletStatus.text = getString(R.string.detected)
             binding.tvWalletStatus.setTextColor(getColor(R.color.green))
+            binding.btnLoadWalletInformation.isEnabled = true
+            binding.btnCreateWallet.isEnabled = false
         }
     }
 

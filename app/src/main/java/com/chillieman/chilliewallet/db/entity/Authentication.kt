@@ -13,7 +13,9 @@ class Authentication(
     @field:ColumnInfo(name = Columns.ID)
     val id: Long = 1L,
     @field:ColumnInfo(name = Columns.PIN)
-    val pin: String,
-    @field:ColumnInfo(name = Columns.PASSPHRASE)
-    val passphrase: String?
+    val pinId: Long,
+    @field:ColumnInfo(name = Columns.WALLET_PASSWORD)
+    val walletPasswordId: Long,
+    @field:ColumnInfo(name = Columns.PASSWORD)
+    val userPasswordId: Long?
 )

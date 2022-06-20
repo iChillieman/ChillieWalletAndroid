@@ -21,5 +21,5 @@ class ChillieWallet(
     @field:ColumnInfo(name = Columns.NAME)
     val name: String,
     @field:ColumnInfo(name = Columns.PATH)
-    val path: String
+    val filePath: String
 )

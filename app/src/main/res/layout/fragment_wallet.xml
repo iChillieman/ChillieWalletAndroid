@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.bot.BotFragment">
+    tools:context=".ui.main.orders.OrdersFragment">
 
     <Button
         android:id="@+id/btn_launch_barcode_activity"
@@ -15,8 +15,23 @@
         android:layout_marginEnd="8dp"
         android:textAlignment="center"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btn_launch_wallet_playground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:id="@+id/btn_launch_wallet_playground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_launch_barcode_activity" />
 </androidx.constraintlayout.widget.ConstraintLayout>

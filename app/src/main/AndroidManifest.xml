@@ -13,17 +13,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChillieWallet"
         tools:ignore="LockedOrientationActivity">
+
+        <service
+            android:name=".service.AuthService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <service
+            android:name=".service.TransactionService"
+            android:enabled="true"
+            android:exported="false" />
+
         <activity
             android:name=".ui.playground.PlaygroundActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.auth.AuthActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_auth" />
+            android:label="@string/title_activity_auth"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.barcode.BarcodeActivity"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="true"

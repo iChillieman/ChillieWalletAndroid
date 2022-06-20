@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import com.chillieman.chilliewallet.R
 import com.chillieman.chilliewallet.databinding.ActivityAuthBinding
+import com.chillieman.chilliewallet.definitions.IntentDefinitions
 import com.chillieman.chilliewallet.model.ConnectionState
+import com.chillieman.chilliewallet.ui.auth.pin.PinFragment
 import com.chillieman.chilliewallet.ui.base.BaseViewModelActivity
 
 class AuthActivity : BaseViewModelActivity<AuthViewModel>(AuthViewModel::class.java) {
@@ -20,17 +22,21 @@ class AuthActivity : BaseViewModelActivity<AuthViewModel>(AuthViewModel::class.j
         //  - User needs to set a PIN and Password
         Log.d(TAG, "onCreate: Hello...")
 
+        //See if this is the first time, and the user needs to create a PINCODE
+        val isFirstTime = intent.getBooleanExtra(IntentDefinitions.EXTRA_NEED_TO_CREATE_AUTH, false)
 
-        //TODO: First See if An Authentication Records Exists.
+        val fragment = PinFragment.newInstance(
+            isFirstTime,
+            "Chillieman says hi!"
+        )
 
-        //If Auth Exists, Request PIN Number
-        //If Passphrase is missing, require it from the user.
-        //  - Passphrase will be required to Withdrawal Funds from the wallet.
-        //  - Passphrase will be required to Create Workers/Tasks
-        //If passphrase is NOT NULL, Then Goto Main (Or where ever you were)
-
+        supportFragmentManager.beginTransaction()
+            .add(binding.content.id, fragment)
+            .commit()
 
     }
+
+    override fun onBackPressed() = Unit // Back Button does nothing on this screen
 
     companion object {
         private const val TAG = "Chillie - AuthActivity"

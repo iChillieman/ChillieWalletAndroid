@@ -16,7 +16,8 @@ import javax.inject.Singleton
         ProviderModule::class,
         ActivityBindingModule::class,
         FragmentBindingModule::class,
-        ViewModelBindingModule::class
+        ViewModelBindingModule::class,
+        ServiceBindingModule::class
     ]
 )
 interface ApplicationComponent : AndroidInjector<ChillieApplication> {
