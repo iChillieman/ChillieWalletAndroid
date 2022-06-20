@@ -9,6 +9,7 @@ ChillieWallet is an upcoming mobile application that will let DeFi investors uti
 - Check out the White Paper for basic information on ChillieWallet, and the underlying utility token: [https://github.com/iChillieman/ChillieWallet/blob/master/ChilliePaper_v1.pdf](https://github.com/iChillieman/ChillieWallet/blob/main/ChilliePaper.pdf)
 
 Help us grow the community if the application sounds like something you would want to use!
+
 Community:
  - [🌍 Website](https://chillieman.com) 
  - [👾 Discord](https://discord.gg/H8mbmDyYcz)
