@@ -1,8 +1,10 @@
 package com.chillieman.chilliewallet
 
+import android.content.Intent
 import android.util.Log
 import androidx.security.crypto.MasterKey
 import com.chillieman.chilliewallet.di.DaggerApplicationComponent
+import com.chillieman.chilliewallet.service.AuthService
 import com.chillieman.chilliewallet.ui.main.wallet.WalletFragment
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication

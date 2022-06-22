@@ -17,6 +17,7 @@ import com.chillieman.chilliewallet.R
 import com.chillieman.chilliewallet.databinding.ActivityMainBinding
 import com.chillieman.chilliewallet.service.AuthService
 import com.chillieman.chilliewallet.ui.base.BaseActivity
+import com.chillieman.chilliewallet.ui.base.BaseViewModelActivity
 import java.security.KeyStore
 import java.util.*
 import javax.crypto.Cipher
@@ -24,7 +25,7 @@ import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 import javax.crypto.spec.IvParameterSpec
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseViewModelActivity<MainViewModel>(MainViewModel::class.java) {
     private lateinit var binding: ActivityMainBinding
     private lateinit var authService: AuthService
     private val authConnection = object : ServiceConnection {
@@ -32,9 +33,6 @@ class MainActivity : BaseActivity() {
             // We've bound to LocalService, cast the IBinder and get LocalService instance
             val binder = service as AuthService.AuthBinder
             authService = binder.getService()
-            Log.d("Chillieman", "BOUND")
-            Log.d("Chillieman", "Time When locked: ${authService.timeWhenUnlocked}")
-//            Log.d("Chillieman", authService.testInjection.absolutePath)
         }
 
         override fun onServiceDisconnected(name: ComponentName?) = Unit //Do Nothing
@@ -62,37 +60,24 @@ class MainActivity : BaseActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        //CHILLIEMAN - UNCOMMENT ME
-//        startService(Intent(this, AuthService::class.java))
+        startService(Intent(this, AuthService::class.java))
     }
 
 
     override fun onStart() {
         super.onStart()
-        //CHILLIEMAN - UNCOMMENT ME
-//        Intent(this, AuthService::class.java).also { intent ->
-//            Log.d("Chillieman", "Binding the Service!")
-//            bindService(intent, authConnection, Context.BIND_AUTO_CREATE)
-//        }
-
-
-//        https://developer.android.com/guide/topics/security/cryptography#encrypt-message
-        // Encrypt a Message
-        // DONE - Check out Encyrption
-
-
-//        listOutKeyStoreEntries()
-
-
+        Intent(this, AuthService::class.java).also { intent ->
+            Log.d("Chillieman", "Binding the Service!")
+            bindService(intent, authConnection, Context.BIND_AUTO_CREATE)
+        }
 
 
     }
 
 
-
     override fun onStop() {
         super.onStop()
-//        unbindService(authConnection)
+        unbindService(authConnection)
     }
 
     private val TAG = "ChillieCrypt"

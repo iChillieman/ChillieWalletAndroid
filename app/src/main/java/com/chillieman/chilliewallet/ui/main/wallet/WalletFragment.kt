@@ -1,5 +1,6 @@
 package com.chillieman.chilliewallet.ui.main.wallet
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,9 +11,12 @@ import com.chillieman.chilliewallet.databinding.FragmentWalletBinding
 import com.chillieman.chilliewallet.db.entity.AuthDatum
 import com.chillieman.chilliewallet.manager.EncryptionManager
 import com.chillieman.chilliewallet.repository.AuthRepository
+import com.chillieman.chilliewallet.ui.barcode.BarcodeActivity
+import com.chillieman.chilliewallet.ui.base.BaseHybridViewModelFragment
 import com.chillieman.chilliewallet.ui.base.BaseSharedViewModelFragment
 import com.chillieman.chilliewallet.ui.base.BaseViewModelFragment
 import com.chillieman.chilliewallet.ui.main.MainViewModel
+import com.chillieman.chilliewallet.ui.playground.PlaygroundActivity
 import java.security.KeyStore
 import java.util.*
 import javax.crypto.Cipher
@@ -21,7 +25,10 @@ import javax.crypto.spec.GCMParameterSpec
 import javax.crypto.spec.IvParameterSpec
 import javax.inject.Inject
 
-class WalletFragment : BaseViewModelFragment<WalletViewModel>(WalletViewModel::class.java) {
+class WalletFragment : BaseHybridViewModelFragment<WalletViewModel, MainViewModel>(
+    WalletViewModel::class.java,
+    MainViewModel::class.java
+) {
 
     @Inject
     lateinit var authRepository: AuthRepository
@@ -51,20 +58,19 @@ class WalletFragment : BaseViewModelFragment<WalletViewModel>(WalletViewModel::c
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnLaunchBarcodeActivity.text = "Create Pin"
+        binding.btnLaunchBarcodeActivity.text = "Barcode Playground"
         binding.btnLaunchBarcodeActivity.setOnClickListener {
-//            startActivity(Intent(requireActivity(), BarcodeActivity::class.java))
-            viewModel.checkPin()
+            startActivity(Intent(requireActivity(), BarcodeActivity::class.java))
+//            viewModel.checkPin()
         }
 
-        binding.btnLaunchWalletPlayground.text = "Create Password"
+        binding.btnLaunchWalletPlayground.text = "Wallet Playground"
         binding.btnLaunchWalletPlayground.setOnClickListener {
-//            startActivity(Intent(requireActivity(), PlaygroundActivity::class.java))
-           viewModel.checkPassword()
+            startActivity(Intent(requireActivity(), PlaygroundActivity::class.java))
+//           viewModel.checkPassword()
         }
 
     }
-
 
 
     companion object {

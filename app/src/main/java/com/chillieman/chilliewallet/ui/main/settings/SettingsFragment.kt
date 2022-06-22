@@ -7,12 +7,17 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.chillieman.chilliewallet.R
 import com.chillieman.chilliewallet.databinding.FragmentSettingsBinding
+import com.chillieman.chilliewallet.ui.base.BaseHybridViewModelFragment
 import com.chillieman.chilliewallet.ui.base.BaseSharedViewModelFragment
 import com.chillieman.chilliewallet.ui.main.MainViewModel
 
-class SettingsFragment : BaseSharedViewModelFragment<MainViewModel>(MainViewModel::class.java) {
+class SettingsFragment : BaseHybridViewModelFragment<SettingsViewModel, MainViewModel>(
+    SettingsViewModel::class.java,
+    MainViewModel::class.java
+) {
 
     private var _binding: FragmentSettingsBinding? = null
+
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!

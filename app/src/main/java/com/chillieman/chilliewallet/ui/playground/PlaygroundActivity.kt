@@ -2,6 +2,8 @@ package com.chillieman.chilliewallet.ui.playground
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import com.chillieman.chilliewallet.R
 import com.chillieman.chilliewallet.databinding.ActivityPlaygroundBinding
 import com.chillieman.chilliewallet.model.ConnectionState
@@ -23,12 +25,13 @@ class PlaygroundActivity : BaseViewModelActivity<PlaygroundViewModel>(Playground
             viewModel.connectToEthNetwork()
         }
 
-        binding.btnCreateWallet.setOnClickListener {
-            viewModel.createWallet()
+        binding.btnLoadWalletInformation.setOnClickListener {
+            viewModel.getWalletCredentials()
         }
 
-        binding.btnLoadWalletInformation.setOnClickListener {
-            viewModel.getWalletInformation()
+        binding.btnSomethingElse.setOnClickListener {
+//            viewModel.getWalletInformation()
+            Toast.makeText(this, "Nothing to do!", Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -44,6 +47,10 @@ class PlaygroundActivity : BaseViewModelActivity<PlaygroundViewModel>(Playground
             }
         }
 
+        viewModel.isLoading.observe(this) {
+            binding.progress.visibility = if(it) View.VISIBLE else View.GONE
+        }
+
         viewModel.walletAddress.observe(this) {
             binding.tvWalletAddress.text = it
         }
@@ -52,14 +59,6 @@ class PlaygroundActivity : BaseViewModelActivity<PlaygroundViewModel>(Playground
             binding.tvWalletPrivateKey.text = "NEVER SHARE A PRIVATE KEY!!!! NEVER!!!"
             binding.tvWalletPublicKey.text = String.format(it.publicKey.toString(16))
             binding.btnLoadWalletInformation.isEnabled = false
-        }
-
-        viewModel.walletFile.observe(this) {
-            Log.d(TAG, "observeLiveData: Detected Wallet! ${it.absolutePath}")
-            binding.tvWalletStatus.text = getString(R.string.detected)
-            binding.tvWalletStatus.setTextColor(getColor(R.color.green))
-            binding.btnLoadWalletInformation.isEnabled = true
-            binding.btnCreateWallet.isEnabled = false
         }
     }
 

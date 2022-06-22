@@ -12,7 +12,11 @@ import io.reactivex.schedulers.Schedulers
 class TransactionService : BaseService() {
     private val binder = TransactionBinder()
 
-    //Create a Transaction Manager that can do your transfers and stuff!
+    // Create a Transaction Manager that can do your transfers and stuff!
+
+    // Watch Token Price!!
+
+    // Have a bind function where the UI can give you the tokens to watch
 
     override fun onCreate() {
         super.onCreate()

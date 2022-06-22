@@ -1,16 +1,20 @@
 package com.chillieman.chilliewallet.ui.auth.pin
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import com.chillieman.chilliewallet.R
 import com.chillieman.chilliewallet.databinding.FragmentPinBinding
 import com.chillieman.chilliewallet.model.AuthResponse
 import com.chillieman.chilliewallet.ui.base.BaseViewModelFragment
 
 class PinFragment : BaseViewModelFragment<PinViewModel>(PinViewModel::class.java) {
     private var isNewPin: Boolean? = null
-    private var messageTitle: String? = null
+    private var messageHint: Int? = null
+    private lateinit var listener: Listener
 
     private var _binding: FragmentPinBinding? = null
     // This property is only valid between onCreateView and
@@ -21,8 +25,33 @@ class PinFragment : BaseViewModelFragment<PinViewModel>(PinViewModel::class.java
         super.onCreate(savedInstanceState)
         arguments?.let {
             isNewPin = it.getBoolean(ARG_IS_NEW_PIN)
-            messageTitle = it.getString(ARG_TITLE_MESSAGE)
+            messageHint = it.getInt(ARG_HINT_MESSAGE)
         }
+    }
+
+    private fun setHint() {
+        binding.etPincode.setHint(messageHint ?: R.string.pin)
+    }
+
+    private fun showError(textId: Int) {
+        binding.tvError.setText(textId)
+        binding.tvError.visibility = View.VISIBLE
+        setHint()
+        reset()
+    }
+
+    private fun reset() {
+        binding.etPincode.setText("")
+    }
+
+    fun onBackPressed(): Boolean {
+        val etPin = binding.etPincode
+        val length = etPin.length()
+        if(length > 0) {
+            etPin.text.delete(length - 1, length)
+            return false
+        }
+        return true
     }
 
     override fun onCreateView(
@@ -33,9 +62,47 @@ class PinFragment : BaseViewModelFragment<PinViewModel>(PinViewModel::class.java
         _binding = FragmentPinBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        // Use ViewModel!
+        setHint()
+
+        binding.etPincode.setOnKeyListener { v, keyCode, event ->
+            val view = binding.etPincode
+            if (view.text.length == 4) {
+                Log.d(TAG, "Okay!")
+                viewModel.processesPin(view.text.toString(), isNewPin)
+            }
+            false
+        }
+
+        viewModel.errorState.observe(viewLifecycleOwner) {
+            when(it) {
+                PinErrorState.WRONG_PIN -> {
+                    showError(R.string.pin_error_incorrect)
+                }
+                PinErrorState.PINS_DO_NOT_MATCH -> {
+                    showError(R.string.pin_error_do_not_match)
+                }
+                PinErrorState.NONE -> binding.tvError.visibility = View.GONE
+                else -> Unit
+            }
+        }
+
+        viewModel.isPinStored.observe(viewLifecycleOwner) {
+            if(it) {
+                binding.etPincode.setHint(R.string.pin_new_confirm)
+                reset()
+            }
+        }
+
+        viewModel.authResponse.observe(viewLifecycleOwner) {
+            listener.onPinResponse(it)
+        }
+
 
         return root
+    }
+
+    private fun setListener(newListener: Listener) {
+        listener = newListener
     }
 
     interface Listener {
@@ -44,15 +111,23 @@ class PinFragment : BaseViewModelFragment<PinViewModel>(PinViewModel::class.java
 
     companion object {
         private const val ARG_IS_NEW_PIN = "is_new_pin"
-        private const val ARG_TITLE_MESSAGE = "title"
+        private const val ARG_HINT_MESSAGE = "hint"
+
+        private const val TAG = "ChilliePinFragment"
 
         @JvmStatic
-        fun newInstance(isNewPin: Boolean, title: String) =
+        fun newInstance(isNewPin: Boolean, listener: Listener) =
             PinFragment().apply {
                 arguments = Bundle().apply {
                     putBoolean(ARG_IS_NEW_PIN, isNewPin)
-                    putString(ARG_TITLE_MESSAGE, title)
+                    if(isNewPin) {
+                        putInt(ARG_HINT_MESSAGE, R.string.pin_new)
+                    } else {
+                        putInt(ARG_HINT_MESSAGE, R.string.pin_enter)
+                    }
                 }
+
+                setListener(listener)
             }
     }
 }

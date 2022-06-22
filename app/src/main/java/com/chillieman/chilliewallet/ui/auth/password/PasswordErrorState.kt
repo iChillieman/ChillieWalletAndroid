@@ -6,4 +6,5 @@ enum class PasswordErrorState {
     PASSWORD_NO_NUMBERS,
     PASSWORD_NO_SPECIALS,
     PASSWORD_NO_UPPERS,
+    NONE
 }
