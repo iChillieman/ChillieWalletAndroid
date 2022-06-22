@@ -7,6 +7,7 @@ import android.os.Binder
 import android.os.IBinder
 import android.util.Log
 import com.chillieman.chilliewallet.definitions.IntentDefinitions.EXTRA_NEED_TO_CREATE_AUTH
+import com.chillieman.chilliewallet.definitions.UtilDefinitions.ONE_MINUTE
 import com.chillieman.chilliewallet.definitions.UtilDefinitions.ONE_SECOND
 import com.chillieman.chilliewallet.manager.AuthManager
 import com.chillieman.chilliewallet.model.AuthStatus
@@ -27,11 +28,14 @@ class AuthService : BaseService() {
     lateinit var authManager: AuthManager
 
     // Start tracking the Time. Reset
-//    private val unlockDuration = ONE_MINUTE * 5
-    private val unlockDuration = ONE_SECOND * 15
+    private val unlockDuration = ONE_MINUTE * 5
+
     var timeWhenUnlocked = Calendar.getInstance().timeInMillis
 
+    private var isLockoutTimerRunning = false
+
     private fun startLockoutTimer() {
+        isLockoutTimerRunning = true
         lockoutDisposable = Single.create<AuthStatus> {
             while(true) {
                 if(Calendar.getInstance().timeInMillis > timeWhenUnlocked + unlockDuration) {
@@ -39,9 +43,9 @@ class AuthService : BaseService() {
                     it.onSuccess(AuthStatus.UNAUTHENTICATED)
                     return@create
                 }
-
-                //Wait 5 seconds before checking the Auth Lock again.
-                Thread.sleep(5000)
+                Log.d(TAG, "Chillieman Says Hi!")
+                //Wait 61 seconds before checking the Auth Lock again.
+                Thread.sleep(61000)
             }
         }
             .subscribeOn(Schedulers.newThread())
@@ -51,10 +55,12 @@ class AuthService : BaseService() {
             }, {
                 Log.e(TAG, "Error with the AuthService - Logout Timer")
             })
+
     }
 
     private fun stopLockoutTimer() {
         lockoutDisposable?.dispose()
+        isLockoutTimerRunning = false
     }
 
     override fun onCreate() {
@@ -97,8 +103,9 @@ class AuthService : BaseService() {
                 }
                 AuthStatus.AUTHENTICATED -> {
                     timeWhenUnlocked = Calendar.getInstance().timeInMillis
-                    startLockoutTimer()
-                    // START THE AUTH CHECKER!
+                    if(!isLockoutTimerRunning) {
+                        startLockoutTimer()
+                    }
                 }
                 else -> Unit
             }
@@ -121,6 +128,7 @@ class AuthService : BaseService() {
 
     override fun onDestroy() {
         super.onDestroy()
+        Log.d(TAG, "Auth Service is Dying!")
         stopLockoutTimer()
     }
 

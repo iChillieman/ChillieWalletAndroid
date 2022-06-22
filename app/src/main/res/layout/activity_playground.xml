@@ -6,6 +6,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.playground.PlaygroundActivity">
 
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <TextView
         android:id="@+id/tv_connection_status"
         android:layout_width="wrap_content"
@@ -36,19 +46,19 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
-        android:id="@+id/btn_create_wallet"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Create Wallet"
-        app:layout_constraintTop_toBottomOf="@id/tv_wallet_status"/>
-
-    <Button
         android:id="@+id/btn_load_wallet_information"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Load Wallet Info"
+        android:text="Load Wallet Information"
+        app:layout_constraintTop_toBottomOf="@id/tv_wallet_status"/>
+
+    <Button
+        android:id="@+id/btn_something_else"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Something else"
         android:enabled="false"
-        app:layout_constraintTop_toBottomOf="@id/btn_create_wallet"/>
+        app:layout_constraintTop_toBottomOf="@id/btn_load_wallet_information"/>
 
     <TextView
         android:id="@+id/tv_wallet_address_label"
@@ -57,7 +67,7 @@
         android:textSize="16sp"
         android:text="Wallet Address:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_load_wallet_information" />
+        app:layout_constraintTop_toBottomOf="@id/btn_something_else" />
 
     <TextView
         android:id="@+id/tv_wallet_address"

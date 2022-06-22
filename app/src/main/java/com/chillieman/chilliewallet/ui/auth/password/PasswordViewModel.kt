@@ -9,6 +9,7 @@ import com.chillieman.chilliewallet.ui.auth.AuthViewModel
 import com.chillieman.chilliewallet.ui.auth.pin.PinErrorState
 import com.chillieman.chilliewallet.ui.auth.pin.PinViewModel
 import com.chillieman.chilliewallet.ui.base.BaseViewModel
+import com.chillieman.chilliewallet.ui.main.wallet.WalletViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject

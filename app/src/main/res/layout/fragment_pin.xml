@@ -6,15 +6,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.auth.pin.PinFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/tv_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:gravity="center_horizontal"
+        android:textColor="@color/red"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/et_pincode" />
+
+    <EditText
         android:id="@+id/et_pincode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/pin"
+        android:inputType="numberPassword"
+        android:imeOptions="actionNone"
         android:gravity="center_horizontal"
-        android:maxEms="4"
+        android:maxLength="4"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

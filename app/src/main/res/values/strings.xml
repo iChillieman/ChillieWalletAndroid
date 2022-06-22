@@ -17,10 +17,11 @@
     <string name="detected">DETECTED</string>
 
     <string name="pin">PIN</string>
-    <string name="pin_intro">Create a new PIN</string>
-    <string name="pin_confirm_new_pin">Confirm the new PIN</string>
+    <string name="pin_new">Create a new PIN</string>
+    <string name="pin_new_confirm">Confirm PIN</string>
     <string name="pin_enter">Enter your PIN</string>
     <string name="pin_error_do_not_match">PINs did not match. Try again.</string>
+    <string name="pin_error_incorrect">Incorrect PIN. Try again.</string>
 
     <string name="password">Password</string>
     <string name="password_confirm">Confirm Password</string>
@@ -32,6 +33,6 @@
     <string name="password_error_too_short">Password is too short.</string>
 
     <string name="auth">Authentication</string>
-    <string name="auth_note">This will look better in Beta</string>
+    <string name="auth_note">This will look nicer in Beta</string>
 
 </resources>

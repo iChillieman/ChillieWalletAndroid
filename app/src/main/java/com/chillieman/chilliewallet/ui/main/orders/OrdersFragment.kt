@@ -5,10 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.chillieman.chilliewallet.databinding.FragmentOrdersBinding
+import com.chillieman.chilliewallet.ui.base.BaseHybridViewModelFragment
 import com.chillieman.chilliewallet.ui.base.BaseSharedViewModelFragment
 import com.chillieman.chilliewallet.ui.main.MainViewModel
 
-class OrdersFragment : BaseSharedViewModelFragment<MainViewModel>(MainViewModel::class.java) {
+class OrdersFragment : BaseHybridViewModelFragment<OrdersViewModel, MainViewModel>(
+    OrdersViewModel::class.java,
+    MainViewModel::class.java
+) {
 
     private var _binding: FragmentOrdersBinding? = null
     // This property is only valid between onCreateView and
@@ -27,7 +31,7 @@ class OrdersFragment : BaseSharedViewModelFragment<MainViewModel>(MainViewModel:
             binding.textBot.text = it
         }
 
-        viewModel.changeText("Chillieman!")
+        sharedViewModel.changeText("Chillieman!")
 
         return root
     }
