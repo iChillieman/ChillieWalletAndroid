@@ -9,4 +9,7 @@ object BlockChainDefinitions {
         const val NODE_URL = "node_url"
         const val EXPLORER = "explorer"
     }
+
+    const val NODE_URL = "https://bsc-dataseed.binance.org/"
+    const val TEST_NODE_URL = "https://data-seed-prebsc-1-s1.binance.org:8545/"
 }

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.chillieman.chilliewallet.model.AuthStatus
 import com.chillieman.chilliewallet.repository.AuthRepository
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -12,6 +13,14 @@ class AuthManager
 @Inject constructor(
     private val authRepository: AuthRepository
 ){
+
+    var timeWhenUnlocked = 0L
+        private set
+
+    fun updatedUnlockedTime() {
+        timeWhenUnlocked = Calendar.getInstance().timeInMillis
+    }
+
     private val _authStatus = MutableLiveData<AuthStatus>()
     val authStatus: LiveData<AuthStatus>
         get() = _authStatus

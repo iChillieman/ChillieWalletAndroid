@@ -12,6 +12,16 @@ import com.chillieman.chilliewallet.ui.base.BaseViewModelActivity
 class PlaygroundActivity : BaseViewModelActivity<PlaygroundViewModel>(PlaygroundViewModel::class.java) {
     private lateinit var binding: ActivityPlaygroundBinding
 
+    //    private val authConnection = object : ServiceConnection {
+//        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+//            // We've bound to LocalService, cast the IBinder and get LocalService instance
+//            val binder = service as AuthService.AuthBinder
+//            authService = binder.getService()
+//        }
+//
+//        override fun onServiceDisconnected(name: ComponentName?) = Unit //Do Nothing
+//    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPlaygroundBinding.inflate(layoutInflater)

@@ -21,20 +21,25 @@ class WalletManager
     private val authRepository: AuthRepository,
     private val chillieWalletRepository: ChillieWalletRepository,
     private val walletFolderPath: File
-){
+) {
     private val _selectedWallet = MutableLiveData<ChillieWallet>()
     val selectedWallet: LiveData<ChillieWallet>
         get() = _selectedWallet
-    
+
     private val cachedCredentials = HashMap<ChillieWallet, Credentials>()
     private var cachedWalletPassword: String? = null
 
+    fun isWalletCreated() = chillieWalletRepository.isWalletCreated()
+
     private fun getCredentialsFromWallet(chillieWallet: ChillieWallet): Single<Credentials> {
         return Single.fromCallable {
-            if(cachedWalletPassword != null) {
+            if (cachedWalletPassword != null) {
                 WalletUtils.loadCredentials(cachedWalletPassword, chillieWallet.filePath)
             } else {
-                WalletUtils.loadCredentials(authRepository.getWalletPassword().blockingGet(), chillieWallet.filePath)
+                WalletUtils.loadCredentials(
+                    authRepository.getWalletPassword().blockingGet(),
+                    chillieWallet.filePath
+                )
             }
         }.map {
             cachedCredentials[chillieWallet] = it
@@ -45,13 +50,13 @@ class WalletManager
 
     fun getSelectedWalletCredentials(): Single<Credentials> {
         return with(_selectedWallet.value) {
-            if(this == null) {
+            if (this == null) {
                 createWalletOrSelectExistingSingle().flatMap {
                     _selectedWallet.postValue(it)
                     getCredentialsFromWallet(it)
                 }
             } else {
-                if(cachedCredentials.containsKey(this)) {
+                if (cachedCredentials.containsKey(this)) {
                     Log.d(TAG, "Cache me outside")
                     Single.just(cachedCredentials[this])
                 } else {
@@ -61,15 +66,36 @@ class WalletManager
         }
     }
 
-    fun getPassphrase(): Single<Bip39Wallet> {
+
+
+    fun createNewWallet(): Single<Bip39Wallet> {
         return authRepository.getWalletPassword().map {
             WalletUtils.generateBip39Wallet(it, walletFolderPath)
         }
     }
 
-    fun createNewWallet(): Single<Bip39Wallet> {
-        return authRepository.getWalletPassword().map {
-            WalletUtils.generateBip39Wallet(it, walletFolderPath)
+    fun enterIntoDatabase(wallet: Bip39Wallet): Completable {
+        return chillieWalletRepository.isWalletCreated().flatMapCompletable { isWalletExisting ->
+            if (isWalletExisting) {
+                //It Exists!
+                Log.d(TAG, "createWallet: Wallet is already created!")
+                throw IllegalStateException("Wallet is already created, and your trying to make another")
+                //TODO: Support Multiple Wallets
+            } else {
+                Log.d(TAG, "Wallet generated: ${wallet.filename}")
+                Log.d(TAG, "Phrase: ${wallet.mnemonic}")
+
+                val walletFile = File(walletFolderPath, wallet.filename)
+                Log.d(TAG, "Full Wallet Path: ${walletFile.absolutePath}")
+
+                val createdWallet = chillieWalletRepository.createWallet(
+                    "Chillieman",
+                    walletFile.absolutePath
+                ).blockingGet()
+
+                _selectedWallet.postValue(createdWallet)
+                Completable.complete()
+            }
         }
     }
 
@@ -86,7 +112,7 @@ class WalletManager
     private fun createWalletOrSelectExistingSingle(): Single<ChillieWallet> {
         //First see if the wallet exists:
         return chillieWalletRepository.isWalletCreated().flatMap { isWalletExisting ->
-            if(isWalletExisting) {
+            if (isWalletExisting) {
                 //It Exists!
                 Log.d(TAG, "createWallet: Wallet is already created!")
                 chillieWalletRepository.fetchWallet()
@@ -102,11 +128,8 @@ class WalletManager
             }
         }
     }
-    
-    
-    
-    
-    
+
+
     companion object {
         private const val TAG = "ChillieLog - WalletManager"
     }

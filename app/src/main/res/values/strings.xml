@@ -34,5 +34,28 @@
 
     <string name="auth">Authentication</string>
     <string name="auth_note">This will look nicer in Beta</string>
-
+    <string name="title_activity_new_wallet">NewWalletActivity</string>
+    <string name="new_wallet">New Wallet</string>
+    <string name="new_wallet_create">Create Wallet</string>
+    <string name="new_wallet_import">Import Wallet</string>
+    <string name="word_import">Import</string>
+    <string name="new_wallet_note">Lets set up another wallet!</string>
+    <string name="new_wallet_first_note">Looks like you don\'t have a wallet, Lets set one up!</string>
+    <string name="new_wallet_import_note">Importing Wallet is not supported in Alpha</string>
+    <string name="new_wallet_save">Save Wallet</string>
+    <string name="new_wallet_confirmation_note">During Alpha, You are not required to confirm your 12 words.</string>
+    <string name="new_wallet_confirmation_note_2">If you ever expect to send real money to the wallet, you should write these words down in a secure place.</string>
+    <string name="new_wallet_confirmation">I understand these words are the key to unlock my personal wallet. I will not share them with anyone!</string>
+    <string name="num_1">1</string>
+    <string name="num_2">2</string>
+    <string name="num_3">3</string>
+    <string name="num_4">4</string>
+    <string name="num_5">5</string>
+    <string name="num_6">6</string>
+    <string name="num_7">7</string>
+    <string name="num_8">8</string>
+    <string name="num_9">9</string>
+    <string name="num_10">10</string>
+    <string name="num_11">11</string>
+    <string name="num_12">12</string>
 </resources>

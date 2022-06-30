@@ -31,7 +31,6 @@ class OrdersFragment : BaseHybridViewModelFragment<OrdersViewModel, MainViewMode
             binding.textBot.text = it
         }
 
-        sharedViewModel.changeText("Chillieman!")
 
         return root
     }

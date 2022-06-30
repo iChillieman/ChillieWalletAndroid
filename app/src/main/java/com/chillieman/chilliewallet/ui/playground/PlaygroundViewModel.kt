@@ -3,6 +3,7 @@ package com.chillieman.chilliewallet.ui.playground
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.chillieman.chilliewallet.definitions.BlockChainDefinitions.TEST_NODE_URL
 import com.chillieman.chilliewallet.manager.WalletManager
 import com.chillieman.chilliewallet.model.ConnectionState
 import com.chillieman.chilliewallet.ui.base.BaseViewModel
@@ -40,7 +41,7 @@ class PlaygroundViewModel
     val walletKeys: LiveData<ECKeyPair>
         get() = _keys
 
-    private val web3: Web3j by lazy { Web3j.build(HttpService(NODE_URL)) }
+    private val web3: Web3j by lazy { Web3j.build(HttpService(TEST_NODE_URL)) }
 
     override fun onCleared() {
         super.onCleared()
@@ -59,7 +60,7 @@ class PlaygroundViewModel
                     Log.d(TAG, "Connected!")
                 } else {
                     _connectionState.value = ConnectionState.ERROR
-                    Log.e(TAG, it.error.message)
+                    Log.e(TAG, "Error Checking web3 version")
                 }
             }, {
                 if (it is SocketTimeoutException) {
@@ -119,7 +120,6 @@ class PlaygroundViewModel
 
     companion object {
         private const val TAG = "ChilliePlayground"
-        private const val NODE_URL = "https://bsc-dataseed.binance.org/"
-        private const val TEST_NODE_URL = "https://data-seed-prebsc-1-s1.binance.org:8545/"
+
     }
 }

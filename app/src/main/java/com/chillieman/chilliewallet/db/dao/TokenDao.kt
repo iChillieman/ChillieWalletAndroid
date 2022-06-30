@@ -7,7 +7,7 @@ import io.reactivex.Single
 @Dao
 abstract class TokenDao {
     @Query("SELECT * FROM token")
-    abstract fun selectAllPaged(): Single<List<Token>>
+    abstract fun selectAll(): Single<List<Token>>
 
     @Query("SELECT * FROM token WHERE id=:id")
     abstract fun selectById(id: Long): Single<Token>
