@@ -1,11 +1,16 @@
 package com.chillieman.chilliewallet.ui.main.wallet
 
+import android.app.Service
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import androidx.security.crypto.MasterKey
 import com.chillieman.chilliewallet.databinding.FragmentWalletBinding
 import com.chillieman.chilliewallet.db.entity.AuthDatum
@@ -17,6 +22,7 @@ import com.chillieman.chilliewallet.ui.base.BaseSharedViewModelFragment
 import com.chillieman.chilliewallet.ui.base.BaseViewModelFragment
 import com.chillieman.chilliewallet.ui.main.MainViewModel
 import com.chillieman.chilliewallet.ui.playground.PlaygroundActivity
+import java.math.BigDecimal
 import java.security.KeyStore
 import java.util.*
 import javax.crypto.Cipher
@@ -30,9 +36,6 @@ class WalletFragment : BaseHybridViewModelFragment<WalletViewModel, MainViewMode
     MainViewModel::class.java
 ) {
 
-    @Inject
-    lateinit var authRepository: AuthRepository
-
     private var _binding: FragmentWalletBinding? = null
 
     // This property is only valid between onCreateView and
@@ -45,35 +48,45 @@ class WalletFragment : BaseHybridViewModelFragment<WalletViewModel, MainViewMode
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentWalletBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
-        viewModel.isCreating.observe(viewLifecycleOwner) {
-            binding.btnLaunchWalletPlayground.isEnabled = !it
-            binding.btnLaunchBarcodeActivity.isEnabled = !it
+        sharedViewModel.selectedWallet.observe(viewLifecycleOwner) {
+            binding.content.visibility = View.VISIBLE
+
+            //TODO: Load Wallet Specific Stuff!
+            sharedViewModel.getBalance()
+            sharedViewModel.getAddress()
+            viewModel.loadTokens()
         }
 
-        return root
+
+        sharedViewModel.balance.observe(viewLifecycleOwner) {
+            val rounded = it.setScale(4, BigDecimal.ROUND_DOWN)
+            val string = "$rounded BNB"
+            binding.tvWalletBalance.text = string
+        }
+
+        sharedViewModel.address.observe(viewLifecycleOwner) { address ->
+            binding.tvWalletAddress.text = address
+            binding.card.setOnClickListener { it as TextView
+                val clipboardService =
+                    requireContext().getSystemService(Service.CLIPBOARD_SERVICE) as ClipboardManager
+                val clipData = ClipData.newPlainText("Chillieman says Hi", it.text.toString())
+                clipboardService.setPrimaryClip(clipData)
+
+                Toast.makeText(
+                    requireContext(),
+                    "Address Copied to Clipboard",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+
+        return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.btnLaunchBarcodeActivity.text = "Barcode Playground"
-        binding.btnLaunchBarcodeActivity.setOnClickListener {
-            startActivity(Intent(requireActivity(), BarcodeActivity::class.java))
-//            viewModel.checkPin()
-        }
-
-        binding.btnLaunchWalletPlayground.text = "Wallet Playground"
-        binding.btnLaunchWalletPlayground.setOnClickListener {
-            startActivity(Intent(requireActivity(), PlaygroundActivity::class.java))
-//           viewModel.checkPassword()
-        }
-
-    }
 
 
     companion object {
-        private const val TAG = "ChillieCrypt"
+        private const val TAG = "ChillieWalletFragment"
     }
 }

@@ -2,9 +2,14 @@ package com.chillieman.chilliewallet.di
 
 import android.content.Context
 import android.util.Log
+import com.chillieman.chilliewallet.definitions.BlockChainDefinitions.NODE_URL
+import com.chillieman.chilliewallet.definitions.BlockChainDefinitions.TEST_NODE_URL
 import com.chillieman.chilliewallet.ui.main.wallet.WalletFragment
+import com.chillieman.chilliewallet.ui.playground.PlaygroundViewModel
 import dagger.Module
 import dagger.Provides
+import org.web3j.protocol.Web3j
+import org.web3j.protocol.http.HttpService
 import java.io.File
 import java.security.KeyStore
 import javax.crypto.Cipher
@@ -16,6 +21,9 @@ class ProviderModule {
     internal fun provideFileDirectory(context: Context): File {
         return context.filesDir.absoluteFile
     }
+
+    @Provides
+    internal fun provideWeb3() : Web3j = Web3j.build(HttpService(TEST_NODE_URL))
 
     @Provides
     internal fun provideKeyStore(): KeyStore {

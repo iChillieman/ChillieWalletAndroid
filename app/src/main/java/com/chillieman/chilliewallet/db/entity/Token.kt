@@ -27,7 +27,7 @@ class Token(
     @field:ColumnInfo(name = Columns.DECIMALS)
     val decimals: Int,
     @field:ColumnInfo(name = Columns.TAX_BUY)
-    val taxBuy: Int,
+    val taxBuy: Int? = null,
     @field:ColumnInfo(name = Columns.TAX_SELL)
-    val taxSell: String,
+    val taxSell: Int? = null,
 )

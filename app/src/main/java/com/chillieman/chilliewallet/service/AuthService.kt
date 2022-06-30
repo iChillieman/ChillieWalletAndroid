@@ -4,7 +4,9 @@ import android.app.Service
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Binder
+import android.os.Handler
 import android.os.IBinder
+import android.os.Looper
 import android.util.Log
 import com.chillieman.chilliewallet.definitions.IntentDefinitions.EXTRA_NEED_TO_CREATE_AUTH
 import com.chillieman.chilliewallet.definitions.UtilDefinitions.ONE_MINUTE
@@ -18,91 +20,60 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class AuthService : BaseService() {
-    private val binder = AuthBinder()
-
-    private var lockoutDisposable: Disposable? = null
-
+    private val handler = Handler(Looper.getMainLooper())
     @Inject
     lateinit var authManager: AuthManager
 
     // Start tracking the Time. Reset
-    private val unlockDuration = ONE_MINUTE * 5
-
-    var timeWhenUnlocked = Calendar.getInstance().timeInMillis
+    private val unlockDuration = ONE_MINUTE * 3
 
     private var isLockoutTimerRunning = false
 
-    private fun startLockoutTimer() {
-        isLockoutTimerRunning = true
-        lockoutDisposable = Single.create<AuthStatus> {
-            while(true) {
-                if(Calendar.getInstance().timeInMillis > timeWhenUnlocked + unlockDuration) {
-                    //User has timed out!
-                    it.onSuccess(AuthStatus.UNAUTHENTICATED)
-                    return@create
-                }
-                Log.d(TAG, "Chillieman Says Hi!")
-                //Wait 61 seconds before checking the Auth Lock again.
-                Thread.sleep(61000)
-            }
+    private val runnable: Runnable = Runnable {
+        if(Calendar.getInstance().timeInMillis > authManager.timeWhenUnlocked + unlockDuration) {
+            Log.d(TAG, "Timmyyy")
+            //User has timed out!
+            authManager.setAuthenticationStatus(AuthStatus.UNAUTHENTICATED)
+        } else {
+            Log.d(TAG, "Timmaa")
+            postRunnable()
         }
-            .subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                authManager.setAuthenticationStatus(it)
-            }, {
-                Log.e(TAG, "Error with the AuthService - Logout Timer")
-            })
+    }
 
+    private fun postRunnable() {
+        handler.postDelayed(runnable, ONE_SECOND * 30L)
+    }
+
+    private fun startLockoutTimer() {
+        Log.d(TAG, "Starting Lockout Timer")
+        isLockoutTimerRunning = true
+        postRunnable()
     }
 
     private fun stopLockoutTimer() {
-        lockoutDisposable?.dispose()
+        handler.removeCallbacks(runnable)
         isLockoutTimerRunning = false
     }
 
     override fun onCreate() {
         super.onCreate()
-        //Check first to see if the AUTH Record has already been created.
-        authManager.isAuthCreated()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                if(it) {
-                    //Its already Created
-                    authManager.setAuthenticationStatus(AuthStatus.UNAUTHENTICATED)
-                } else {
-                    //It needs to be created!
-                    authManager.setAuthenticationStatus(AuthStatus.NEED_TO_CREATE)
-                }
-
-            }, {
-                Log.e(TAG, "Error with the AuthService - Logout Timer")
-            }).disposeOnDestroy()
-
+        Log.d(TAG, "Created")
         //Set the Status of the AuthManager here
 
         authManager.authStatus.observeForever {
             when(it) {
-                AuthStatus.NEED_TO_CREATE -> {
-                    startActivity(
-                        Intent(this, AuthActivity::class.java)
-                            .putExtra(EXTRA_NEED_TO_CREATE_AUTH, true)
-                            .addFlags(FLAG_ACTIVITY_NEW_TASK)
-                    )
-                }
                 AuthStatus.UNAUTHENTICATED -> {
+                    Log.d(TAG, "Unauthenticated")
                     //Stop Monitoring the Auth Status since now you are logged out
                     stopLockoutTimer()
-                    startActivity(
-                        Intent(this, AuthActivity::class.java)
-                            .addFlags(FLAG_ACTIVITY_NEW_TASK)
-                    )
                 }
                 AuthStatus.AUTHENTICATED -> {
-                    timeWhenUnlocked = Calendar.getInstance().timeInMillis
+                    Log.d(TAG, "Authenticated")
+                    authManager.updatedUnlockedTime()
                     if(!isLockoutTimerRunning) {
                         startLockoutTimer()
                     }
@@ -115,30 +86,14 @@ class AuthService : BaseService() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.d(TAG, "onStartCommand!")
-        return Service.START_STICKY
-    }
-
-    override fun onBind(intent: Intent?): IBinder = binder
-
-    override fun onTaskRemoved(rootIntent: Intent?) {
-        super.onTaskRemoved(rootIntent)
-        //The user just stopped the application - Send them a notifcation that Orders wont work
-        Log.d(TAG, "Task has been removed!")
+        return Service.START_NOT_STICKY
     }
 
     override fun onDestroy() {
         super.onDestroy()
         Log.d(TAG, "Auth Service is Dying!")
+        authManager.setAuthenticationStatus(AuthStatus.UNAUTHENTICATED)
         stopLockoutTimer()
-    }
-
-    /**
-     * Class used for the client Binder.  Because we know this service always
-     * runs in the same process as its clients, we don't need to deal with IPC.
-     */
-    inner class AuthBinder : Binder() {
-        // Return this instance of LocalService so clients can call public methods
-        fun getService(): AuthService = this@AuthService
     }
 
     companion object {

@@ -9,6 +9,7 @@ import com.chillieman.chilliewallet.ui.main.MainViewModel
 import com.chillieman.chilliewallet.ui.main.orders.OrdersViewModel
 import com.chillieman.chilliewallet.ui.main.settings.SettingsViewModel
 import com.chillieman.chilliewallet.ui.main.wallet.WalletViewModel
+import com.chillieman.chilliewallet.ui.newwallet.NewWalletViewModel
 import com.chillieman.chilliewallet.ui.playground.PlaygroundViewModel
 import dagger.Binds
 import dagger.Module
@@ -56,4 +57,9 @@ abstract class ViewModelBindingModule {
     @IntoMap
     @ViewModelKey(PasswordViewModel::class)
     abstract fun bindPasswordViewModel(viewModel: PasswordViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(NewWalletViewModel::class)
+    abstract fun bindNewWalletViewModel(viewModel: NewWalletViewModel): ViewModel
 }

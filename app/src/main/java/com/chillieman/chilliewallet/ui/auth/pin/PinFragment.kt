@@ -1,15 +1,17 @@
 package com.chillieman.chilliewallet.ui.auth.pin
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
+import android.view.inputmethod.InputMethodManager
 import com.chillieman.chilliewallet.R
 import com.chillieman.chilliewallet.databinding.FragmentPinBinding
 import com.chillieman.chilliewallet.model.AuthResponse
 import com.chillieman.chilliewallet.ui.base.BaseViewModelFragment
+
 
 class PinFragment : BaseViewModelFragment<PinViewModel>(PinViewModel::class.java) {
     private var isNewPin: Boolean? = null
@@ -17,6 +19,7 @@ class PinFragment : BaseViewModelFragment<PinViewModel>(PinViewModel::class.java
     private lateinit var listener: Listener
 
     private var _binding: FragmentPinBinding? = null
+
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -47,7 +50,7 @@ class PinFragment : BaseViewModelFragment<PinViewModel>(PinViewModel::class.java
     fun onBackPressed(): Boolean {
         val etPin = binding.etPincode
         val length = etPin.length()
-        if(length > 0) {
+        if (length > 0) {
             etPin.text.delete(length - 1, length)
             return false
         }
@@ -74,7 +77,7 @@ class PinFragment : BaseViewModelFragment<PinViewModel>(PinViewModel::class.java
         }
 
         viewModel.errorState.observe(viewLifecycleOwner) {
-            when(it) {
+            when (it) {
                 PinErrorState.WRONG_PIN -> {
                     showError(R.string.pin_error_incorrect)
                 }
@@ -87,7 +90,7 @@ class PinFragment : BaseViewModelFragment<PinViewModel>(PinViewModel::class.java
         }
 
         viewModel.isPinStored.observe(viewLifecycleOwner) {
-            if(it) {
+            if (it) {
                 binding.etPincode.setHint(R.string.pin_new_confirm)
                 reset()
             }
@@ -97,8 +100,16 @@ class PinFragment : BaseViewModelFragment<PinViewModel>(PinViewModel::class.java
             listener.onPinResponse(it)
         }
 
-
         return root
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        binding.etPincode.requestFocus()
+        val imm =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInput(binding.etPincode, InputMethodManager.SHOW_FORCED)
     }
 
     private fun setListener(newListener: Listener) {
@@ -120,7 +131,7 @@ class PinFragment : BaseViewModelFragment<PinViewModel>(PinViewModel::class.java
             PinFragment().apply {
                 arguments = Bundle().apply {
                     putBoolean(ARG_IS_NEW_PIN, isNewPin)
-                    if(isNewPin) {
+                    if (isNewPin) {
                         putInt(ARG_HINT_MESSAGE, R.string.pin_new)
                     } else {
                         putInt(ARG_HINT_MESSAGE, R.string.pin_enter)

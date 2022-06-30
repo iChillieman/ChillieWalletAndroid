@@ -29,6 +29,7 @@ import org.web3j.tx.Contract;
 import org.web3j.tx.TransactionManager;
 import org.web3j.tx.gas.ContractGasProvider;
 
+//TODO: Ignore the below comments and convert this into Kotlin
 /**
  * <p>Auto generated code.
  * <p><strong>Do not modify!</strong>
