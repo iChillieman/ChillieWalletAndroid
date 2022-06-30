@@ -36,6 +36,11 @@ class WalletFragment : BaseHybridViewModelFragment<WalletViewModel, MainViewMode
     MainViewModel::class.java
 ) {
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
+
     private var _binding: FragmentWalletBinding? = null
 
     // This property is only valid between onCreateView and
@@ -67,10 +72,10 @@ class WalletFragment : BaseHybridViewModelFragment<WalletViewModel, MainViewMode
 
         sharedViewModel.address.observe(viewLifecycleOwner) { address ->
             binding.tvWalletAddress.text = address
-            binding.card.setOnClickListener { it as TextView
+            binding.card.setOnClickListener {
                 val clipboardService =
                     requireContext().getSystemService(Service.CLIPBOARD_SERVICE) as ClipboardManager
-                val clipData = ClipData.newPlainText("Chillieman says Hi", it.text.toString())
+                val clipData = ClipData.newPlainText("Chillieman says Hi", address)
                 clipboardService.setPrimaryClip(clipData)
 
                 Toast.makeText(
