@@ -23,14 +23,13 @@ class AuthActivity : BaseViewModelActivity<AuthViewModel>(AuthViewModel::class.j
         binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         PinFragment.newInstance(isFirstTime, this).also {
             pinFragment = it
             supportFragmentManager.beginTransaction()
-                .add(binding.content.id, it)
+                .replace(binding.content.id, it)
                 .commit()
         }
-
-
     }
 
     override fun onPinResponse(response: AuthResponse) {

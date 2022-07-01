@@ -32,6 +32,9 @@
     <string name="password_error_no_special">Password Needs a special character.</string>
     <string name="password_error_too_short">Password is too short.</string>
 
+    <string name="loading">Loading…</string>
+    <string name="tap_to_copy">Tap to Copy</string>
+
     <string name="auth">Authentication</string>
     <string name="auth_note">This will look nicer in Beta</string>
     <string name="title_activity_new_wallet">NewWalletActivity</string>

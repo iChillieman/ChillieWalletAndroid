@@ -3,10 +3,12 @@ package com.chillieman.chilliewallet.ui.auth.pin
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.core.widget.addTextChangedListener
 import com.chillieman.chilliewallet.R
 import com.chillieman.chilliewallet.databinding.FragmentPinBinding
 import com.chillieman.chilliewallet.model.AuthResponse
@@ -67,13 +69,14 @@ class PinFragment : BaseViewModelFragment<PinViewModel>(PinViewModel::class.java
 
         setHint()
 
-        binding.etPincode.setOnKeyListener { v, keyCode, event ->
-            val view = binding.etPincode
-            if (view.text.length == 4) {
-                Log.d(TAG, "Okay!")
-                viewModel.processesPin(view.text.toString(), isNewPin)
+        binding.etPincode.addTextChangedListener {
+            it?.let { editable ->
+                if (editable.length == 4) {
+                    Log.d(TAG, "Okay!")
+                    viewModel.processesPin(editable.toString(), isNewPin)
+                }
             }
-            false
+
         }
 
         viewModel.errorState.observe(viewLifecycleOwner) {

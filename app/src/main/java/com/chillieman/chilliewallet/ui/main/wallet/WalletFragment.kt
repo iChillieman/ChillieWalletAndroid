@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.security.crypto.MasterKey
+import com.chillieman.chilliewallet.R
 import com.chillieman.chilliewallet.databinding.FragmentWalletBinding
 import com.chillieman.chilliewallet.db.entity.AuthDatum
 import com.chillieman.chilliewallet.manager.EncryptionManager
@@ -63,11 +64,18 @@ class WalletFragment : BaseHybridViewModelFragment<WalletViewModel, MainViewMode
             viewModel.loadTokens()
         }
 
+        binding.refreshWallet.setOnRefreshListener {
+            binding.tvWalletBalance.setText(R.string.loading)
+            sharedViewModel.getBalance()
+        }
+
 
         sharedViewModel.balance.observe(viewLifecycleOwner) {
             val rounded = it.setScale(4, BigDecimal.ROUND_DOWN)
             val string = "$rounded BNB"
             binding.tvWalletBalance.text = string
+
+            binding.refreshWallet.isRefreshing = false
         }
 
         sharedViewModel.address.observe(viewLifecycleOwner) { address ->

@@ -42,22 +42,23 @@ class MainViewModel
     val address: LiveData<String>
         get() = _address
 
-    fun checkAuth() {
-        authManager.isAuthCreated()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                if (it) {
-                    //Its already Created
-                    authManager.setAuthenticationStatus(AuthStatus.UNAUTHENTICATED)
-                } else {
-                    //It needs to be created!
-                    authManager.setAuthenticationStatus(AuthStatus.NEED_TO_CREATE)
-                }
-
-            }, {
-                Log.e(TAG, "Error checking if Auth Exists", it)
-            }).disposeOnClear()
+    fun startAuth() {
+        if(!authManager.isStartupComplete) {
+            authManager.isAuthCreated()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    if (it) {
+                        //Its already Created
+                        authManager.startUpComplete(AuthStatus.UNAUTHENTICATED)
+                    } else {
+                        //It needs to be created!
+                        authManager.startUpComplete(AuthStatus.NEED_TO_CREATE)
+                    }
+                }, {
+                    Log.e(TAG, "Error checking if Auth Exists", it)
+                }).disposeOnClear()
+        }
     }
 
     var isWalletCheckStarted = false
