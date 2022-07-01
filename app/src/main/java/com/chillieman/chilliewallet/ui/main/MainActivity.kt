@@ -6,19 +6,15 @@ import android.util.Log
 import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.chillieman.chilliewallet.R
 import com.chillieman.chilliewallet.databinding.ActivityMainBinding
 import com.chillieman.chilliewallet.definitions.IntentDefinitions
-import com.chillieman.chilliewallet.manager.AuthManager
 import com.chillieman.chilliewallet.model.AuthStatus
 import com.chillieman.chilliewallet.service.AuthService
 import com.chillieman.chilliewallet.ui.auth.AuthActivity
 import com.chillieman.chilliewallet.ui.base.BaseViewModelActivity
 import com.chillieman.chilliewallet.ui.newwallet.NewWalletActivity
-import javax.inject.Inject
 
 class MainActivity : BaseViewModelActivity<MainViewModel>(MainViewModel::class.java) {
     private lateinit var binding: ActivityMainBinding
@@ -35,8 +31,7 @@ class MainActivity : BaseViewModelActivity<MainViewModel>(MainViewModel::class.j
         val navController = findNavController(R.id.nav_host_fragment)
         navView.setupWithNavController(navController)
 
-
-        viewModel.checkAuth()
+        viewModel.startAuth()
 
         viewModel.authStatus.observe(this) {
             when (it) {

@@ -18,7 +18,7 @@ import com.chillieman.chilliewallet.db.entity.*
 )
 abstract class ChillieDatabase : RoomDatabase() {
     companion object {
-        const val VERSION = 1
+        const val VERSION = 2
         const val DATABASE_NAME = "ChillieWallet"
     }
 

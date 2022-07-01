@@ -25,8 +25,17 @@ class AuthManager
     val authStatus: LiveData<AuthStatus>
         get() = _authStatus
 
+    var isStartupComplete = false
+
     fun setAuthenticationStatus(status: AuthStatus) {
         _authStatus.postValue(status)
+    }
+
+    fun startUpComplete(status: AuthStatus) {
+        if(!isStartupComplete) {
+            _authStatus.postValue(status)
+            isStartupComplete = true
+        }
     }
 
     fun isAuthCreated() = authRepository.isAuthSet()

@@ -37,7 +37,8 @@
             android:name=".ui.auth.AuthActivity"
             android:label="@string/title_activity_auth"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.ChillieWallet.NoActionBar"/>
         <activity
             android:name=".ui.barcode.BarcodeActivity"
             android:screenOrientation="portrait" />

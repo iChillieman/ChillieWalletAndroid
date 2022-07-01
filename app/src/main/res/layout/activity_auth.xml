@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="32sp"
+        android:layout_margin="16dp"
         android:text="@string/auth"
         android:gravity="center_horizontal"
         app:layout_constraintTop_toTopOf="parent"
