@@ -8,7 +8,8 @@ import com.chillieman.chilliewallet.databinding.FragmentNewWalletImportBinding
 import com.chillieman.chilliewallet.ui.base.BaseSharedViewModelFragment
 import com.chillieman.chilliewallet.ui.newwallet.NewWalletViewModel
 
-class NewWalletImportFragment: BaseSharedViewModelFragment<NewWalletViewModel>(NewWalletViewModel::class.java) {
+class NewWalletImportFragment :
+    BaseSharedViewModelFragment<NewWalletViewModel>(NewWalletViewModel::class.java) {
     private var _binding: FragmentNewWalletImportBinding? = null
 
     // This property is only valid between onCreateView and

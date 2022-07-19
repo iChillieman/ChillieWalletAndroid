@@ -15,6 +15,7 @@ class OrdersFragment : BaseHybridViewModelFragment<OrdersViewModel, MainViewMode
 ) {
 
     private var _binding: FragmentOrdersBinding? = null
+
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!

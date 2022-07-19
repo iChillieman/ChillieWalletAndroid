@@ -1,11 +1,8 @@
 package com.chillieman.chilliewallet
 
-import android.content.Intent
 import android.util.Log
 import androidx.security.crypto.MasterKey
 import com.chillieman.chilliewallet.di.DaggerApplicationComponent
-import com.chillieman.chilliewallet.service.AuthService
-import com.chillieman.chilliewallet.ui.main.wallet.WalletFragment
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import org.bouncycastle.jce.provider.BouncyCastleProvider
@@ -46,14 +43,11 @@ class ChillieApplication : DaggerApplication() {
 
 
         //If a Master Key is not created, create one - It will be needed for all encryption.
-        if(keyStore.size() == 0) {
+        if (keyStore.size() == 0) {
             Log.d("ChillieCrypt", "Creating Master Key")
             MasterKey.Builder(applicationContext)
                 .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
                 .build()
         }
     }
-
-
-
 }

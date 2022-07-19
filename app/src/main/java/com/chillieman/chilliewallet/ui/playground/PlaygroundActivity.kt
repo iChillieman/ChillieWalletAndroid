@@ -9,7 +9,8 @@ import com.chillieman.chilliewallet.databinding.ActivityPlaygroundBinding
 import com.chillieman.chilliewallet.model.ConnectionState
 import com.chillieman.chilliewallet.ui.base.BaseViewModelActivity
 
-class PlaygroundActivity : BaseViewModelActivity<PlaygroundViewModel>(PlaygroundViewModel::class.java) {
+class PlaygroundActivity :
+    BaseViewModelActivity<PlaygroundViewModel>(PlaygroundViewModel::class.java) {
     private lateinit var binding: ActivityPlaygroundBinding
 
     //    private val authConnection = object : ServiceConnection {
@@ -58,7 +59,7 @@ class PlaygroundActivity : BaseViewModelActivity<PlaygroundViewModel>(Playground
         }
 
         viewModel.isLoading.observe(this) {
-            binding.progress.visibility = if(it) View.VISIBLE else View.GONE
+            binding.progress.visibility = if (it) View.VISIBLE else View.GONE
         }
 
         viewModel.walletAddress.observe(this) {

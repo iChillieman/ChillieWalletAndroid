@@ -15,11 +15,15 @@ import com.chillieman.chilliewallet.definitions.ChillieWalletDefinitions.TABLE_N
     ]
 )
 class ChillieWallet(
-    @field:PrimaryKey(autoGenerate = true)
-    @field:ColumnInfo(name = Columns.ID)
-    val id: Long = 0L,
     @field:ColumnInfo(name = Columns.NAME)
     val name: String,
     @field:ColumnInfo(name = Columns.PATH)
-    val filePath: String
+    val filePath: String,
+    @field:ColumnInfo(name = Columns.SEED_ID)
+    val seedId: Long,
+    @field:ColumnInfo(name = Columns.IS_CONFIRMED)
+    val isConfirmed: Boolean = false,
+    @field:PrimaryKey(autoGenerate = true)
+    @field:ColumnInfo(name = Columns.ID)
+    val id: Long = 0L,
 )

@@ -7,7 +7,6 @@ import androidx.room.PrimaryKey
 import com.chillieman.chilliewallet.definitions.TokenDefinitions.Columns
 import com.chillieman.chilliewallet.definitions.TokenDefinitions.TABLE_NAME
 
-
 @Entity(
     tableName = TABLE_NAME,
     indices = [
@@ -15,11 +14,8 @@ import com.chillieman.chilliewallet.definitions.TokenDefinitions.TABLE_NAME
     ]
 )
 class Token(
-    @field:PrimaryKey(autoGenerate = true)
-    @field:ColumnInfo(name = Columns.ID)
-    val id: Long = 0L,
     @field:ColumnInfo(name = Columns.CHAIN_ID)
-    val chainId: Long,
+    val chainId: Int,
     @field:ColumnInfo(name = Columns.ADDRESS)
     val address: String,
     @field:ColumnInfo(name = Columns.NAME)
@@ -30,4 +26,7 @@ class Token(
     val taxBuy: Int? = null,
     @field:ColumnInfo(name = Columns.TAX_SELL)
     val taxSell: Int? = null,
+    @field:PrimaryKey(autoGenerate = true)
+    @field:ColumnInfo(name = Columns.ID)
+    val id: Long = 0L,
 )

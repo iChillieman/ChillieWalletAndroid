@@ -3,7 +3,7 @@ package com.chillieman.chilliewallet.ui.playground
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.chillieman.chilliewallet.definitions.BlockChainDefinitions.TEST_NODE_URL
+import com.chillieman.chilliewallet.definitions.BlockChainDefinitions.URL_SMART_CHAIN_TESTNET
 import com.chillieman.chilliewallet.manager.WalletManager
 import com.chillieman.chilliewallet.model.ConnectionState
 import com.chillieman.chilliewallet.ui.base.BaseViewModel
@@ -41,7 +41,7 @@ class PlaygroundViewModel
     val walletKeys: LiveData<ECKeyPair>
         get() = _keys
 
-    private val web3: Web3j by lazy { Web3j.build(HttpService(TEST_NODE_URL)) }
+    private val web3: Web3j by lazy { Web3j.build(HttpService(URL_SMART_CHAIN_TESTNET)) }
 
     override fun onCleared() {
         super.onCleared()

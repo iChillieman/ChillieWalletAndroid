@@ -16,6 +16,5 @@ abstract class AuthDao {
     abstract fun update(auth: Authentication): Single<Int>
 
     @Query("DELETE FROM auth")
-    abstract fun delete() : Single<Int>
+    abstract fun delete(): Single<Int>
 }
-

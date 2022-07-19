@@ -9,7 +9,7 @@ import dagger.Provides
 @Module
 class DatabaseModule {
     @Provides
-    fun provideDatabase(context: Context) : ChillieDatabase {
+    fun provideDatabase(context: Context): ChillieDatabase {
         return Room.databaseBuilder(
             context,
             ChillieDatabase::class.java, ChillieDatabase.DATABASE_NAME
@@ -32,4 +32,27 @@ class DatabaseModule {
 
     @Provides
     fun provideAuthDatumDao(chillieDatabase: ChillieDatabase) = chillieDatabase.authDatumDao()
+
+    @Provides
+    fun provideChillieOrderDao(chillieDatabase: ChillieDatabase) = chillieDatabase.chillieOrderDao()
+
+    @Provides
+    fun provideChillieOrderStepDao(chillieDatabase: ChillieDatabase) =
+        chillieDatabase.chillieOrderStepDao()
+
+    @Provides
+    fun provideChillieChainDao(chillieDatabase: ChillieDatabase) = chillieDatabase.chillieChainDao()
+
+    @Provides
+    fun provideChillieChainStepDao(chillieDatabase: ChillieDatabase) =
+        chillieDatabase.chillieChainStepDao()
+
+    @Provides
+    fun provideTxnDao(chillieDatabase: ChillieDatabase) = chillieDatabase.txnDao()
+
+    @Provides
+    fun providePricePointDao(chillieDatabase: ChillieDatabase) = chillieDatabase.pricePointDao()
+
+    @Provides
+    fun provideBalanceDao(chillieDatabase: ChillieDatabase) = chillieDatabase.balanceDao()
 }

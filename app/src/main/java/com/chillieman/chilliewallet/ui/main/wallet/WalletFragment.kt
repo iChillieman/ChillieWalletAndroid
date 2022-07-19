@@ -98,7 +98,6 @@ class WalletFragment : BaseHybridViewModelFragment<WalletViewModel, MainViewMode
     }
 
 
-
     companion object {
         private const val TAG = "ChillieWalletFragment"
     }

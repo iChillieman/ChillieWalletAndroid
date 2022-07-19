@@ -18,6 +18,9 @@ abstract class BlockChainDao {
     @Insert
     abstract fun insert(blockChain: BlockChain): Long
 
+    @Insert
+    abstract fun insertAll(blockChains: List<BlockChain>)
+
     @Update
     abstract fun update(blockChain: BlockChain): Int
 
@@ -25,6 +28,5 @@ abstract class BlockChainDao {
     abstract fun count(): Single<Long>
 
     @Query("DELETE FROM block_chain WHERE id=:id")
-    abstract fun delete(id: Long) : Int
+    abstract fun delete(id: Long): Int
 }
-

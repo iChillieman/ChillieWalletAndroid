@@ -32,7 +32,7 @@ class AuthRepository
                 authDatumDao.insert(it)
             }.flatMap {
                 pinId = it
-                val randomBytes = ByteArray(64)
+                val randomBytes = ByteArray(256)
                 Random().nextBytes(randomBytes)
                 Log.d("Chillieman Rules", "Wallet Password: ${String(randomBytes)}")
                 encryptionManager.encryptMessage(String(randomBytes))

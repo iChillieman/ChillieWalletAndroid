@@ -11,7 +11,14 @@ import com.chillieman.chilliewallet.db.entity.*
         AuthDatum::class,
         ChillieWallet::class,
         BlockChain::class,
-        Token::class
+        Token::class,
+        ChillieChain::class,
+        ChillieChainStep::class,
+        ChillieOrder::class,
+        ChillieOrderStep::class,
+        PricePoint::class,
+        Txn::class,
+        Balance::class
     ],
     version = VERSION,
     exportSchema = false
@@ -19,7 +26,7 @@ import com.chillieman.chilliewallet.db.entity.*
 abstract class ChillieDatabase : RoomDatabase() {
     companion object {
         const val VERSION = 2
-        const val DATABASE_NAME = "ChillieWallet"
+        const val DATABASE_NAME = "ChillieWallet.db"
     }
 
     abstract fun authDao(): AuthDao
@@ -27,5 +34,11 @@ abstract class ChillieDatabase : RoomDatabase() {
     abstract fun blockChainDao(): BlockChainDao
     abstract fun walletDao(): ChillieWalletDao
     abstract fun tokenDao(): TokenDao
-
+    abstract fun balanceDao(): BalanceDao
+    abstract fun chillieChainDao(): ChillieChainDao
+    abstract fun chillieChainStepDao(): ChillieChainStepDao
+    abstract fun chillieOrderDao(): ChillieOrderDao
+    abstract fun chillieOrderStepDao(): ChillieOrderStepDao
+    abstract fun pricePointDao(): PricePointDao
+    abstract fun txnDao(): TxnDao
 }

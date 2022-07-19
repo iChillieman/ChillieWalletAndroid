@@ -6,25 +6,24 @@ import io.reactivex.Single
 
 @Dao
 abstract class ChillieWalletDao {
-    @Query("SELECT * FROM wallet")
+    @Query("SELECT * FROM chillie_wallet")
     abstract fun selectAll(): Single<List<ChillieWallet>>
 
-    @Query("SELECT * FROM wallet WHERE id=:id")
+    @Query("SELECT * FROM chillie_wallet WHERE id=:id")
     abstract fun selectById(id: Long): Single<ChillieWallet>
 
-    @Query("SELECT * FROM wallet WHERE id=:id")
+    @Query("SELECT * FROM chillie_wallet WHERE id=:id")
     abstract fun selectByIdSynchronously(id: Long): ChillieWallet
 
     @Insert
-    abstract fun insert(user: ChillieWallet): Long
+    abstract fun insert(wallet: ChillieWallet): Long
 
     @Update
-    abstract fun update(user: ChillieWallet): Int
+    abstract fun update(wallet: ChillieWallet): Single<Int>
 
-    @Query("SELECT COUNT(*) FROM wallet")
+    @Query("SELECT COUNT(*) FROM chillie_wallet")
     abstract fun count(): Single<Long>
 
-    @Query("DELETE FROM wallet WHERE id=:id")
-    abstract fun delete(id: Long) : Int
+    @Query("DELETE FROM chillie_wallet WHERE id=:id")
+    abstract fun delete(id: Long): Int
 }
-

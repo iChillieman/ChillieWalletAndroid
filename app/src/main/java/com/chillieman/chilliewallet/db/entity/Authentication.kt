@@ -6,7 +6,6 @@ import androidx.room.PrimaryKey
 import com.chillieman.chilliewallet.definitions.AuthenticationDefinitions.Columns
 import com.chillieman.chilliewallet.definitions.AuthenticationDefinitions.TABLE_NAME
 
-
 @Entity(tableName = TABLE_NAME)
 class Authentication(
     @field:PrimaryKey

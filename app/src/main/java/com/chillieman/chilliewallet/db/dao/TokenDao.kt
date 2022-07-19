@@ -16,15 +16,17 @@ abstract class TokenDao {
     abstract fun selectByIdSynchronously(id: Long): Token
 
     @Insert
-    abstract fun insert(user: Token): Long
+    abstract fun insert(token: Token): Long
+
+    @Insert
+    abstract fun insertAll(tokens: List<Token>)
 
     @Update
-    abstract fun update(user: Token): Int
+    abstract fun update(token: Token): Int
 
     @Query("SELECT COUNT(*) FROM token")
     abstract fun count(): Single<Long>
 
     @Query("DELETE FROM token WHERE id=:id")
-    abstract fun delete(id: Long) : Int
+    abstract fun delete(id: Long): Int
 }
-

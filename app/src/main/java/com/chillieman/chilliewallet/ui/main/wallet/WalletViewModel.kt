@@ -1,9 +1,7 @@
 package com.chillieman.chilliewallet.ui.main.wallet
 
 
-import com.chillieman.chilliewallet.manager.WalletManager
 import com.chillieman.chilliewallet.ui.base.BaseViewModel
-import org.web3j.protocol.Web3j
 import javax.inject.Inject
 
 class WalletViewModel

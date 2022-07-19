@@ -8,7 +8,8 @@ import com.chillieman.chilliewallet.ui.newwallet.pages.NewWalletCreateFragment
 import com.chillieman.chilliewallet.ui.newwallet.pages.NewWalletImportFragment
 import com.chillieman.chilliewallet.ui.newwallet.pages.NewWalletIntroFragment
 
-class NewWalletActivity : BaseViewModelActivity<NewWalletViewModel>(NewWalletViewModel::class.java) {
+class NewWalletActivity :
+    BaseViewModelActivity<NewWalletViewModel>(NewWalletViewModel::class.java) {
     private lateinit var binding: ActivityNewWalletBinding
     private val isFirstWallet by lazy {
         intent.getBooleanExtra(IntentDefinitions.EXTRA_IS_FIRST_WALLET, false)
@@ -25,7 +26,7 @@ class NewWalletActivity : BaseViewModelActivity<NewWalletViewModel>(NewWalletVie
             .commit()
 
         viewModel.isCreateNewWallet.observe(this) {
-            val fragmentToAdd = if(it) {
+            val fragmentToAdd = if (it) {
                 NewWalletCreateFragment()
             } else {
                 NewWalletImportFragment()
@@ -37,15 +38,16 @@ class NewWalletActivity : BaseViewModelActivity<NewWalletViewModel>(NewWalletVie
                 .commit()
         }
 
-        viewModel.selectedWallet.observe(this) {
-            finish()
+        viewModel.isConfirmed.observe(this) {
+            if(it) {
+                finish()
+            }
         }
     }
 
     override fun onBackPressed() {
-        if(!isFirstWallet) {
+        if (!isFirstWallet) {
             super.onBackPressed()
         }
     }
-
 }

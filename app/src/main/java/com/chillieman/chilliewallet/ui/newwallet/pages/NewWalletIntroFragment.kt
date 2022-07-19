@@ -9,7 +9,8 @@ import com.chillieman.chilliewallet.databinding.FragmentNewWalletIntroBinding
 import com.chillieman.chilliewallet.ui.base.BaseSharedViewModelFragment
 import com.chillieman.chilliewallet.ui.newwallet.NewWalletViewModel
 
-class NewWalletIntroFragment: BaseSharedViewModelFragment<NewWalletViewModel>(NewWalletViewModel::class.java) {
+class NewWalletIntroFragment :
+    BaseSharedViewModelFragment<NewWalletViewModel>(NewWalletViewModel::class.java) {
     private var isFirstWallet: Boolean? = null
     private var _binding: FragmentNewWalletIntroBinding? = null
 
@@ -24,6 +25,7 @@ class NewWalletIntroFragment: BaseSharedViewModelFragment<NewWalletViewModel>(Ne
             isFirstWallet = it.getBoolean(ARG_IS_FIRST_WALLET, false)
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,7 +41,7 @@ class NewWalletIntroFragment: BaseSharedViewModelFragment<NewWalletViewModel>(Ne
             viewModel.setCreateOrImportWalletMode(isCreateNewWallet = false)
         }
 
-        if(isFirstWallet == true) {
+        if (isFirstWallet == true) {
             binding.tvNewWalletNote.setText(R.string.new_wallet_first_note)
         } else {
             binding.tvNewWalletNote.setText(R.string.new_wallet_note)

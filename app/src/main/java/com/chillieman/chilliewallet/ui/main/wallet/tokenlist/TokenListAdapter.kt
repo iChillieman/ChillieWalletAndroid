@@ -23,7 +23,6 @@ class TokenListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val token = listOfTokens[position]
         holder as TokenViewHolder
         holder.bind(token)
-
     }
 
     override fun getItemCount(): Int = listOfTokens.size
@@ -39,9 +38,10 @@ class TokenListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private val binding: ItemTokenBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(token: TokenForList) {
-            binding.tvTokenAddress.text = token.address
             binding.tvTokenName.text = token.name
-            binding.tvTokenBalance.text = token.balance
+            val balanceString = "${token.balance} ${token.symbol}"
+            binding.tvTokenBalance.text = balanceString
+            binding.tvTokenWorth.text = token.worth
         }
     }
 }

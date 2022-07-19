@@ -6,9 +6,9 @@ enum class ProcessingStatus {
     SUCCESS,
     ERROR;
 
-    companion object{
+    companion object {
         fun toString(status: ProcessingStatus) =
-            when(status) {
+            when (status) {
                 SUCCESS -> "SUCCESS"
                 ERROR -> "ERROR"
                 NOT_STARTED -> "NOT STARTED"

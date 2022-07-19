@@ -17,6 +17,7 @@ class PasswordFragment : BaseViewModelFragment<PasswordViewModel>(PasswordViewMo
     private var messageTitle: String? = null
 
     private var _binding: FragmentPinBinding? = null
+
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!

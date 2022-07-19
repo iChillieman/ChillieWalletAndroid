@@ -20,35 +20,40 @@ class NewWalletViewModel
     val isCreateNewWallet: LiveData<Boolean>
         get() = _isCreateNewWallet
 
-    val selectedWallet: LiveData<ChillieWallet>
-        get() = walletManager.selectedWallet
-
     private val _seedPhrase = MutableLiveData<List<String>>()
     val seedPhrase: LiveData<List<String>>
         get() = _seedPhrase
 
-    fun createWallet() {
-        walletManager.createNewWallet().map {
-            createdWallet = it
-            val listOfWords = mutableListOf<String>()
-            val stringSeedPhrase = it.mnemonic
+    private val _isConfirmed = MutableLiveData<Boolean>()
+    val isConfirmed: LiveData<Boolean>
+        get() = _isConfirmed
 
-            val stringBuilder = StringBuilder()
-
-            stringSeedPhrase.forEachIndexed { index, c ->
-                if(c.isWhitespace()) {
-                    listOfWords.add(stringBuilder.toString())
-                    stringBuilder.clear()
-                } else if (index == stringSeedPhrase.length - 1) {
-                    stringBuilder.append(c)
-                    listOfWords.add(stringBuilder.toString())
-                    stringBuilder.clear()
-                } else {
-                    stringBuilder.append(c)
-                }
+    fun confirm() {
+        walletManager.onConfirmWallet()
+            .flatMap {
+                walletManager.loadAlphaWallet()
             }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Log.d(TAG, "Unconfirmed Wallet Loaded")
+                _isConfirmed.value = true
+            }, {
+                Log.e(TAG, "Could not create wallet", it)
+            }).disposeOnClear()
 
-            listOfWords
+    }
+
+    fun createWallet() {
+        //Check if Wallet Exists First!
+        walletManager.isWalletCreated().flatMap {
+            if(it) {
+                //If its Already Created... Load It!
+                walletManager.getAlphaWalletSeedPhrase()
+            } else {
+                //Not created
+                walletManager.createNewWallet()
+            }
         }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -66,19 +71,7 @@ class NewWalletViewModel
     fun isEnteredSeedPhraseCorrect(inputWords: String) =
          inputWords == createdWallet?.mnemonic
 
-    fun enterNewWalletIntoDatabase() {
-        createdWallet?.let {
-            walletManager.enterIntoDatabase(it)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe()
-                .disposeOnClear()
-        }
-
-    }
-
     companion object {
         private const val TAG = "NewWalletViewModel"
     }
-
 }

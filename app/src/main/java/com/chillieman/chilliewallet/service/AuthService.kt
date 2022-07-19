@@ -25,16 +25,17 @@ import javax.inject.Singleton
 @Singleton
 class AuthService : BaseService() {
     private val handler = Handler(Looper.getMainLooper())
+
     @Inject
     lateinit var authManager: AuthManager
 
     // Start tracking the Time. Reset
-    private val unlockDuration = ONE_MINUTE * 3
+    private val unlockDuration = ONE_MINUTE * 10
 
     private var isLockoutTimerRunning = false
 
     private val runnable: Runnable = Runnable {
-        if(Calendar.getInstance().timeInMillis > authManager.timeWhenUnlocked + unlockDuration) {
+        if (Calendar.getInstance().timeInMillis > authManager.timeWhenUnlocked + unlockDuration) {
             Log.d(TAG, "Timmyyy")
             //User has timed out!
             authManager.setAuthenticationStatus(AuthStatus.UNAUTHENTICATED)
@@ -65,7 +66,7 @@ class AuthService : BaseService() {
         //Set the Status of the AuthManager here
 
         authManager.authStatus.observeForever {
-            when(it) {
+            when (it) {
                 AuthStatus.UNAUTHENTICATED -> {
                     Log.d(TAG, "Unauthenticated")
                     //Stop Monitoring the Auth Status since now you are logged out
@@ -74,7 +75,7 @@ class AuthService : BaseService() {
                 AuthStatus.AUTHENTICATED -> {
                     Log.d(TAG, "Authenticated")
                     authManager.updatedUnlockedTime()
-                    if(!isLockoutTimerRunning) {
+                    if (!isLockoutTimerRunning) {
                         startLockoutTimer()
                     }
                 }
