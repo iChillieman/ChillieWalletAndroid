@@ -73,7 +73,7 @@ object PrefillUtil {
     )
 
     fun loadStartingTestTokens(): List<Token> = listOf(
-       Token(
+        Token(
             TokenDefinitions.ChillieWallet.TOKEN_TEST_CHAIN_ID,
             TokenDefinitions.ChillieWallet.TOKEN_TEST_ADDRESS,
             TokenDefinitions.ChillieWallet.TOKEN_TEST_NAME,

@@ -4,7 +4,9 @@ import android.os.Bundle
 import com.chillieman.chilliewallet.databinding.ActivityOrderBinding
 import com.chillieman.chilliewallet.ui.base.BaseViewModelActivity
 import com.chillieman.chilliewallet.ui.order.create.OrderCreateFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class OrderActivity : BaseViewModelActivity<OrderViewModel>(OrderViewModel::class.java) {
     private lateinit var binding: ActivityOrderBinding
 

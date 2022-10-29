@@ -18,7 +18,6 @@ class TxnRepository
         txnDao.selectAllByWalletAndTokenAddress(walletId, tokenAddress)
 
 
-
     fun insertTxn(txn: Txn) = txnDao.insert(txn)
     fun updateTxn(txn: Txn) = txnDao.update(txn)
 

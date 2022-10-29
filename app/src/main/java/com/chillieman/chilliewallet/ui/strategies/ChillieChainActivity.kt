@@ -5,8 +5,11 @@ import android.os.Bundle
 import com.chillieman.chilliewallet.databinding.ActivityChillieChainBinding
 import com.chillieman.chilliewallet.ui.base.BaseViewModelActivity
 import com.chillieman.chilliewallet.ui.strategies.create.ChillieChainCreateFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-class ChillieChainActivity : BaseViewModelActivity<ChillieChainViewModel>(ChillieChainViewModel::class.java) {
+@AndroidEntryPoint
+class ChillieChainActivity :
+    BaseViewModelActivity<ChillieChainViewModel>(ChillieChainViewModel::class.java) {
     private lateinit var binding: ActivityChillieChainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,7 +1,5 @@
 package com.chillieman.chilliewallet.ui.main.wallet.tokenlist
 
-import java.math.BigInteger
-
 data class TokenForList(
     val name: String,
     val symbol: String,

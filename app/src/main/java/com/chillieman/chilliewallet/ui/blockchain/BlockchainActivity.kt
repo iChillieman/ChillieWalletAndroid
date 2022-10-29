@@ -4,8 +4,11 @@ import android.os.Bundle
 import com.chillieman.chilliewallet.databinding.ActivityBlockchainBinding
 import com.chillieman.chilliewallet.ui.base.BaseViewModelActivity
 import com.chillieman.chilliewallet.ui.blockchain.list.BlockchainListFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-class BlockchainActivity : BaseViewModelActivity<BlockchainViewModel>(BlockchainViewModel::class.java) {
+@AndroidEntryPoint
+class BlockchainActivity :
+    BaseViewModelActivity<BlockchainViewModel>(BlockchainViewModel::class.java) {
     private lateinit var binding: ActivityBlockchainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

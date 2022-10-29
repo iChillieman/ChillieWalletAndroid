@@ -7,8 +7,11 @@ import android.view.ViewGroup
 import com.chillieman.chilliewallet.databinding.FragmentBlockchainCreateBinding
 import com.chillieman.chilliewallet.ui.base.BaseSharedViewModelFragment
 import com.chillieman.chilliewallet.ui.blockchain.BlockchainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class BlockchainCreateFragment : BaseSharedViewModelFragment<BlockchainViewModel>(BlockchainViewModel::class.java) {
+@AndroidEntryPoint
+class BlockchainCreateFragment :
+    BaseSharedViewModelFragment<BlockchainViewModel>(BlockchainViewModel::class.java) {
 
     private var _binding: FragmentBlockchainCreateBinding? = null
 
@@ -25,6 +28,11 @@ class BlockchainCreateFragment : BaseSharedViewModelFragment<BlockchainViewModel
         val root: View = binding.root
 
         return root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {

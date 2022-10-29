@@ -1,19 +1,14 @@
 package com.chillieman.chilliewallet.ui.auth.password
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.chillieman.chilliewallet.model.AuthResponse
 import com.chillieman.chilliewallet.repository.AuthRepository
-import com.chillieman.chilliewallet.ui.auth.AuthViewModel
-import com.chillieman.chilliewallet.ui.auth.pin.PinErrorState
-import com.chillieman.chilliewallet.ui.auth.pin.PinViewModel
 import com.chillieman.chilliewallet.ui.base.BaseViewModel
-import com.chillieman.chilliewallet.ui.main.wallet.WalletViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class PasswordViewModel
 @Inject constructor(
     private val authRepo: AuthRepository

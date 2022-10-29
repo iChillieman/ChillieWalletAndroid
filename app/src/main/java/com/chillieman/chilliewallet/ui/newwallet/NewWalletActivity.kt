@@ -7,7 +7,9 @@ import com.chillieman.chilliewallet.ui.base.BaseViewModelActivity
 import com.chillieman.chilliewallet.ui.newwallet.pages.NewWalletCreateFragment
 import com.chillieman.chilliewallet.ui.newwallet.pages.NewWalletImportFragment
 import com.chillieman.chilliewallet.ui.newwallet.pages.NewWalletIntroFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NewWalletActivity :
     BaseViewModelActivity<NewWalletViewModel>(NewWalletViewModel::class.java) {
     private lateinit var binding: ActivityNewWalletBinding
@@ -39,7 +41,7 @@ class NewWalletActivity :
         }
 
         viewModel.isConfirmed.observe(this) {
-            if(it) {
+            if (it) {
                 finish()
             }
         }

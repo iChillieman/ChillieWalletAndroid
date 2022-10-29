@@ -5,13 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.chillieman.chilliewallet.manager.AuthManager
 import com.chillieman.chilliewallet.model.AuthResponse
-import com.chillieman.chilliewallet.model.AuthStatus
-import com.chillieman.chilliewallet.repository.AuthRepository
 import com.chillieman.chilliewallet.ui.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
+@HiltViewModel
 class PinViewModel
 @Inject constructor(
     private val authManager: AuthManager

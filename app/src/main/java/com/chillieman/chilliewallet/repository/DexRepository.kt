@@ -13,7 +13,7 @@ import javax.inject.Singleton
 class DexRepository
 @Inject constructor(
     private val dexDao: DexDao
-){
+) {
     fun getAllDexByBlockChainId(blockChainId: Long): Single<List<Dex>> {
         return dexDao.selectAllByChainId(blockChainId)
     }

@@ -4,8 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.chillieman.chilliewallet.definitions.ChillieOrderDefinitions.StepColumns
 import com.chillieman.chilliewallet.definitions.ChillieOrderDefinitions.STEP_TABLE_NAME
+import com.chillieman.chilliewallet.definitions.ChillieOrderDefinitions.StepColumns
 import com.chillieman.chilliewallet.model.ChillieOrderAction
 import com.chillieman.chilliewallet.model.ChillieOrderStepState
 import java.math.BigInteger

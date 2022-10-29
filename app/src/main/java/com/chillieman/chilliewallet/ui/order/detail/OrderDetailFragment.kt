@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import com.chillieman.chilliewallet.databinding.FragmentOrderDetailsBinding
 import com.chillieman.chilliewallet.ui.base.BaseSharedViewModelFragment
 import com.chillieman.chilliewallet.ui.order.OrderViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
-class OrderDetailFragment : BaseSharedViewModelFragment<OrderViewModel>(OrderViewModel::class.java) {
+@AndroidEntryPoint
+class OrderDetailFragment :
+    BaseSharedViewModelFragment<OrderViewModel>(OrderViewModel::class.java) {
 
     private var _binding: FragmentOrderDetailsBinding? = null
 
@@ -26,6 +28,11 @@ class OrderDetailFragment : BaseSharedViewModelFragment<OrderViewModel>(OrderVie
         val root: View = binding.root
 
         return root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {

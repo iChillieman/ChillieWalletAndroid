@@ -8,7 +8,9 @@ import com.chillieman.chilliewallet.R
 import com.chillieman.chilliewallet.databinding.FragmentNewWalletIntroBinding
 import com.chillieman.chilliewallet.ui.base.BaseSharedViewModelFragment
 import com.chillieman.chilliewallet.ui.newwallet.NewWalletViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NewWalletIntroFragment :
     BaseSharedViewModelFragment<NewWalletViewModel>(NewWalletViewModel::class.java) {
     private var isFirstWallet: Boolean? = null
@@ -51,6 +53,10 @@ class NewWalletIntroFragment :
         return binding.root
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
     companion object {
         private const val ARG_IS_FIRST_WALLET = "if_first_wallet"

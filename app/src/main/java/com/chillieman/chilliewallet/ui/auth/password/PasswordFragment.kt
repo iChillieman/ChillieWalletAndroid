@@ -1,17 +1,15 @@
 package com.chillieman.chilliewallet.ui.auth.password
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.chillieman.chilliewallet.R
 import com.chillieman.chilliewallet.databinding.FragmentPinBinding
 import com.chillieman.chilliewallet.model.AuthResponse
-import com.chillieman.chilliewallet.ui.auth.pin.PinFragment
-import com.chillieman.chilliewallet.ui.base.BaseFragment
 import com.chillieman.chilliewallet.ui.base.BaseViewModelFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PasswordFragment : BaseViewModelFragment<PasswordViewModel>(PasswordViewModel::class.java) {
     private var isNewPassword: Boolean? = null
     private var messageTitle: String? = null
@@ -33,6 +31,11 @@ class PasswordFragment : BaseViewModelFragment<PasswordViewModel>(PasswordViewMo
         // Use ViewModel!
 
         return root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     interface Listener {

@@ -7,8 +7,9 @@ import android.view.ViewGroup
 import com.chillieman.chilliewallet.databinding.FragmentDexCreateBinding
 import com.chillieman.chilliewallet.ui.base.BaseSharedViewModelFragment
 import com.chillieman.chilliewallet.ui.dex.DexViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class DexCreateFragment : BaseSharedViewModelFragment<DexViewModel>(DexViewModel::class.java) {
 
     private var _binding: FragmentDexCreateBinding? = null
@@ -26,6 +27,11 @@ class DexCreateFragment : BaseSharedViewModelFragment<DexViewModel>(DexViewModel
         val root: View = binding.root
 
         return root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {

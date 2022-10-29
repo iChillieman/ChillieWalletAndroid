@@ -3,39 +3,23 @@ package com.chillieman.chilliewallet.ui.main.wallet
 import android.app.Service
 import android.content.ClipData
 import android.content.ClipboardManager
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.security.crypto.MasterKey
 import com.chillieman.chilliewallet.R
 import com.chillieman.chilliewallet.databinding.FragmentWalletBinding
-import com.chillieman.chilliewallet.db.entity.AuthDatum
-import com.chillieman.chilliewallet.manager.EncryptionManager
-import com.chillieman.chilliewallet.repository.AuthRepository
-import com.chillieman.chilliewallet.ui.barcode.BarcodeActivity
 import com.chillieman.chilliewallet.ui.base.BaseHybridViewModelFragment
-import com.chillieman.chilliewallet.ui.base.BaseSharedViewModelFragment
-import com.chillieman.chilliewallet.ui.base.BaseViewModelFragment
 import com.chillieman.chilliewallet.ui.main.MainViewModel
 import com.chillieman.chilliewallet.ui.main.wallet.tokenlist.TokenForList
 import com.chillieman.chilliewallet.ui.main.wallet.tokenlist.TokenListAdapter
 import com.chillieman.chilliewallet.ui.main.wallet.tokenlist.TokenSelectedListener
-import com.chillieman.chilliewallet.ui.playground.PlaygroundActivity
+import dagger.hilt.android.AndroidEntryPoint
 import java.math.BigDecimal
-import java.security.KeyStore
-import java.util.*
-import javax.crypto.Cipher
-import javax.crypto.SecretKey
-import javax.crypto.spec.GCMParameterSpec
-import javax.crypto.spec.IvParameterSpec
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class WalletFragment : BaseHybridViewModelFragment<WalletViewModel, MainViewModel>(
     WalletViewModel::class.java,
     MainViewModel::class.java
@@ -105,6 +89,11 @@ class WalletFragment : BaseHybridViewModelFragment<WalletViewModel, MainViewMode
         }
 
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onTokenSelected(tokenForList: TokenForList) {

@@ -6,7 +6,6 @@ import com.chillieman.chilliewallet.db.dao.TxnDao
 import com.chillieman.chilliewallet.db.entity.ChillieOrder
 import com.chillieman.chilliewallet.db.entity.ChillieOrderStep
 import io.reactivex.Completable
-import io.reactivex.Single
 import javax.inject.Inject
 import javax.inject.Singleton
 

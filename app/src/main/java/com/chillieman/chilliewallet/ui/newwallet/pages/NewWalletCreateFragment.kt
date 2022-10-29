@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import com.chillieman.chilliewallet.databinding.FragmentNewWalletCreateBinding
 import com.chillieman.chilliewallet.ui.base.BaseSharedViewModelFragment
 import com.chillieman.chilliewallet.ui.newwallet.NewWalletViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NewWalletCreateFragment :
     BaseSharedViewModelFragment<NewWalletViewModel>(NewWalletViewModel::class.java) {
     private var _binding: FragmentNewWalletCreateBinding? = null
@@ -51,6 +53,11 @@ class NewWalletCreateFragment :
 
 
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {

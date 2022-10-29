@@ -1,7 +1,6 @@
 package com.chillieman.chilliewallet.ui.main.wallet.tokenlist
 
 import android.content.Context
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

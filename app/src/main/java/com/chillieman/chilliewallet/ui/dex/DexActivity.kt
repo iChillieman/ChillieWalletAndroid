@@ -5,7 +5,9 @@ import android.os.Bundle
 import com.chillieman.chilliewallet.databinding.ActivityDexBinding
 import com.chillieman.chilliewallet.ui.base.BaseViewModelActivity
 import com.chillieman.chilliewallet.ui.dex.list.DexListFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DexActivity : BaseViewModelActivity<DexViewModel>(DexViewModel::class.java) {
     private lateinit var binding: ActivityDexBinding
 

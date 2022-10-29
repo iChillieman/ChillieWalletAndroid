@@ -7,13 +7,11 @@ import androidx.lifecycle.MutableLiveData
 import com.chillieman.chilliewallet.db.entity.ChillieWallet
 import com.chillieman.chilliewallet.definitions.BlockChainDefinitions
 import com.chillieman.chilliewallet.manager.WalletManager
-import com.chillieman.chilliewallet.model.AuthStatus
 import com.chillieman.chilliewallet.model.contracts.IERC20
 import com.chillieman.chilliewallet.repository.TokenRepository
 import com.chillieman.chilliewallet.ui.base.BaseViewModel
-import com.chillieman.chilliewallet.ui.main.MainViewModel
 import com.chillieman.chilliewallet.ui.main.wallet.tokenlist.TokenForList
-import io.reactivex.Completable
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -25,6 +23,7 @@ import org.web3j.tx.gas.DefaultGasProvider
 import java.math.BigInteger
 import javax.inject.Inject
 
+@HiltViewModel
 class WalletViewModel
 @Inject constructor(
     private val walletManager: WalletManager,
@@ -40,7 +39,7 @@ class WalletViewModel
     // (Tap to be brought to the Order Tab - With Order already selected
 
     fun loadTokens(chillieWallet: ChillieWallet?) {
-        if(chillieWallet == null) {
+        if (chillieWallet == null) {
             Log.w(TAG, "No Wallet Passed")
             return
         }
@@ -60,7 +59,8 @@ class WalletViewModel
             Log.d(TAG, "LIST SIZE: ${it.size}")
             val tokensForList = mutableListOf<TokenForList>()
             it.forEach { token ->
-                val balance = getTokenBalance(chillieWallet, token.address, tempWeb3j, creds).blockingFirst()
+                val balance =
+                    getTokenBalance(chillieWallet, token.address, tempWeb3j, creds).blockingFirst()
                 //TODO CHILLIE - Format the Balance (If they have 10 million, display 10.3M)
                 val balanceString = balance.shiftLeft(token.decimals).toString()
 
@@ -91,8 +91,13 @@ class WalletViewModel
             .disposeOnClear()
     }
 
-    fun getTokenBalance(wallet: ChillieWallet, tokenAddress: String, web3: Web3j?,  credentials: Credentials?): Flowable<BigInteger> {
-        if(web3 == null || credentials == null) {
+    fun getTokenBalance(
+        wallet: ChillieWallet,
+        tokenAddress: String,
+        web3: Web3j?,
+        credentials: Credentials?
+    ): Flowable<BigInteger> {
+        if (web3 == null || credentials == null) {
             Log.e(TAG, "Web3 or Credentials are null!")
             return Flowable.just(BigInteger.valueOf(0))
         }

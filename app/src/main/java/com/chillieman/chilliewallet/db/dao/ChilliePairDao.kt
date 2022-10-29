@@ -18,7 +18,7 @@ abstract class ChilliePairDao {
     @Query("SELECT * FROM pairs WHERE id=:id")
     abstract fun selectById(id: Long): Single<ChilliePair>
 
-    @Query("SELECT * FROM pairs WHERE token0=:tokenAddress OR token1=:tokenAddress" )
+    @Query("SELECT * FROM pairs WHERE token0=:tokenAddress OR token1=:tokenAddress")
     abstract fun selectByTokenAddress(tokenAddress: String): Single<ChilliePair>
 
     @Query("SELECT * FROM pairs WHERE id=:id")

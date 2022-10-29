@@ -62,7 +62,8 @@ object TokenDefinitions {
         const val TOKEN_SYMBOL = "CAKE"
         const val TOKEN_CHAIN_ID = CHAIN_ID_SMART_CHAIN
         const val TOKEN_ADDRESS = "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82"
-        const val LOGO_URL = "https://assets-cdn.trustwallet.com/blockchains/binance/assets/CAKE-435/logo.png"
+        const val LOGO_URL =
+            "https://assets-cdn.trustwallet.com/blockchains/binance/assets/CAKE-435/logo.png"
     }
 
 

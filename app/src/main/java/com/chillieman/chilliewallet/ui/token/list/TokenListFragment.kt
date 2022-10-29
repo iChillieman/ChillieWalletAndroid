@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import com.chillieman.chilliewallet.databinding.FragmentTokenListBinding
 import com.chillieman.chilliewallet.ui.base.BaseSharedViewModelFragment
 import com.chillieman.chilliewallet.ui.token.TokenViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TokenListFragment : BaseSharedViewModelFragment<TokenViewModel>(TokenViewModel::class.java) {
     private var _binding: FragmentTokenListBinding? = null
 
@@ -24,6 +26,11 @@ class TokenListFragment : BaseSharedViewModelFragment<TokenViewModel>(TokenViewM
         val root: View = binding.root
 
         return root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {

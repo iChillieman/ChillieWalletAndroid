@@ -3,7 +3,6 @@ package com.chillieman.chilliewallet.ui.auth.pin
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +12,9 @@ import com.chillieman.chilliewallet.R
 import com.chillieman.chilliewallet.databinding.FragmentPinBinding
 import com.chillieman.chilliewallet.model.AuthResponse
 import com.chillieman.chilliewallet.ui.base.BaseViewModelFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class PinFragment : BaseViewModelFragment<PinViewModel>(PinViewModel::class.java) {
     private var isNewPin: Boolean? = null
     private var messageHint: Int? = null
@@ -32,6 +32,11 @@ class PinFragment : BaseViewModelFragment<PinViewModel>(PinViewModel::class.java
             isNewPin = it.getBoolean(ARG_IS_NEW_PIN)
             messageHint = it.getInt(ARG_HINT_MESSAGE)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun setHint() {
@@ -112,7 +117,7 @@ class PinFragment : BaseViewModelFragment<PinViewModel>(PinViewModel::class.java
         binding.etPincode.requestFocus()
         val imm =
             requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.showSoftInput(binding.etPincode, InputMethodManager.SHOW_FORCED)
+        imm.showSoftInput(binding.etPincode, InputMethodManager.SHOW_IMPLICIT)
     }
 
     private fun setListener(newListener: Listener) {

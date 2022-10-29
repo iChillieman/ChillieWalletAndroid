@@ -12,7 +12,6 @@ import com.chillieman.chilliewallet.repository.DexRepository
 import com.chillieman.chilliewallet.repository.TokenRepository
 import io.reactivex.Completable
 import io.reactivex.Single
-import org.web3j.crypto.Bip39Wallet
 import org.web3j.crypto.Credentials
 import org.web3j.crypto.WalletUtils
 import java.io.File

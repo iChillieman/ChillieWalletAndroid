@@ -1,6 +1,5 @@
 package com.chillieman.chilliewallet.ui.order.create
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +7,11 @@ import android.view.ViewGroup
 import com.chillieman.chilliewallet.databinding.FragmentOrderCreateBinding
 import com.chillieman.chilliewallet.ui.base.BaseSharedViewModelFragment
 import com.chillieman.chilliewallet.ui.order.OrderViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class OrderCreateFragment : BaseSharedViewModelFragment<OrderViewModel>(OrderViewModel::class.java) {
+@AndroidEntryPoint
+class OrderCreateFragment :
+    BaseSharedViewModelFragment<OrderViewModel>(OrderViewModel::class.java) {
     private var _binding: FragmentOrderCreateBinding? = null
 
     // This property is only valid between onCreateView and
@@ -25,6 +27,11 @@ class OrderCreateFragment : BaseSharedViewModelFragment<OrderViewModel>(OrderVie
         val root: View = binding.root
 
         return root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {

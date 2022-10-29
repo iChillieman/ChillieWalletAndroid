@@ -1,17 +1,16 @@
 package com.chillieman.chilliewallet.ui.playground
 
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.Toast
-import com.bumptech.glide.Glide
 import com.chillieman.chilliewallet.R
 import com.chillieman.chilliewallet.databinding.ActivityPlaygroundBinding
 import com.chillieman.chilliewallet.model.ConnectionState
 import com.chillieman.chilliewallet.ui.base.BaseViewModelActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PlaygroundActivity :
     BaseViewModelActivity<PlaygroundViewModel>(PlaygroundViewModel::class.java) {
     private lateinit var binding: ActivityPlaygroundBinding

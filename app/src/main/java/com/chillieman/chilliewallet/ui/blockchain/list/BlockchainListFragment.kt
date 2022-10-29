@@ -8,7 +8,8 @@ import com.chillieman.chilliewallet.databinding.FragmentBlockchainListBinding
 import com.chillieman.chilliewallet.ui.base.BaseSharedViewModelFragment
 import com.chillieman.chilliewallet.ui.blockchain.BlockchainViewModel
 
-class BlockchainListFragment : BaseSharedViewModelFragment<BlockchainViewModel>(BlockchainViewModel::class.java) {
+class BlockchainListFragment :
+    BaseSharedViewModelFragment<BlockchainViewModel>(BlockchainViewModel::class.java) {
 
     private var _binding: FragmentBlockchainListBinding? = null
 
@@ -25,6 +26,11 @@ class BlockchainListFragment : BaseSharedViewModelFragment<BlockchainViewModel>(
         val root: View = binding.root
 
         return root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {

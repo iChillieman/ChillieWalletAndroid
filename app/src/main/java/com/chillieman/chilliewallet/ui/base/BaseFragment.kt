@@ -1,5 +1,5 @@
 package com.chillieman.chilliewallet.ui.base
 
-import dagger.android.support.DaggerFragment
+import androidx.fragment.app.Fragment
 
-abstract class BaseFragment : DaggerFragment()
+abstract class BaseFragment : Fragment()

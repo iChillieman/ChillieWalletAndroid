@@ -16,7 +16,10 @@ abstract class TxnDao {
     abstract fun selectAllByWalletId(walletId: Long): Single<List<Txn>>
 
     @Query("SELECT * FROM txn WHERE wallet_id=:walletId AND token_address=:tokenAddress")
-    abstract fun selectAllByWalletAndTokenAddress(walletId: Long, tokenAddress: String): Single<List<Txn>>
+    abstract fun selectAllByWalletAndTokenAddress(
+        walletId: Long,
+        tokenAddress: String
+    ): Single<List<Txn>>
 
     @Query("SELECT * FROM txn WHERE is_success IS NULL")
     abstract fun selectAllPending(): Single<List<Txn>>

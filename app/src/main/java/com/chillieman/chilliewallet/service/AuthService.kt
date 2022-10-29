@@ -2,27 +2,20 @@ package com.chillieman.chilliewallet.service
 
 import android.app.Service
 import android.content.Intent
-import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
-import android.os.Binder
 import android.os.Handler
-import android.os.IBinder
 import android.os.Looper
 import android.util.Log
-import com.chillieman.chilliewallet.definitions.IntentDefinitions.EXTRA_NEED_TO_CREATE_AUTH
 import com.chillieman.chilliewallet.definitions.UtilDefinitions.ONE_MINUTE
 import com.chillieman.chilliewallet.definitions.UtilDefinitions.ONE_SECOND
 import com.chillieman.chilliewallet.manager.AuthManager
 import com.chillieman.chilliewallet.model.AuthStatus
-import com.chillieman.chilliewallet.ui.auth.AuthActivity
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
-import java.util.*
+import dagger.hilt.android.AndroidEntryPoint
+import java.util.Calendar
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
+@AndroidEntryPoint
 class AuthService : BaseService() {
     private val handler = Handler(Looper.getMainLooper())
 

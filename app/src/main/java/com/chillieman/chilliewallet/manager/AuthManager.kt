@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.chillieman.chilliewallet.model.AuthStatus
 import com.chillieman.chilliewallet.repository.AuthRepository
-import java.util.*
+import java.util.Calendar
 import javax.inject.Inject
 import javax.inject.Singleton
 

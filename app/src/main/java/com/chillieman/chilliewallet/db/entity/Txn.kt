@@ -4,9 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-
-import com.chillieman.chilliewallet.definitions.TransactionDefinitions.TABLE_NAME
 import com.chillieman.chilliewallet.definitions.TransactionDefinitions.Columns
+import com.chillieman.chilliewallet.definitions.TransactionDefinitions.TABLE_NAME
 
 
 @Entity(

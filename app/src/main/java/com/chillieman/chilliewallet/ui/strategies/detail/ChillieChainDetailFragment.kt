@@ -7,9 +7,12 @@ import android.view.ViewGroup
 import com.chillieman.chilliewallet.databinding.FragmentChillieChainDetailBinding
 import com.chillieman.chilliewallet.ui.base.BaseSharedViewModelFragment
 import com.chillieman.chilliewallet.ui.strategies.ChillieChainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ChillieChainDetailFragment : BaseSharedViewModelFragment<ChillieChainViewModel>(
-    ChillieChainViewModel::class.java) {
+    ChillieChainViewModel::class.java
+) {
     private var _binding: FragmentChillieChainDetailBinding? = null
 
     // This property is only valid between onCreateView and
@@ -25,6 +28,11 @@ class ChillieChainDetailFragment : BaseSharedViewModelFragment<ChillieChainViewM
         val root: View = binding.root
 
         return root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {

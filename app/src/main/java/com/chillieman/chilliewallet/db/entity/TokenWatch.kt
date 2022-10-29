@@ -4,9 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-
-import com.chillieman.chilliewallet.definitions.TokenDefinitions.WatchColumns
 import com.chillieman.chilliewallet.definitions.TokenDefinitions.WATCH_TABLE_NAME
+import com.chillieman.chilliewallet.definitions.TokenDefinitions.WatchColumns
 
 @Entity(
     tableName = WATCH_TABLE_NAME,

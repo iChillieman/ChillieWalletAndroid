@@ -7,8 +7,11 @@ import android.view.ViewGroup
 import com.chillieman.chilliewallet.databinding.FragmentTokenCreateBinding
 import com.chillieman.chilliewallet.ui.base.BaseSharedViewModelFragment
 import com.chillieman.chilliewallet.ui.token.TokenViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class TokenCreateFragment : BaseSharedViewModelFragment<TokenViewModel>(TokenViewModel::class.java) {
+@AndroidEntryPoint
+class TokenCreateFragment :
+    BaseSharedViewModelFragment<TokenViewModel>(TokenViewModel::class.java) {
     private var _binding: FragmentTokenCreateBinding? = null
 
     // This property is only valid between onCreateView and
@@ -24,6 +27,11 @@ class TokenCreateFragment : BaseSharedViewModelFragment<TokenViewModel>(TokenVie
         val root: View = binding.root
 
         return root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {

@@ -1,6 +1,5 @@
 package com.chillieman.chilliewallet.ui.main
 
-import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,7 +7,7 @@ import com.chillieman.chilliewallet.manager.AuthManager
 import com.chillieman.chilliewallet.manager.WalletManager
 import com.chillieman.chilliewallet.model.AuthStatus
 import com.chillieman.chilliewallet.ui.base.BaseViewModel
-import io.reactivex.Completable
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -18,6 +17,7 @@ import org.web3j.utils.Convert
 import java.math.BigDecimal
 import javax.inject.Inject
 
+@HiltViewModel
 class MainViewModel
 @Inject constructor(
     private val authManager: AuthManager,

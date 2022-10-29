@@ -25,7 +25,8 @@ object BlockChainDefinitions {
     const val URL_SMART_CHAIN = "https://bsc-dataseed.binance.org/"
     const val URL_SMART_CHAIN_TESTNET = "https://data-seed-prebsc-1-s1.binance.org:8545/"
 
-    const val LOGO_URL_SMART_CHAIN = "https://assets-cdn.trustwallet.com/blockchains/binance/info/logo.png"
+    const val LOGO_URL_SMART_CHAIN =
+        "https://assets-cdn.trustwallet.com/blockchains/binance/info/logo.png"
 
     const val EXPLORER_SMART_CHAIN = "https://bscscan.com"
     const val EXPLORER_SMART_CHAIN_TESTNET = "https://testnet.bscscan.com"

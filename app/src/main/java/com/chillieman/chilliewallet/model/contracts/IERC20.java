@@ -1,14 +1,5 @@
 package com.chillieman.chilliewallet.model.contracts;
 
-import io.reactivex.Flowable;
-import io.reactivex.functions.Function;
-
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import org.web3j.abi.EventEncoder;
 import org.web3j.abi.TypeReference;
 import org.web3j.abi.datatypes.Address;
@@ -29,6 +20,15 @@ import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.tx.Contract;
 import org.web3j.tx.TransactionManager;
 import org.web3j.tx.gas.ContractGasProvider;
+
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import io.reactivex.Flowable;
+import io.reactivex.functions.Function;
 
 /**
  * <p>Auto generated code.
@@ -63,8 +63,10 @@ public class IERC20 extends Contract {
 
     public static final Event APPROVAL_EVENT = new Event("Approval",
             Arrays.<TypeReference<?>>asList(
-                    new TypeReference<Address>(true) {},
-                    new TypeReference<Address>(true) {},
+                    new TypeReference<Address>(true) {
+                    },
+                    new TypeReference<Address>(true) {
+                    },
                     new TypeReference<Uint256>() {
                     }));
     ;

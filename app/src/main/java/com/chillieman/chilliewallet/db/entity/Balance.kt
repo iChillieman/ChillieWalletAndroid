@@ -4,8 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.chillieman.chilliewallet.definitions.BalanceDefinitions.TABLE_NAME
 import com.chillieman.chilliewallet.definitions.BalanceDefinitions.Columns
+import com.chillieman.chilliewallet.definitions.BalanceDefinitions.TABLE_NAME
 import java.math.BigInteger
 
 @Entity(

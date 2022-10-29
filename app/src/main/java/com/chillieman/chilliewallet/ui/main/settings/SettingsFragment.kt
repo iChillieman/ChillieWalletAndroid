@@ -8,9 +8,10 @@ import android.widget.TextView
 import com.chillieman.chilliewallet.R
 import com.chillieman.chilliewallet.databinding.FragmentSettingsBinding
 import com.chillieman.chilliewallet.ui.base.BaseHybridViewModelFragment
-import com.chillieman.chilliewallet.ui.base.BaseSharedViewModelFragment
 import com.chillieman.chilliewallet.ui.main.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SettingsFragment : BaseHybridViewModelFragment<SettingsViewModel, MainViewModel>(
     SettingsViewModel::class.java,
     MainViewModel::class.java
@@ -35,5 +36,10 @@ class SettingsFragment : BaseHybridViewModelFragment<SettingsViewModel, MainView
             textView.text = it
         }
         return root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

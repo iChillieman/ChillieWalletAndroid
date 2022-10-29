@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.chillieman.chilliewallet.databinding.FragmentOrdersBinding
 import com.chillieman.chilliewallet.ui.base.BaseHybridViewModelFragment
-import com.chillieman.chilliewallet.ui.base.BaseSharedViewModelFragment
 import com.chillieman.chilliewallet.ui.main.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class OrdersFragment : BaseHybridViewModelFragment<OrdersViewModel, MainViewModel>(
     OrdersViewModel::class.java,
     MainViewModel::class.java
@@ -34,5 +35,10 @@ class OrdersFragment : BaseHybridViewModelFragment<OrdersViewModel, MainViewMode
 
 
         return root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

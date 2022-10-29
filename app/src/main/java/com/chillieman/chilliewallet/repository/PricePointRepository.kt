@@ -13,7 +13,7 @@ class PricePointRepository
 ) {
 
     //Returns ID of inserted Price Point.
-    fun insertPricePoint(pricePoint: PricePoint) : Single<Long> {
+    fun insertPricePoint(pricePoint: PricePoint): Single<Long> {
         return pricePointDao.insert(pricePoint)
     }
 

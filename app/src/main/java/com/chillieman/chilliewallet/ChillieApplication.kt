@@ -1,29 +1,17 @@
 package com.chillieman.chilliewallet
 
+import android.app.Application
 import android.util.Log
 import androidx.security.crypto.MasterKey
-import com.chillieman.chilliewallet.di.DaggerApplicationComponent
-import dagger.android.AndroidInjector
-import dagger.android.DaggerApplication
-import org.bouncycastle.jce.provider.BouncyCastleProvider
+import dagger.hilt.android.HiltAndroidApp
 import java.security.KeyStore
-import java.security.Provider
-import java.security.Security
 import javax.inject.Inject
 
-class ChillieApplication : DaggerApplication() {
+@HiltAndroidApp
+class ChillieApplication : Application() {
 
     @Inject
     lateinit var keyStore: KeyStore
-
-    override fun applicationInjector(): AndroidInjector<out ChillieApplication> {
-        return DaggerApplicationComponent.builder()
-            .application(this)
-            .build()
-            .apply {
-                inject(this@ChillieApplication)
-            }
-    }
 
     override fun onCreate() {
         super.onCreate()

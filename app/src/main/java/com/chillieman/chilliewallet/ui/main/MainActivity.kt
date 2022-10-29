@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.chillieman.chilliewallet.R
@@ -15,7 +14,10 @@ import com.chillieman.chilliewallet.service.AuthService
 import com.chillieman.chilliewallet.ui.auth.AuthActivity
 import com.chillieman.chilliewallet.ui.base.BaseViewModelActivity
 import com.chillieman.chilliewallet.ui.newwallet.NewWalletActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : BaseViewModelActivity<MainViewModel>(MainViewModel::class.java) {
     private lateinit var binding: ActivityMainBinding
 

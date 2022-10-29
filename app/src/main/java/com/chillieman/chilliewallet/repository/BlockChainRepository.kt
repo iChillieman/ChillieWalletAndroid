@@ -9,7 +9,7 @@ import javax.inject.Singleton
 class BlockChainRepository
 @Inject constructor(
     private val blockChainDao: BlockChainDao
-){
+) {
     fun insertBlockChain(blockChain: BlockChain) = blockChainDao.insert(blockChain)
 
     fun insertBlockChains(blockChains: List<BlockChain>) = blockChainDao.insertAll(blockChains)

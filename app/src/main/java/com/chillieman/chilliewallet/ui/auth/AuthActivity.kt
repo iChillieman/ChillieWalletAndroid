@@ -1,15 +1,14 @@
 package com.chillieman.chilliewallet.ui.auth
 
 import android.os.Bundle
-import android.util.Log
-import com.chillieman.chilliewallet.R
 import com.chillieman.chilliewallet.databinding.ActivityAuthBinding
 import com.chillieman.chilliewallet.definitions.IntentDefinitions
 import com.chillieman.chilliewallet.model.AuthResponse
-import com.chillieman.chilliewallet.model.ConnectionState
 import com.chillieman.chilliewallet.ui.auth.pin.PinFragment
 import com.chillieman.chilliewallet.ui.base.BaseViewModelActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AuthActivity : BaseViewModelActivity<AuthViewModel>(AuthViewModel::class.java),
     PinFragment.Listener {
     private lateinit var binding: ActivityAuthBinding

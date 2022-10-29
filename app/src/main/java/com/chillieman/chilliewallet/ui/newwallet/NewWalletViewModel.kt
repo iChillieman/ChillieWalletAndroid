@@ -3,15 +3,15 @@ package com.chillieman.chilliewallet.ui.newwallet
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.chillieman.chilliewallet.db.entity.ChillieWallet
 import com.chillieman.chilliewallet.manager.WalletManager
 import com.chillieman.chilliewallet.ui.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import org.web3j.crypto.Bip39Wallet
-import org.web3j.protocol.Web3j
 import javax.inject.Inject
 
+@HiltViewModel
 class NewWalletViewModel
 @Inject constructor(
     private val walletManager: WalletManager,
@@ -48,7 +48,7 @@ class NewWalletViewModel
     fun createWallet() {
         //Check if Wallet Exists First!
         walletManager.isWalletCreated().flatMap {
-            if(it) {
+            if (it) {
                 //If its Already Created... Load It!
                 walletManager.getAlphaWalletSeedPhrase()
             } else {
@@ -70,7 +70,7 @@ class NewWalletViewModel
     }
 
     fun isEnteredSeedPhraseCorrect(inputWords: String) =
-         inputWords == createdWallet?.mnemonic
+        inputWords == createdWallet?.mnemonic
 
     companion object {
         private const val TAG = "NewWalletViewModel"

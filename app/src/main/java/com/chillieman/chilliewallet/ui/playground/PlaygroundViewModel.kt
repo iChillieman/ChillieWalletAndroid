@@ -5,10 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.chillieman.chilliewallet.db.PrefillUtil.loadStartingBlockChains
 import com.chillieman.chilliewallet.db.PrefillUtil.loadStartingDexs
-import com.chillieman.chilliewallet.db.entity.Dex
 import com.chillieman.chilliewallet.db.entity.PricePoint
 import com.chillieman.chilliewallet.definitions.BlockChainDefinitions.URL_SMART_CHAIN
-import com.chillieman.chilliewallet.definitions.BlockChainDefinitions.URL_SMART_CHAIN_TESTNET
 import com.chillieman.chilliewallet.definitions.DexDefinitions
 import com.chillieman.chilliewallet.definitions.TokenDefinitions
 import com.chillieman.chilliewallet.manager.WalletManager
@@ -25,7 +23,7 @@ import com.chillieman.chilliewallet.repository.DexRepository
 import com.chillieman.chilliewallet.repository.PricePointRepository
 import com.chillieman.chilliewallet.repository.TokenRepository
 import com.chillieman.chilliewallet.ui.base.BaseViewModel
-import io.reactivex.Completable
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -43,9 +41,10 @@ import java.math.BigDecimal
 import java.math.BigInteger
 import java.math.RoundingMode
 import java.net.SocketTimeoutException
-import java.util.*
+import java.util.Calendar
 import javax.inject.Inject
 
+@HiltViewModel
 class PlaygroundViewModel
 @Inject constructor(
     private val chillieWalletManager: WalletManager,

@@ -6,7 +6,6 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.chillieman.chilliewallet.definitions.ChillieWalletDefinitions.Columns
 import com.chillieman.chilliewallet.definitions.ChillieWalletDefinitions.TABLE_NAME
-import java.math.BigInteger
 
 
 @Entity(

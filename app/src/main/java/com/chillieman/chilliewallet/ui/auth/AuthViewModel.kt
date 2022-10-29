@@ -1,15 +1,16 @@
 package com.chillieman.chilliewallet.ui.auth
 
-
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.chillieman.chilliewallet.repository.AuthRepository
 import com.chillieman.chilliewallet.ui.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
+@HiltViewModel
 class AuthViewModel
 @Inject constructor(
     private val authRepo: AuthRepository

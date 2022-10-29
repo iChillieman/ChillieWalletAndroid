@@ -7,10 +7,12 @@ import com.chillieman.chilliewallet.db.entity.Dex
 import com.chillieman.chilliewallet.model.PageMode
 import com.chillieman.chilliewallet.repository.DexRepository
 import com.chillieman.chilliewallet.ui.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
+@HiltViewModel
 class DexViewModel
 @Inject constructor(
     private val dexRepo: DexRepository
@@ -78,7 +80,7 @@ class DexViewModel
     }
 
     fun onBackPressed() {
-        when(_pageMode.value) {
+        when (_pageMode.value) {
             PageMode.DETAIL,
             PageMode.CREATE -> resetSelectedDex()
             PageMode.EDIT -> onEditBackPressed()

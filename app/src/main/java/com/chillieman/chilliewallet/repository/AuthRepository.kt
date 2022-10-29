@@ -7,7 +7,7 @@ import com.chillieman.chilliewallet.db.entity.Authentication
 import com.chillieman.chilliewallet.definitions.AuthenticationDefinitions.DEFAULT_ID
 import com.chillieman.chilliewallet.manager.EncryptionManager
 import io.reactivex.Single
-import java.util.*
+import java.util.Random
 import javax.inject.Inject
 import javax.inject.Singleton
 
