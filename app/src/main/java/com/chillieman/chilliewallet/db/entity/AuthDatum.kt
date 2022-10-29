@@ -14,4 +14,12 @@ class AuthDatum(
     @field:PrimaryKey(autoGenerate = true)
     @field:ColumnInfo(name = AuthenticationDefinitions.DatumColumns.ID)
     val id: Long = 0L,
-)
+) {
+    fun copy(
+        payload: ByteArray = this.payload,
+        iv: ByteArray = this.iv,
+        id: Long = this.id
+    ): AuthDatum {
+        return AuthDatum(payload, iv, id)
+    }
+}

@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_wallet" />
 
     <fragment
-        android:id="@+id/navigation_dex"
+        android:id="@+id/navigation_orders"
         android:name="com.chillieman.chilliewallet.ui.main.orders.OrdersFragment"
         android:label="@string/title_orders"
         tools:layout="@layout/fragment_orders" />

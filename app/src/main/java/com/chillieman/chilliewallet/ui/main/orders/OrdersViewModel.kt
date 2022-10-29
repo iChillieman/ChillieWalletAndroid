@@ -11,7 +11,8 @@ class OrdersViewModel
 ) : BaseViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is the Orders Fragment - List out all orders - Make it simple to create a new one!"
+        value =
+            "This is the Orders Fragment - List out all orders - Make it simple to create a new one!"
     }
     val text: LiveData<String> = _text
 }

@@ -7,17 +7,19 @@ import dagger.android.DaggerService
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
-open class BaseService: DaggerService() {
+open class BaseService : DaggerService() {
     private val disposables = CompositeDisposable()
 
     protected fun <T : Disposable> T.disposeOnDestroy(): T {
         disposables.add(this)
         return this
     }
+
     override fun onCreate() {
         super.onCreate()
         AndroidInjection.inject(this)
     }
+
     override fun onBind(intent: Intent?): IBinder? = null
 
     override fun onDestroy() {

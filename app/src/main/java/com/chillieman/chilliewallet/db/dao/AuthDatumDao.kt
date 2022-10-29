@@ -19,11 +19,11 @@ abstract class AuthDatumDao {
     abstract fun selectByIdSynchronously(id: Long): AuthDatum
 
     @Insert
-    abstract fun insert(auth: AuthDatum): Single<Long>
+    abstract fun insert(datum: AuthDatum): Single<Long>
 
     @Update
-    abstract fun update(auth: AuthDatum): Single<Int>
+    abstract fun update(datum: AuthDatum): Single<Int>
 
     @Query("DELETE FROM auth")
-    abstract fun delete() : Single<Int>
+    abstract fun delete(): Single<Int>
 }

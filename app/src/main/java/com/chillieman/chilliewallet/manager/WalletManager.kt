@@ -1,11 +1,15 @@
 package com.chillieman.chilliewallet.manager
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.chillieman.chilliewallet.db.PrefillUtil.loadStartingTokens
 import com.chillieman.chilliewallet.db.entity.ChillieWallet
 import com.chillieman.chilliewallet.repository.AuthRepository
 import com.chillieman.chilliewallet.repository.ChillieWalletRepository
+import com.chillieman.chilliewallet.repository.DexRepository
+import com.chillieman.chilliewallet.repository.TokenRepository
 import io.reactivex.Completable
 import io.reactivex.Single
 import org.web3j.crypto.Bip39Wallet
@@ -20,115 +24,141 @@ class WalletManager
 @Inject constructor(
     private val authRepository: AuthRepository,
     private val chillieWalletRepository: ChillieWalletRepository,
+    private val dexRepository: DexRepository,
+    private val tokenRepository: TokenRepository,
     private val walletFolderPath: File
 ) {
     private val _selectedWallet = MutableLiveData<ChillieWallet>()
     val selectedWallet: LiveData<ChillieWallet>
         get() = _selectedWallet
 
-    private val cachedCredentials = HashMap<ChillieWallet, Credentials>()
-    private var cachedWalletPassword: String? = null
+    private val cachedCredentials = HashMap<Long, Credentials>()
 
     fun isWalletCreated() = chillieWalletRepository.isWalletCreated()
 
+    fun isWalletConfirmed(): Single<Boolean> = chillieWalletRepository.fetchWallet().map {
+        it.isConfirmed
+    }
+
+    fun onConfirmWallet(): Single<Int> = chillieWalletRepository.fetchWallet().flatMap {
+        chillieWalletRepository.confirmWallet(it)
+    }
+
     private fun getCredentialsFromWallet(chillieWallet: ChillieWallet): Single<Credentials> {
         return Single.fromCallable {
-            if (cachedWalletPassword != null) {
-                WalletUtils.loadCredentials(cachedWalletPassword, chillieWallet.filePath)
-            } else {
-                WalletUtils.loadCredentials(
-                    authRepository.getWalletPassword().blockingGet(),
-                    chillieWallet.filePath
-                )
-            }
+            WalletUtils.loadCredentials(
+                authRepository.getWalletPassword().blockingGet(),
+                chillieWallet.filePath
+            )
         }.map {
-            cachedCredentials[chillieWallet] = it
+            cachedCredentials[chillieWallet.id] = it
             it
         }
     }
 
+    private fun processSeedPhrase(string: String): List<String> {
+        val listOfWords = mutableListOf<String>()
+        val stringBuilder = StringBuilder()
+
+        string.forEachIndexed { index, c ->
+            if (c.isWhitespace()) {
+                listOfWords.add(stringBuilder.toString())
+                stringBuilder.clear()
+            } else if (index == string.length - 1) {
+                stringBuilder.append(c)
+                listOfWords.add(stringBuilder.toString())
+                stringBuilder.clear()
+            } else {
+                stringBuilder.append(c)
+            }
+        }
+
+        return listOfWords
+    }
+
+    fun getAlphaWalletSeedPhrase(): Single<List<String>> {
+        return chillieWalletRepository.fetchWallet().flatMap {
+            chillieWalletRepository.getWalletSeedPhrase(it)
+        }.map {
+            processSeedPhrase(it)
+        }
+    }
+
+    private fun getSelectedWalletSeedPhrase(): Single<List<String>> {
+        return _selectedWallet.value?.let {
+            chillieWalletRepository.getWalletSeedPhrase(it)
+        }?.map {
+            processSeedPhrase(it)
+        } ?: throw IllegalStateException("Wallet Is Not Selected...")
+    }
+
+    fun getCredentials(wallet: ChillieWallet): Single<Credentials> {
+        return if (cachedCredentials.containsKey(wallet.id)) {
+            Log.d(TAG, "Cache me outside")
+            Single.just(cachedCredentials[wallet.id])
+        } else {
+            getCredentialsFromWallet(wallet)
+        }
+    }
 
     fun getSelectedWalletCredentials(): Single<Credentials> {
-        return with(_selectedWallet.value) {
-            if (this == null) {
-                createWalletOrSelectExistingSingle().flatMap {
-                    _selectedWallet.postValue(it)
-                    getCredentialsFromWallet(it)
-                }
-            } else {
-                if (cachedCredentials.containsKey(this)) {
-                    Log.d(TAG, "Cache me outside")
-                    Single.just(cachedCredentials[this])
-                } else {
-                    getCredentialsFromWallet(this)
-                }
-            }
-        }
+        return _selectedWallet.value?.let {
+            getCredentials(it)
+        } ?: throw IllegalStateException("No Wallet Selected!")
     }
 
-
-
-    fun createNewWallet(): Single<Bip39Wallet> {
+    fun createNewWallet(): Single<List<String>> {
         return authRepository.getWalletPassword().map {
             WalletUtils.generateBip39Wallet(it, walletFolderPath)
+        }.map { wallet ->
+            Log.d(TAG, "Wallet generated: ${wallet.filename}")
+            Log.d(TAG, "Phrase: ${wallet.mnemonic}")
+
+            val walletFile = File(walletFolderPath, wallet.filename)
+            Log.d(TAG, "Full Wallet Path: ${walletFile.absolutePath}")
+
+            val address = WalletUtils.loadCredentials(
+                authRepository.getWalletPassword().blockingGet(),
+                walletFile.absolutePath
+            ).address
+
+            val createdWallet = chillieWalletRepository.createWallet(
+                "Chillieman",
+                walletFile.absolutePath,
+                wallet.mnemonic,
+                address
+            ).blockingGet()
+
+            //TODO CHILLIE - Add Tokens Here
+            // - Each wallet should come with Tokens Preloaded
+            prefillTokensForWalletAlpha(createdWallet.id).blockingAwait()
+
+
+            _selectedWallet.postValue(createdWallet)
+            processSeedPhrase(wallet.mnemonic)
         }
     }
 
-    fun enterIntoDatabase(wallet: Bip39Wallet): Completable {
-        return chillieWalletRepository.isWalletCreated().flatMapCompletable { isWalletExisting ->
-            if (isWalletExisting) {
-                //It Exists!
-                Log.d(TAG, "createWallet: Wallet is already created!")
-                throw IllegalStateException("Wallet is already created, and your trying to make another")
-                //TODO: Support Multiple Wallets
-            } else {
-                Log.d(TAG, "Wallet generated: ${wallet.filename}")
-                Log.d(TAG, "Phrase: ${wallet.mnemonic}")
-
-                val walletFile = File(walletFolderPath, wallet.filename)
-                Log.d(TAG, "Full Wallet Path: ${walletFile.absolutePath}")
-
-                val createdWallet = chillieWalletRepository.createWallet(
-                    "Chillieman",
-                    walletFile.absolutePath
-                ).blockingGet()
-
-                _selectedWallet.postValue(createdWallet)
-                Completable.complete()
+    @SuppressLint("CheckResult")
+    fun prefillTokensForWalletAlpha(walletId: Long): Completable {
+        val prefillTokensLive = loadStartingTokens()
+        // Get PancakeSwap DEX
+        return dexRepository.getPancakeSwapDexId().flatMapCompletable { dexId ->
+            prefillTokensLive.forEach {
+                tokenRepository.insertToken(it, walletId, dexId).blockingGet()
             }
-        }
-    }
-
-    // This logic is for Alpha - Users can only control one Wallet
-    private fun createWalletOrSelectExisting(): Completable {
-        //First see if the wallet exists:
-        return createWalletOrSelectExistingSingle().flatMapCompletable {
-            _selectedWallet.postValue(it)
             Completable.complete()
         }
+        //TODO CHILLIE - Populate TestNet with CHLL (Need to launch on BSC TEST)
     }
 
-    // This logic is for Alpha - Users can only control one Wallet
-    private fun createWalletOrSelectExistingSingle(): Single<ChillieWallet> {
-        //First see if the wallet exists:
-        return chillieWalletRepository.isWalletCreated().flatMap { isWalletExisting ->
-            if (isWalletExisting) {
-                //It Exists!
-                Log.d(TAG, "createWallet: Wallet is already created!")
-                chillieWalletRepository.fetchWallet()
-            } else {
-                val newWallet = createNewWallet().blockingGet()
-                Log.d(TAG, "Wallet generated: ${newWallet.filename}")
-                Log.d(TAG, "Phrase: ${newWallet.mnemonic}")
 
-                val walletFile = File(walletFolderPath, newWallet.filename)
-                Log.d(TAG, "Full Wallet Path: ${walletFile.absolutePath}")
-
-                chillieWalletRepository.createWallet("Chillieman", walletFile.absolutePath)
-            }
+    fun loadAlphaWallet(): Single<ChillieWallet> {
+        return chillieWalletRepository.fetchWallet().map {
+            _selectedWallet.postValue(it)
+            it
         }
     }
-
 
     companion object {
         private const val TAG = "ChillieLog - WalletManager"

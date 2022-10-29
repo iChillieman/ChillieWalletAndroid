@@ -9,6 +9,7 @@ import com.chillieman.chilliewallet.manager.WalletManager
 import com.chillieman.chilliewallet.model.AuthStatus
 import com.chillieman.chilliewallet.ui.base.BaseViewModel
 import io.reactivex.Completable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import org.web3j.protocol.Web3j
@@ -42,8 +43,10 @@ class MainViewModel
     val address: LiveData<String>
         get() = _address
 
+    var isWalletCheckPerformed = false
+
     fun startAuth() {
-        if(!authManager.isStartupComplete) {
+        if (!authManager.isStartupComplete) {
             authManager.isAuthCreated()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -61,38 +64,45 @@ class MainViewModel
         }
     }
 
-    var isWalletCheckStarted = false
-
-    @SuppressLint("CheckResult")
-    fun checkWallet(): Boolean {
-        if (isWalletCheckStarted) {
-            return true
+    fun checkWallet() {
+        if (isWalletCheckPerformed) {
+            return
         }
-        isWalletCheckStarted = true
+
+        isWalletCheckPerformed = true
         _isLoading.value = true
 
-        walletManager.isWalletCreated().flatMapCompletable {
-            if (!it) {
-                _isWalletCreated.postValue(false)
-            } else {
-                //Automatically load the Wallet
-                walletManager.getSelectedWalletCredentials().blockingGet()
+        // For Alpha , The wallet must be created AND confirmed.
+        walletManager.isWalletCreated()
+            .flatMap {
+                if (it) {
+                    walletManager.isWalletConfirmed()
+                } else {
+                    Single.just(false)
+                }
             }
-            Completable.complete()
-        }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 Log.d(TAG, "Wallet Loaded Successfully, or Doesnt Exist")
-                _isLoading.value = false
+                _isWalletCreated.value = it
             }, {
                 Log.e(TAG, "Error checking wallet exists", it)
             }).disposeOnClear()
-        return false
     }
 
-
-
+    fun loadWalletForAlpha() {
+        //TODO: Check Database for most recently used Wallet - Select that one.
+        _isLoading.value = true
+        walletManager.loadAlphaWallet()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Log.d(TAG, "Load Wallet for Alpha")
+            }, {
+                Log.e(TAG, "Could NOT fetch Balance", it)
+            }).disposeOnClear()
+    }
 
 
     fun getAddress() {
@@ -117,6 +127,7 @@ class MainViewModel
                     it.balance.toString(),
                     Convert.Unit.ETHER
                 )
+                _isLoading.value = false
             }, {
                 Log.e(TAG, "Could NOT fetch Balance", it)
             }).disposeOnClear()

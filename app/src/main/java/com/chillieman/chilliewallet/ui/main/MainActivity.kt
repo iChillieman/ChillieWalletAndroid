@@ -50,16 +50,19 @@ class MainActivity : BaseViewModelActivity<MainViewModel>(MainViewModel::class.j
                 }
                 AuthStatus.AUTHENTICATED -> {
                     Log.d(TAG, "Authenticated")
-                    if(viewModel.checkWallet()) {
-                        binding.container.visibility = View.VISIBLE
-                    }
+                    binding.container.visibility = View.VISIBLE
+                    viewModel.checkWallet()
                 }
                 else -> Unit
             }
         }
 
         viewModel.isWalletCreated.observe(this) {
-            if(!it) {
+            if (it) {
+                //Wallet is created. Load Credentials
+                viewModel.loadWalletForAlpha()
+            } else {
+                //Wallet isnt created yet
                 startActivity(
                     Intent(this, NewWalletActivity::class.java)
                         .putExtra(IntentDefinitions.EXTRA_IS_FIRST_WALLET, true)
@@ -76,13 +79,8 @@ class MainActivity : BaseViewModelActivity<MainViewModel>(MainViewModel::class.j
             }
         }
 
-        viewModel.selectedWallet.observe(this) {
-            binding.container.visibility = View.VISIBLE
-        }
-
         startService(Intent(this, AuthService::class.java))
     }
-
 
 
     override fun onDestroy() {
@@ -90,5 +88,7 @@ class MainActivity : BaseViewModelActivity<MainViewModel>(MainViewModel::class.j
         super.onDestroy()
     }
 
-    private val TAG = "ChillieMain"
+    companion object {
+        private const val TAG = "ChillieMain"
+    }
 }

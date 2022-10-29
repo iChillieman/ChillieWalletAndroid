@@ -6,7 +6,6 @@ import androidx.room.PrimaryKey
 import com.chillieman.chilliewallet.definitions.AuthenticationDefinitions.Columns
 import com.chillieman.chilliewallet.definitions.AuthenticationDefinitions.TABLE_NAME
 
-
 @Entity(tableName = TABLE_NAME)
 class Authentication(
     @field:PrimaryKey
@@ -18,4 +17,11 @@ class Authentication(
     val walletPasswordId: Long,
     @field:ColumnInfo(name = Columns.PASSWORD)
     val userPasswordId: Long?
-)
+) {
+    fun copy(
+        id: Long = this.id,
+        pinId: Long = this.pinId,
+        walletPasswordId: Long = this.walletPasswordId,
+        userPasswordId: Long? = this.userPasswordId
+    ) = Authentication(id, pinId, walletPasswordId, userPasswordId)
+}

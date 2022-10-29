@@ -61,4 +61,6 @@
     <string name="num_10">10</string>
     <string name="num_11">11</string>
     <string name="num_12">12</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

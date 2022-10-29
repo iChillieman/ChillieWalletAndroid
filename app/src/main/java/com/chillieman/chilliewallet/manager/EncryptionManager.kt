@@ -13,7 +13,7 @@ class EncryptionManager
 @Inject constructor(
     private val cipher: Cipher,
     private val secretKey: SecretKey
-){
+) {
     fun encryptMessage(message: String): Single<AuthDatum> {
         return Single.fromCallable {
             val plaintext: ByteArray = message.toByteArray()

@@ -1,15 +1,19 @@
 package com.chillieman.chilliewallet.ui.playground
 
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.chillieman.chilliewallet.R
 import com.chillieman.chilliewallet.databinding.ActivityPlaygroundBinding
 import com.chillieman.chilliewallet.model.ConnectionState
 import com.chillieman.chilliewallet.ui.base.BaseViewModelActivity
 
-class PlaygroundActivity : BaseViewModelActivity<PlaygroundViewModel>(PlaygroundViewModel::class.java) {
+class PlaygroundActivity :
+    BaseViewModelActivity<PlaygroundViewModel>(PlaygroundViewModel::class.java) {
     private lateinit var binding: ActivityPlaygroundBinding
 
     //    private val authConnection = object : ServiceConnection {
@@ -31,12 +35,17 @@ class PlaygroundActivity : BaseViewModelActivity<PlaygroundViewModel>(Playground
 
         observeLiveData()
 
+
+
+        binding.btnConnect.text = "Prefill DB"
         binding.btnConnect.setOnClickListener {
-            viewModel.connectToEthNetwork()
+            viewModel.fillAlphaDatabase()
+//            viewModel.connectToEthNetwork()
+
         }
 
         binding.btnLoadWalletInformation.setOnClickListener {
-            viewModel.getWalletCredentials()
+            viewModel.loadWallet()
         }
 
         binding.btnSomethingElse.setOnClickListener {
@@ -58,7 +67,7 @@ class PlaygroundActivity : BaseViewModelActivity<PlaygroundViewModel>(Playground
         }
 
         viewModel.isLoading.observe(this) {
-            binding.progress.visibility = if(it) View.VISIBLE else View.GONE
+            binding.progress.visibility = if (it) View.VISIBLE else View.GONE
         }
 
         viewModel.walletAddress.observe(this) {
@@ -66,9 +75,12 @@ class PlaygroundActivity : BaseViewModelActivity<PlaygroundViewModel>(Playground
         }
 
         viewModel.walletKeys.observe(this) {
-            binding.tvWalletPrivateKey.text = "NEVER SHARE A PRIVATE KEY!!!! NEVER!!!"
             binding.tvWalletPublicKey.text = String.format(it.publicKey.toString(16))
             binding.btnLoadWalletInformation.isEnabled = false
+        }
+
+        viewModel.blockNumber.observe(this) {
+            binding.tvWalletPrivateKey.text = it.toString()
         }
     }
 

@@ -47,6 +47,4 @@ class AuthActivity : BaseViewModelActivity<AuthViewModel>(AuthViewModel::class.j
     companion object {
         private const val TAG = "Chillie - AuthActivity"
     }
-
-
 }

@@ -1,11 +1,7 @@
 package com.chillieman.chilliewallet.di
 
 import android.content.Context
-import android.util.Log
-import com.chillieman.chilliewallet.definitions.BlockChainDefinitions.NODE_URL
-import com.chillieman.chilliewallet.definitions.BlockChainDefinitions.TEST_NODE_URL
-import com.chillieman.chilliewallet.ui.main.wallet.WalletFragment
-import com.chillieman.chilliewallet.ui.playground.PlaygroundViewModel
+import com.chillieman.chilliewallet.definitions.BlockChainDefinitions.URL_SMART_CHAIN_TESTNET
 import dagger.Module
 import dagger.Provides
 import org.web3j.protocol.Web3j
@@ -23,7 +19,7 @@ class ProviderModule {
     }
 
     @Provides
-    internal fun provideWeb3() : Web3j = Web3j.build(HttpService(TEST_NODE_URL))
+    internal fun provideWeb3(): Web3j = Web3j.build(HttpService(URL_SMART_CHAIN_TESTNET))
 
     @Provides
     internal fun provideKeyStore(): KeyStore {
@@ -38,7 +34,7 @@ class ProviderModule {
     }
 
     @Provides
-    internal fun provideMasterSecretKey(keyStore: KeyStore) : SecretKey {
+    internal fun provideMasterSecretKey(keyStore: KeyStore): SecretKey {
         val alias = keyStore.aliases().toList().first()
 
         val entry: KeyStore.Entry = keyStore.getEntry(alias, null)

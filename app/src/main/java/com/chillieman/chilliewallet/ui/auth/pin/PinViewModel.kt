@@ -15,7 +15,7 @@ import javax.inject.Inject
 class PinViewModel
 @Inject constructor(
     private val authManager: AuthManager
-): BaseViewModel(){
+) : BaseViewModel() {
 
     private val _authResponse = MutableLiveData<AuthResponse>()
     val authResponse: LiveData<AuthResponse>
@@ -34,8 +34,8 @@ class PinViewModel
     fun processesPin(pin: String, isNewPin: Boolean?) {
         _errorState.value = PinErrorState.NONE
 
-        if(isNewPin == true) {
-            if(_isPinStored.value == true) {
+        if (isNewPin == true) {
+            if (_isPinStored.value == true) {
                 comparePinsForCreation(pin)
             } else {
                 creationPin = pin
@@ -48,7 +48,7 @@ class PinViewModel
     }
 
     private fun comparePinsForCreation(secondPin: String) {
-        if(creationPin == secondPin) {
+        if (creationPin == secondPin) {
             // They entered the same pin twice, lets use it to create Auth Record
             authManager.createStartingPin(secondPin)
                 .subscribeOn(Schedulers.io())
@@ -66,12 +66,12 @@ class PinViewModel
         }
     }
 
-    private fun checkPin(pin:String) {
+    private fun checkPin(pin: String) {
         authManager.checkPin(pin)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                if(it) {
+                if (it) {
                     _authResponse.value = AuthResponse.CORRECT
                 } else {
                     _errorState.value = PinErrorState.WRONG_PIN

@@ -12,7 +12,7 @@ import javax.inject.Singleton
 class AuthManager
 @Inject constructor(
     private val authRepository: AuthRepository
-){
+) {
 
     var timeWhenUnlocked = 0L
         private set
@@ -32,7 +32,7 @@ class AuthManager
     }
 
     fun startUpComplete(status: AuthStatus) {
-        if(!isStartupComplete) {
+        if (!isStartupComplete) {
             _authStatus.postValue(status)
             isStartupComplete = true
         }
@@ -40,14 +40,14 @@ class AuthManager
 
     fun isAuthCreated() = authRepository.isAuthSet()
 
-    fun checkPin(pin:String) = authRepository.checkAuthPin(pin).map {
-        if(it) {
+    fun checkPin(pin: String) = authRepository.checkAuthPin(pin).map {
+        if (it) {
             setAuthenticationStatus(AuthStatus.AUTHENTICATED)
         }
         it
     }
 
-    fun createStartingPin(pin: String)  = authRepository.createStartingPin(pin).map {
+    fun createStartingPin(pin: String) = authRepository.createStartingPin(pin).map {
         setAuthenticationStatus(AuthStatus.AUTHENTICATED)
         it
     }
