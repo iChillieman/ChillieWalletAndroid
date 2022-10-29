@@ -19,14 +19,11 @@ abstract class ChillieChainDao {
     abstract fun selectByIdSynchronously(id: Long): ChillieChain
 
     @Insert
-    abstract fun insertSynchronously(wallet: ChillieChain): Long
+    abstract fun insert(chillieChain: ChillieChain): Single<Long>
 
     @Update
-    abstract fun updateSynchronously(wallet: ChillieChain): Int
-
-    @Query("SELECT COUNT(*) FROM chillie_chain")
-    abstract fun count(): Single<Long>
+    abstract fun update(chillieChain: ChillieChain): Single<Int>
 
     @Query("DELETE FROM chillie_chain WHERE id=:id")
-    abstract fun deleteSynchronously(id: Long): Int
+    abstract fun delete(id: Long): Single<Int>
 }

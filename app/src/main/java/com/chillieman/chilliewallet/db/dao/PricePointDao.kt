@@ -12,8 +12,8 @@ abstract class PricePointDao {
     @Query("SELECT * FROM historical_price")
     abstract fun selectAll(): Single<List<PricePoint>>
 
-    @Query("SELECT * FROM historical_price WHERE token_id=:tokenId")
-    abstract fun selectAllByTokenId(tokenId: Long): Single<List<PricePoint>>
+    @Query("SELECT * FROM historical_price WHERE token_address=:tokenAddress")
+    abstract fun selectAllByTokenAddress(tokenAddress: String): Single<List<PricePoint>>
 
     @Query("SELECT * FROM historical_price WHERE id=:id")
     abstract fun selectById(id: Long): Single<PricePoint>
@@ -22,11 +22,11 @@ abstract class PricePointDao {
     abstract fun selectByIdSynchronously(id: Long): PricePoint
 
     @Insert
-    abstract fun insertSynchronously(wallet: PricePoint): Long
+    abstract fun insert(price: PricePoint): Single<Long>
 
     @Update
-    abstract fun updateSynchronously(wallet: PricePoint): Int
+    abstract fun update(price: PricePoint): Single<Int>
 
     @Query("DELETE FROM historical_price WHERE id=:id")
-    abstract fun deleteSynchronously(id: Long): Int
+    abstract fun delete(id: Long): Single<Int>
 }

@@ -15,8 +15,8 @@ abstract class ChillieOrderDao {
     @Query("SELECT * FROM chillie_order WHERE wallet_id=:walletId")
     abstract fun selectAllByWalletId(walletId: Long): Single<List<ChillieOrder>>
 
-    @Query("SELECT * FROM chillie_order WHERE token_id=:tokenId")
-    abstract fun selectAllByTokenId(tokenId: Long): Single<List<ChillieOrder>>
+    @Query("SELECT * FROM chillie_order WHERE token_address=:tokenAddress")
+    abstract fun selectAllByTokenId(tokenAddress: Long): Single<List<ChillieOrder>>
 
     @Query("SELECT * FROM chillie_order WHERE id=:id")
     abstract fun selectById(id: Long): Single<ChillieOrder>
@@ -25,10 +25,10 @@ abstract class ChillieOrderDao {
     abstract fun selectByIdSynchronously(id: Long): ChillieOrder
 
     @Insert
-    abstract fun insertSynchronously(wallet: ChillieOrder): Long
+    abstract fun insert(chillieOrder: ChillieOrder): Single<Long>
 
     @Update
-    abstract fun updateSynchronously(wallet: ChillieOrder): Int
+    abstract fun update(chillieOrder: ChillieOrder): Single<Int>
 
     @Query("DELETE FROM chillie_order WHERE id=:id")
     abstract fun deleteSynchronously(id: Long): Int

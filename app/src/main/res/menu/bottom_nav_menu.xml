@@ -7,8 +7,8 @@
         android:title="@string/title_wallet" />
 
     <item
-        android:id="@+id/navigation_dex"
-        android:icon="@drawable/ic_exchange_24"
+        android:id="@+id/navigation_orders"
+        android:icon="@drawable/ic_orders_24"
         android:title="@string/title_orders" />
 
     <item

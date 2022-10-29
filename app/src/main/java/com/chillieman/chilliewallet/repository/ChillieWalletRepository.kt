@@ -15,7 +15,12 @@ class ChillieWalletRepository
     private val authDatumDao: AuthDatumDao,
     private val encryptionManager: EncryptionManager
 ) {
-    fun createWallet(name: String, filePath: String, seed: String): Single<ChillieWallet> {
+    fun createWallet(
+        name: String,
+        filePath: String,
+        seed: String,
+        address: String
+    ): Single<ChillieWallet> {
         return fetchAllWallets().flatMap {
             if (it.isEmpty()) {
                 encryptionManager.encryptMessage(seed)
@@ -29,9 +34,10 @@ class ChillieWalletRepository
                 ChillieWallet(
                     name = name,
                     filePath = filePath,
-                    seedId = it
+                    seedId = it,
+                    address = address
                 )
-            )
+            ).blockingGet()
             loadWallet(id)
         }
     }
@@ -46,15 +52,9 @@ class ChillieWalletRepository
     fun fetchAllWallets() = chillieWalletDao.selectAll()
 
     fun confirmWallet(wallet: ChillieWallet): Single<Int> {
-            return chillieWalletDao.update(
-                ChillieWallet(
-                    wallet.name,
-                    wallet.filePath,
-                    wallet.seedId,
-                    true,
-                    wallet.id
-                )
-            )
+        return chillieWalletDao.update(
+            wallet.copy(isConfirmed = true)
+        )
     }
 
     fun fetchWallet(): Single<ChillieWallet> {

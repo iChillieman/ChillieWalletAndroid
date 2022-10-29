@@ -14,6 +14,7 @@ class DatabaseModule {
             context,
             ChillieDatabase::class.java, ChillieDatabase.DATABASE_NAME
         )
+            .createFromAsset("database/data_alpha.db")
             .fallbackToDestructiveMigration()
             .build()
     }
@@ -55,4 +56,16 @@ class DatabaseModule {
 
     @Provides
     fun provideBalanceDao(chillieDatabase: ChillieDatabase) = chillieDatabase.balanceDao()
+
+    @Provides
+    fun provideDexDao(chillieDatabase: ChillieDatabase) = chillieDatabase.dexDao()
+
+    @Provides
+    fun provideSettingsDao(chillieDatabase: ChillieDatabase) = chillieDatabase.settingsDao()
+
+    @Provides
+    fun providePairDao(chillieDatabase: ChillieDatabase) = chillieDatabase.pairDao()
+
+    @Provides
+    fun provideTokenWatchDao(chillieDatabase: ChillieDatabase) = chillieDatabase.tokenWatchDao()
 }

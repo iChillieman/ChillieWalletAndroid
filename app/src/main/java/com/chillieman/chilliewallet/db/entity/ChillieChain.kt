@@ -21,4 +21,10 @@ class ChillieChain(
     @field:PrimaryKey(autoGenerate = true)
     @field:ColumnInfo(name = Columns.ID)
     val id: Long = 0L
-)
+) {
+    fun copy(
+        name: String = this.name,
+        isRepeatable: Boolean = this.isRepeatable,
+        id: Long = this.id
+    ) = ChillieChain(name, isRepeatable, id)
+}

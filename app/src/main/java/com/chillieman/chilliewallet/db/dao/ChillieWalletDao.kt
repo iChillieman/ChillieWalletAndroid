@@ -16,7 +16,7 @@ abstract class ChillieWalletDao {
     abstract fun selectByIdSynchronously(id: Long): ChillieWallet
 
     @Insert
-    abstract fun insert(wallet: ChillieWallet): Long
+    abstract fun insert(wallet: ChillieWallet): Single<Long>
 
     @Update
     abstract fun update(wallet: ChillieWallet): Single<Int>

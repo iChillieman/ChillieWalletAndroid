@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:padding="8dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_token_icon"
@@ -15,10 +15,10 @@
         app:layout_constraintTop_toTopOf="@id/tv_token_name">
         <ImageView
             android:id="@+id/img_token_icon"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
-            android:src="@mipmap/ic_chillie_wallet_round" />
+            android:src="@drawable/ic_baseline_image_not_supported_24" />
 
     </androidx.cardview.widget.CardView>
 

@@ -1,11 +1,15 @@
 package com.chillieman.chilliewallet.manager
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.chillieman.chilliewallet.db.PrefillUtil.loadStartingTokens
 import com.chillieman.chilliewallet.db.entity.ChillieWallet
 import com.chillieman.chilliewallet.repository.AuthRepository
 import com.chillieman.chilliewallet.repository.ChillieWalletRepository
+import com.chillieman.chilliewallet.repository.DexRepository
+import com.chillieman.chilliewallet.repository.TokenRepository
 import io.reactivex.Completable
 import io.reactivex.Single
 import org.web3j.crypto.Bip39Wallet
@@ -20,6 +24,8 @@ class WalletManager
 @Inject constructor(
     private val authRepository: AuthRepository,
     private val chillieWalletRepository: ChillieWalletRepository,
+    private val dexRepository: DexRepository,
+    private val tokenRepository: TokenRepository,
     private val walletFolderPath: File
 ) {
     private val _selectedWallet = MutableLiveData<ChillieWallet>()
@@ -86,14 +92,18 @@ class WalletManager
         } ?: throw IllegalStateException("Wallet Is Not Selected...")
     }
 
+    fun getCredentials(wallet: ChillieWallet): Single<Credentials> {
+        return if (cachedCredentials.containsKey(wallet.id)) {
+            Log.d(TAG, "Cache me outside")
+            Single.just(cachedCredentials[wallet.id])
+        } else {
+            getCredentialsFromWallet(wallet)
+        }
+    }
+
     fun getSelectedWalletCredentials(): Single<Credentials> {
         return _selectedWallet.value?.let {
-            if (cachedCredentials.containsKey(it.id)) {
-                Log.d(TAG, "Cache me outside")
-                Single.just(cachedCredentials[it.id])
-            } else {
-                getCredentialsFromWallet(it)
-            }
+            getCredentials(it)
         } ?: throw IllegalStateException("No Wallet Selected!")
     }
 
@@ -107,16 +117,41 @@ class WalletManager
             val walletFile = File(walletFolderPath, wallet.filename)
             Log.d(TAG, "Full Wallet Path: ${walletFile.absolutePath}")
 
+            val address = WalletUtils.loadCredentials(
+                authRepository.getWalletPassword().blockingGet(),
+                walletFile.absolutePath
+            ).address
+
             val createdWallet = chillieWalletRepository.createWallet(
                 "Chillieman",
                 walletFile.absolutePath,
-                wallet.mnemonic
+                wallet.mnemonic,
+                address
             ).blockingGet()
+
+            //TODO CHILLIE - Add Tokens Here
+            // - Each wallet should come with Tokens Preloaded
+            prefillTokensForWalletAlpha(createdWallet.id).blockingAwait()
+
 
             _selectedWallet.postValue(createdWallet)
             processSeedPhrase(wallet.mnemonic)
         }
     }
+
+    @SuppressLint("CheckResult")
+    fun prefillTokensForWalletAlpha(walletId: Long): Completable {
+        val prefillTokensLive = loadStartingTokens()
+        // Get PancakeSwap DEX
+        return dexRepository.getPancakeSwapDexId().flatMapCompletable { dexId ->
+            prefillTokensLive.forEach {
+                tokenRepository.insertToken(it, walletId, dexId).blockingGet()
+            }
+            Completable.complete()
+        }
+        //TODO CHILLIE - Populate TestNet with CHLL (Need to launch on BSC TEST)
+    }
+
 
     fun loadAlphaWallet(): Single<ChillieWallet> {
         return chillieWalletRepository.fetchWallet().map {

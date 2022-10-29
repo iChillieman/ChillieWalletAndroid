@@ -18,7 +18,7 @@ import java.math.BigInteger
 class Balance(
     @field:ColumnInfo(name = Columns.WALLET_ID)
     val walletId: Long,
-    @field:ColumnInfo(name = Columns.TOKEN_ID)
+    @field:ColumnInfo(name = Columns.TOKEN_ADDRESS)
     val tokenId: Long,
     @field:ColumnInfo(name = Columns.TOTAL_BALANCE)
     val balance: BigInteger,
@@ -27,4 +27,12 @@ class Balance(
     @field:PrimaryKey(autoGenerate = true)
     @field:ColumnInfo(name = Columns.ID)
     val id: Long = 0L
-)
+) {
+    fun copy(
+        walletId: Long = this.walletId,
+        tokenId: Long = this.tokenId,
+        balance: BigInteger = this.balance,
+        balanceInOrders: BigInteger = this.balanceInOrders,
+        id: Long = this.id
+    ) = Balance(walletId, tokenId, balance, balanceInOrders, id)
+}

@@ -9,11 +9,12 @@ import com.chillieman.chilliewallet.ui.base.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import org.web3j.crypto.Bip39Wallet
+import org.web3j.protocol.Web3j
 import javax.inject.Inject
 
 class NewWalletViewModel
 @Inject constructor(
-    private val walletManager: WalletManager
+    private val walletManager: WalletManager,
 ) : BaseViewModel() {
     private var createdWallet: Bip39Wallet? = null
     private val _isCreateNewWallet = MutableLiveData<Boolean>()

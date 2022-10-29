@@ -22,14 +22,11 @@ abstract class BalanceDao {
     abstract fun selectByIdSynchronously(id: Long): Balance
 
     @Insert
-    abstract fun insertSynchronously(wallet: Balance): Long
+    abstract fun insert(balance: Balance): Single<Long>
 
     @Update
-    abstract fun updateSynchronously(wallet: Balance): Int
-
-    @Query("SELECT COUNT(*) FROM balance")
-    abstract fun count(): Single<Long>
+    abstract fun update(balance: Balance): Single<Int>
 
     @Query("DELETE FROM balance WHERE id=:id")
-    abstract fun deleteSynchronously(id: Long): Int
+    abstract fun delete(id: Long): Single<Int>
 }

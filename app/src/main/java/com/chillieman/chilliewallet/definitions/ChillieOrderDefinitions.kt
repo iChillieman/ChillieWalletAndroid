@@ -5,10 +5,11 @@ object ChillieOrderDefinitions {
 
     object Columns {
         const val ID = "id"
-        const val TOKEN_ID = "token_id"
+        const val TOKEN_ADDRESS = "token_address"
         const val WALLET_ID = "wallet_id"
         const val ORDER_STATE = "state"
         const val TIMESTAMP = "timestamp"
+        const val DEX_ID = "dex_id"
         const val STRATEGY_ID = "strategy_id"
         const val IS_REPEAT = "is_repeat"
     }
@@ -21,11 +22,14 @@ object ChillieOrderDefinitions {
         const val ACTION_VALUE = "value"
         const val STEP_STATE = "state"
         const val ORDER_ID = "order_id"
+        const val STARTING_PRICE = "starting_price"
         const val TARGET_PRICE = "target_price"
         const val TARGET_PRICE_MOVEMENT = "target_price_percentage"
         const val STOP_LOSS_PRICE = "stop_loss_value"
         const val STOP_LOSS_PERCENTAGE = "stop_loss_percentage"
         const val CHILLIE_WALLET_FEE = "fee_in_wei"
         const val IS_FEE_PAID = "is_fee_paid"
+        const val TXN_ID = "txn_id"
+        const val FEE_TXN_ID = "txn_fee_id"
     }
 }

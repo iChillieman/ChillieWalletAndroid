@@ -17,4 +17,11 @@ class Authentication(
     val walletPasswordId: Long,
     @field:ColumnInfo(name = Columns.PASSWORD)
     val userPasswordId: Long?
-)
+) {
+    fun copy(
+        id: Long = this.id,
+        pinId: Long = this.pinId,
+        walletPasswordId: Long = this.walletPasswordId,
+        userPasswordId: Long? = this.userPasswordId
+    ) = Authentication(id, pinId, walletPasswordId, userPasswordId)
+}

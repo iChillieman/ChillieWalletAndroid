@@ -15,8 +15,8 @@ import java.math.BigInteger
     ]
 )
 class PricePoint(
-    @field:ColumnInfo(name = Columns.TOKEN_ID)
-    val tokenId: Long,
+    @field:ColumnInfo(name = Columns.TOKEN_ADDRESS)
+    val tokenAddress: String,
     @field:ColumnInfo(name = Columns.PRICE_IN_ETH)
     val priceInEth: BigInteger,
     @field:ColumnInfo(name = Columns.TIMESTAMP)
@@ -24,4 +24,11 @@ class PricePoint(
     @field:PrimaryKey(autoGenerate = true)
     @field:ColumnInfo(name = Columns.ID)
     val id: Long = 0L
-)
+) {
+    fun copy(
+        tokenAddress: String = this.tokenAddress,
+        priceInEth: BigInteger = this.priceInEth,
+        timestamp: Long = this.timestamp,
+        id: Long = this.id
+    ) = PricePoint(tokenAddress, priceInEth, timestamp, id)
+}
