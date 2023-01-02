@@ -2,16 +2,21 @@ package com.chillieman.chilliewallet
 
 import android.app.Application
 import android.util.Log
+import androidx.hilt.work.HiltWorkerFactory
 import androidx.security.crypto.MasterKey
+import androidx.work.Configuration
 import dagger.hilt.android.HiltAndroidApp
 import java.security.KeyStore
 import javax.inject.Inject
 
 @HiltAndroidApp
-class ChillieApplication : Application() {
+class ChillieApplication : Application(), Configuration.Provider {
 
     @Inject
     lateinit var keyStore: KeyStore
+
+    @Inject
+    lateinit var workerFactory: HiltWorkerFactory
 
     override fun onCreate() {
         super.onCreate()
@@ -36,6 +41,13 @@ class ChillieApplication : Application() {
             MasterKey.Builder(applicationContext)
                 .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
                 .build()
+
+            // TODO - Destroy Existing Database - IF IT EXISTS? - WHY THE FUCK DOES IT EXIST STILL
         }
     }
+
+    override fun getWorkManagerConfiguration(): Configuration =
+        Configuration.Builder()
+            .setWorkerFactory(workerFactory)
+            .build()
 }

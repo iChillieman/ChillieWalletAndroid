@@ -1,3 +1,16 @@
 <resources>
 
+    <style name="WelcomeText" parent="@android:style/TextAppearance">
+        <item name="android:textSize">48sp</item>
+    </style>
+
+    <style name="TitleText" parent="@android:style/TextAppearance">
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="SubTitleText" parent="@android:style/TextAppearance">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+
 </resources>

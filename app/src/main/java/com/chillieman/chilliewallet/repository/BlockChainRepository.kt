@@ -10,9 +10,10 @@ class BlockChainRepository
 @Inject constructor(
     private val blockChainDao: BlockChainDao
 ) {
-    fun insertBlockChain(blockChain: BlockChain) = blockChainDao.insert(blockChain)
+    suspend fun insertBlockChain(blockChain: BlockChain) = blockChainDao.insert(blockChain)
 
-    fun insertBlockChains(blockChains: List<BlockChain>) = blockChainDao.insertAll(blockChains)
+    suspend fun insertBlockChains(blockChains: List<BlockChain>) =
+        blockChainDao.insertAll(blockChains)
 
-    fun fetchAlBlockChains() = blockChainDao.selectAll()
+    suspend fun fetchAlBlockChains() = blockChainDao.selectAll()
 }

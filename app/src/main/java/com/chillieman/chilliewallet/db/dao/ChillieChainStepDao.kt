@@ -5,32 +5,27 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.chillieman.chilliewallet.db.entity.ChillieChainStep
-import io.reactivex.Completable
-import io.reactivex.Single
 
 @Dao
-abstract class ChillieChainStepDao {
+interface ChillieChainStepDao {
     @Query("SELECT * FROM chillie_chain_step")
-    abstract fun selectAll(): Single<List<ChillieChainStep>>
+    suspend fun selectAll(): List<ChillieChainStep>
 
     @Query("SELECT * FROM chillie_chain_step WHERE chillie_chain_id=:chillieChainId")
-    abstract fun selectAllForChillieChain(chillieChainId: Long): Single<List<ChillieChainStep>>
+    suspend fun selectAllForChillieChain(chillieChainId: Long): List<ChillieChainStep>
 
     @Query("SELECT * FROM chillie_chain_step WHERE id=:id")
-    abstract fun selectById(id: Long): Single<ChillieChainStep>
-
-    @Query("SELECT * FROM chillie_chain_step WHERE id=:id")
-    abstract fun selectByIdSynchronously(id: Long): ChillieChainStep
+    suspend fun selectById(id: Long): ChillieChainStep
 
     @Insert
-    abstract fun insert(step: ChillieChainStep): Single<Long>
+    suspend fun insert(step: ChillieChainStep): Long
 
     @Insert
-    abstract fun insertAll(steps: List<ChillieChainStep>): Completable
+    suspend fun insertAll(steps: List<ChillieChainStep>)
 
     @Update
-    abstract fun update(step: ChillieChainStep): Single<Int>
+    suspend fun update(step: ChillieChainStep): Int
 
     @Query("DELETE FROM chillie_chain_step WHERE id=:id")
-    abstract fun delete(id: Long): Single<Int>
+    suspend fun delete(id: Long): Int
 }

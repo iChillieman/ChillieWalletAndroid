@@ -5,31 +5,27 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.chillieman.chilliewallet.db.entity.ChilliePair
-import io.reactivex.Single
 
 @Dao
-abstract class ChilliePairDao {
+interface ChilliePairDao {
     @Query("SELECT * FROM pairs")
-    abstract fun selectAll(): Single<List<ChilliePair>>
+    suspend fun selectAll(): List<ChilliePair>
 
     @Query("SELECT * FROM pairs WHERE blockchain_id=:blockChainId")
-    abstract fun selectAllByChainId(blockChainId: Long): Single<List<ChilliePair>>
+    suspend fun selectAllByChainId(blockChainId: Long): List<ChilliePair>
 
     @Query("SELECT * FROM pairs WHERE id=:id")
-    abstract fun selectById(id: Long): Single<ChilliePair>
+    suspend fun selectById(id: Long): ChilliePair
 
     @Query("SELECT * FROM pairs WHERE token0=:tokenAddress OR token1=:tokenAddress")
-    abstract fun selectByTokenAddress(tokenAddress: String): Single<ChilliePair>
-
-    @Query("SELECT * FROM pairs WHERE id=:id")
-    abstract fun selectByIdSynchronously(id: Long): ChilliePair
+    suspend fun selectByTokenAddress(tokenAddress: String): ChilliePair
 
     @Insert
-    abstract fun insert(pair: ChilliePair): Single<Long>
+    suspend fun insert(pair: ChilliePair): Long
 
     @Update
-    abstract fun update(pair: ChilliePair): Single<Int>
+    suspend fun update(pair: ChilliePair): Int
 
     @Query("DELETE FROM pairs WHERE id=:id")
-    abstract fun delete(id: Long): Single<Int>
+    suspend fun delete(id: Long): Int
 }

@@ -16,22 +16,12 @@ class BlockChain(
     val name: String,
     @field:ColumnInfo(name = Columns.SYMBOL)
     val symbol: String,
-    @field:ColumnInfo(name = Columns.NODE_URL)
-    val nodeUrl: String,
     @field:ColumnInfo(name = Columns.EXPLORER)
     val explorerUrl: String,
+    @field:ColumnInfo(name = Columns.IS_TESTNET)
+    val isTestnet: Boolean,
     @field:ColumnInfo(name = Columns.LOGO_URL)
-    val logoUrl: String,
+    val logoUrl: String = "",
     @field:ColumnInfo(name = Columns.LAST_BLOCK_SYNC)
-    val lastBlockSynced: BigInteger? = null, //TODO: CHILLIE - SEE IF THIS SHOULD BE A LONG / INT
-) {
-    fun copy(
-        id: Long = this.id,
-        name: String = this.name,
-        symbol: String = this.symbol,
-        nodeUrl: String = this.nodeUrl,
-        explorerUrl: String = this.explorerUrl,
-        logoUrl: String = this.logoUrl,
-        lastBlockSynced: BigInteger? = this.lastBlockSynced
-    ) = BlockChain(id, name, symbol, nodeUrl, explorerUrl, logoUrl, lastBlockSynced)
-}
+    val lastBlockSynced: BigInteger? = null
+)

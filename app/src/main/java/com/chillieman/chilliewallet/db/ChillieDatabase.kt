@@ -13,6 +13,7 @@ import com.chillieman.chilliewallet.definitions.converter.BigIntegerConverters
         AuthDatum::class,
         ChillieWallet::class,
         BlockChain::class,
+        BlockChainNode::class,
         Token::class,
         ChillieChain::class,
         ChillieChainStep::class,
@@ -34,13 +35,14 @@ import com.chillieman.chilliewallet.definitions.converter.BigIntegerConverters
 )
 abstract class ChillieDatabase : RoomDatabase() {
     companion object {
-        const val VERSION = 1
+        const val VERSION = 2
         const val DATABASE_NAME = "chillie_wallet.db"
     }
 
     abstract fun authDao(): AuthDao
     abstract fun authDatumDao(): AuthDatumDao
     abstract fun blockChainDao(): BlockChainDao
+    abstract fun blockChainNodeDao(): BlockChainNodeDao
     abstract fun walletDao(): ChillieWalletDao
     abstract fun tokenDao(): TokenDao
     abstract fun balanceDao(): BalanceDao

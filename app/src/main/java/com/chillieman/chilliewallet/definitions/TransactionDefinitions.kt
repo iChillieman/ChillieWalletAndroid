@@ -7,9 +7,9 @@ object TransactionDefinitions {
         const val ID = "id"
         const val WALLET_ID = "wallet_id"
         const val BLOCKCHAIN_ID = "blockchain_id"
-        const val TOKEN_ADDRESS = "token_address"
+        const val TOKEN_ID = "token_id"
         const val TXN = "txn_number"
-        const val CONTENT = "content_json"
+        const val CONTENT_JSON = "content_json"
         const val IS_SUCCESS = "is_success"
         const val TIMESTAMP = "timestamp"
     }

@@ -15,6 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class BarcodeActivity : BaseActivity() {
+    // TODO - CHILLIEMAN - CONVERT TO FRAGMENT
     private lateinit var binding: ActivityBarcodeBinding
     var scannedValue = ""
 

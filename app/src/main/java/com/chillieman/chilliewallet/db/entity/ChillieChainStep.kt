@@ -31,22 +31,4 @@ class ChillieChainStep(
     @field:PrimaryKey(autoGenerate = true)
     @field:ColumnInfo(name = StepColumns.ID)
     val id: Long = 0L
-) {
-    fun copy(
-        chillieChainId: Long = this.chillieChainId,
-        action: ChillieOrderAction = this.action,
-        value: BigInteger = this.value,
-        desiredMovementPercent: Int? = this.desiredMovementPercent,
-        stopLossPercentage: Int? = this.stopLossPercentage,
-        specificEthPrice: BigInteger? = this.specificEthPrice,
-        id: Long = this.id
-    ) = ChillieChainStep(
-        chillieChainId,
-        action,
-        value,
-        desiredMovementPercent,
-        stopLossPercentage,
-        specificEthPrice,
-        id
-    )
-}
+)

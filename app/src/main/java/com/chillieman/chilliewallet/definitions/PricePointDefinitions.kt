@@ -5,8 +5,13 @@ object PricePointDefinitions {
 
     object Columns {
         const val ID = "id"
-        const val TOKEN_ADDRESS = "token_address"
+        const val DEX_ID = "dex_id"
+        const val TOKEN_ID = "token_id"
         const val PRICE_IN_ETH = "eth_per_token"
+        const val PRICE_IN_TOKEN = "token_per_eth"
+        const val PRECISION = "precision"
+        const val CURRENT_BLOCK = "current_block"
         const val TIMESTAMP = "timestamp"
+        const val IS_GLOBAL_WATCHER = "is_global_watcher"
     }
 }

@@ -19,9 +19,4 @@ class ChillieSetting(
     val key: String,
     @field:ColumnInfo(name = Columns.VALUE)
     val value: String?
-) {
-    fun copy(
-        key: String = this.key,
-        value: String? = this.value
-    ) = ChillieSetting(key, value)
-}
+)

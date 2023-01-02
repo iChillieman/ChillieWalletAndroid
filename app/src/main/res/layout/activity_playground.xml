@@ -45,19 +45,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <EditText
+        android:id="@+id/et_import_wallet"
+        android:hint="Enter 12 words here"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_wallet_status" />
+
     <Button
         android:id="@+id/btn_load_wallet_information"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Load Wallet Information"
-        app:layout_constraintTop_toBottomOf="@id/tv_wallet_status"/>
+        android:text="Import Wallet"
+        app:layout_constraintTop_toBottomOf="@id/et_import_wallet"/>
 
     <Button
         android:id="@+id/btn_something_else"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Something else"
-        android:enabled="false"
         app:layout_constraintTop_toBottomOf="@id/btn_load_wallet_information"/>
 
     <TextView

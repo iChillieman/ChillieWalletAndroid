@@ -1,68 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="4dp"
+    app:cardElevation="4dp"
+    app:cardMaxElevation="8dp">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_token_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        app:cardCornerRadius="20dp"
-        app:layout_constraintBottom_toBottomOf="@id/tv_token_worth"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_token_name">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dp">
+
         <ImageView
             android:id="@+id/img_token_icon"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:adjustViewBounds="true"
-            android:src="@drawable/ic_baseline_image_not_supported_24" />
+            android:src="@mipmap/ic_chillie_wallet_foreground"
+            app:layout_constraintBottom_toBottomOf="@id/tv_token_balance"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_token_name" />
 
-    </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/tv_token_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:ellipsize="end"
+            tools:text="ChillieWallet (CHLL)"
+            app:layout_constraintEnd_toStartOf="@id/tv_token_worth"
+            app:layout_constraintStart_toEndOf="@id/img_token_icon"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/tv_token_balance"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            tools:text="980.12 Billion"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toStartOf="@id/tv_token_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_token_name"
+            app:layout_constraintEnd_toStartOf="@id/tv_token_worth_after_tax"/>
 
-    <TextView
-        android:id="@+id/tv_token_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:ellipsize="end"
-        android:text="ChillieWallet"
-        app:layout_constraintEnd_toStartOf="@id/tv_token_balance"
-        app:layout_constraintStart_toEndOf="@id/card_token_icon"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tv_token_worth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="1.5734 BNB"
+            android:textColor="@color/bleh"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_token_name" />
 
-    <TextView
-        android:id="@+id/tv_token_worth"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:ellipsize="end"
-        android:text="0.12345678 BNB"
-        app:layout_constraintEnd_toStartOf="@id/tv_token_balance"
-        app:layout_constraintStart_toEndOf="@id/card_token_icon"
-        app:layout_constraintTop_toBottomOf="@id/tv_token_name" />
-
-    <TextView
-        android:id="@+id/tv_token_balance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="10B CHLL"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/tv_token_worth"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_token_name" />
-
-    <!-- TODO: Add a recyclerDecorator and get rid of this quick separater -->
-    <!-- TODO: Come up with a slicker design - Fetch Token icons -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/card_token_icon" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_token_worth_after_tax"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="1.42069 BNB"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/tv_token_balance" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

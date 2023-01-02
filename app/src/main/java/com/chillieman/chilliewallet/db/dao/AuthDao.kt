@@ -2,19 +2,21 @@ package com.chillieman.chilliewallet.db.dao
 
 import androidx.room.*
 import com.chillieman.chilliewallet.db.entity.Authentication
-import io.reactivex.Single
 
 @Dao
-abstract class AuthDao {
+interface AuthDao {
     @Query("SELECT * FROM auth WHERE id=1")
-    abstract fun select(): Single<Authentication>
+    suspend fun select(): Authentication
 
     @Insert
-    abstract fun insert(auth: Authentication): Single<Long>
+    suspend fun insert(auth: Authentication): Long
 
     @Update
-    abstract fun update(auth: Authentication): Single<Int>
+    suspend fun update(auth: Authentication): Int
+
+    @Query("SELECT COUNT(*) FROM auth")
+    suspend fun count(): Long
 
     @Query("DELETE FROM auth")
-    abstract fun delete(): Single<Int>
+    suspend fun clear(): Int
 }

@@ -21,13 +21,20 @@ class ApplicationModule {
     fun bindContext(application: Application): Context = application.applicationContext
 
     @Provides
-    internal fun provideFileDirectory(context: Context): File {
+    internal fun provideWalletDirectory(context: Context): File {
+        val file = File(context.filesDir.absoluteFile, "wallet")
+
+        if (!file.exists()) {
+            file.mkdir()
+        }
+
         return context.filesDir.absoluteFile
     }
 
+    // TODO - CHILLIEMAN - STOP INJECTING Web3j instances!
     @Provides
     internal fun provideWeb3(): Web3j =
-        Web3j.build(HttpService(BlockChainDefinitions.URL_SMART_CHAIN_TESTNET))
+        Web3j.build(HttpService(BlockChainDefinitions.Binance.DEFAULT_NODE_URL))
 
     @Provides
     internal fun provideKeyStore(): KeyStore {

@@ -7,5 +7,6 @@ enum class ChillieOrderStepState {
     WAITING_FEE,
     COMPLETE,
     ERROR,
-    CANCELLED
+    CANCELLED,
+    CANCELLED_TO_AVOID_FEE
 }

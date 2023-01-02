@@ -31,14 +31,4 @@ class ChilliePair(
     @field:PrimaryKey
     @field:ColumnInfo(name = Columns.ID)
     val id: Long = 0L
-) {
-    fun copy(
-        blockChainId: Long = this.blockChainId,
-        address: String = this.address,
-        token0: String = this.token0,
-        token1: String = this.token1,
-        reserve0: BigInteger = this.reserve0,
-        reserve1: BigInteger = this.reserve1,
-        key: Long = this.id
-    ) = ChilliePair(blockChainId, address, token0, token1, reserve0, reserve1, key)
-}
+)

@@ -30,19 +30,9 @@ class Token(
     val taxBuy: Int? = null,
     @field:ColumnInfo(name = Columns.TAX_SELL)
     val taxSell: Int? = null,
+    @field:ColumnInfo(name = Columns.IS_RECOMMENDATION)
+    val isRecommendation: Boolean = false,
     @field:PrimaryKey(autoGenerate = true)
     @field:ColumnInfo(name = Columns.ID)
     val id: Long = 0L,
-) {
-    fun copy(
-        blockChainId: Long = this.blockChainId,
-        address: String = this.address,
-        name: String = this.name,
-        decimals: Int = this.decimals,
-        symbol: String = this.symbol,
-        logoUrl: String? = this.logoUrl,
-        taxBuy: Int? = this.taxBuy,
-        taxSell: Int? = this.taxSell,
-        id: Long = this.id
-    ) = Token(blockChainId, address, name, decimals, symbol, logoUrl, taxBuy, taxSell, id)
-}
+)

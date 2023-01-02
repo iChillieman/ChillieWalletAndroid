@@ -18,19 +18,9 @@ class TokenWatch(
     val walletId: Long,
     @field:ColumnInfo(name = WatchColumns.DEX_ID)
     val dexId: Long,
-    @field:ColumnInfo(name = WatchColumns.TOKEN_ADDRESS)
-    val tokenAddress: String,
-    @field:ColumnInfo(name = WatchColumns.IS_WATCHING)
-    val isWatching: Boolean,
+    @field:ColumnInfo(name = WatchColumns.TOKEN_ID)
+    val tokenId: Long,
     @field:PrimaryKey(autoGenerate = true)
     @field:ColumnInfo(name = WatchColumns.ID)
-    val id: Long = 0L,
-) {
-    fun copy(
-        walletId: Long = this.walletId,
-        dexId: Long = this.dexId,
-        tokenAddress: String = this.tokenAddress,
-        isWatching: Boolean = this.isWatching,
-        id: Long = this.id
-    ) = TokenWatch(walletId, dexId, tokenAddress, isWatching, id)
-}
+    val id: Long = 0L
+)

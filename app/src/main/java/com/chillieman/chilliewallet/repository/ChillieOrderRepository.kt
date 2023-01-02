@@ -5,7 +5,6 @@ import com.chillieman.chilliewallet.db.dao.ChillieOrderStepDao
 import com.chillieman.chilliewallet.db.dao.TxnDao
 import com.chillieman.chilliewallet.db.entity.ChillieOrder
 import com.chillieman.chilliewallet.db.entity.ChillieOrderStep
-import io.reactivex.Completable
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -16,28 +15,28 @@ class ChillieOrderRepository
     private val orderDao: ChillieOrderDao,
     private val orderStepDao: ChillieOrderStepDao
 ) {
-    fun createChillieOrder(order: ChillieOrder, steps: List<ChillieOrderStep>): Completable {
-        return orderDao.insert(order).flatMapCompletable { orderId ->
-            val newSteps = mutableListOf<ChillieOrderStep>()
+    suspend fun createChillieOrder(order: ChillieOrder, steps: List<ChillieOrderStep>): Boolean {
+        return try {
+            val orderId = orderDao.insert(order)
+            val processedSteps = mutableListOf<ChillieOrderStep>()
             steps.forEach {
-                newSteps.add(
-                    it.copy(chillieOrderId = orderId)
-                )
+                processedSteps.add(it.copy(chillieOrderId = orderId))
             }
-
-            orderStepDao.insertAll(newSteps)
+            orderStepDao.insertAll(processedSteps)
+            true
+        } catch (e: Exception) {
+            false
         }
     }
 
-    fun fetchStepsByOrderId(orderId: Long) = orderStepDao.selectAllByChillieOrderId(orderId)
+    suspend fun fetchStepsByOrderId(orderId: Long) = orderStepDao.selectAllByChillieOrderId(orderId)
 
-    fun updateStep(orderStep: ChillieOrderStep) = orderStepDao.update(orderStep)
+    suspend fun updateStep(orderStep: ChillieOrderStep) = orderStepDao.update(orderStep)
 
-    fun updateOrder(order: ChillieOrder) = orderDao.update(order)
+    suspend fun updateOrder(order: ChillieOrder) = orderDao.update(order)
 
-    fun fetchStepByTxnString(txn: String) = txnDao.selectByTxn(txn).flatMap {
-        orderStepDao.selectByTxnId(it.id)
+    suspend fun fetchStepByTxnString(txn: String): ChillieOrderStep {
+        val txnObject = txnDao.selectByTxn(txn)
+        return orderStepDao.selectByTxnId(txnObject.id)
     }
-
-
 }

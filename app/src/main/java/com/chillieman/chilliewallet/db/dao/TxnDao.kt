@@ -5,40 +5,36 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.chillieman.chilliewallet.db.entity.Txn
-import io.reactivex.Single
 
 @Dao
-abstract class TxnDao {
+interface TxnDao {
     @Query("SELECT * FROM txn")
-    abstract fun selectAll(): Single<List<Txn>>
+    suspend fun selectAll(): List<Txn>
 
     @Query("SELECT * FROM txn WHERE wallet_id=:walletId")
-    abstract fun selectAllByWalletId(walletId: Long): Single<List<Txn>>
+    suspend fun selectAllByWalletId(walletId: Long): List<Txn>
 
-    @Query("SELECT * FROM txn WHERE wallet_id=:walletId AND token_address=:tokenAddress")
-    abstract fun selectAllByWalletAndTokenAddress(
+    @Query("SELECT * FROM txn WHERE wallet_id=:walletId AND token_id=:tokenId")
+    suspend fun selectAllByWalletAndTokenId(
         walletId: Long,
-        tokenAddress: String
-    ): Single<List<Txn>>
+        tokenId: Long
+    ): List<Txn>
 
     @Query("SELECT * FROM txn WHERE is_success IS NULL")
-    abstract fun selectAllPending(): Single<List<Txn>>
+    suspend fun selectAllPending(): List<Txn>
 
     @Query("SELECT * FROM txn WHERE id=:id")
-    abstract fun selectById(id: Long): Single<Txn>
+    suspend fun selectById(id: Long): Txn
 
     @Query("SELECT * FROM txn WHERE txn_number=:txn")
-    abstract fun selectByTxn(txn: String): Single<Txn>
-
-    @Query("SELECT * FROM txn WHERE id=:id")
-    abstract fun selectByIdSynchronously(id: Long): Txn
+    suspend fun selectByTxn(txn: String): Txn
 
     @Insert
-    abstract fun insert(wallet: Txn): Single<Long>
+    suspend fun insert(wallet: Txn): Long
 
     @Update
-    abstract fun update(wallet: Txn): Single<Int>
+    suspend fun update(wallet: Txn): Int
 
     @Query("DELETE FROM txn WHERE id=:id")
-    abstract fun delete(id: Long): Single<Int>
+    suspend fun delete(id: Long): Int
 }

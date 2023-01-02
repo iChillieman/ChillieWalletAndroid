@@ -5,35 +5,30 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.chillieman.chilliewallet.db.entity.ChillieOrderStep
-import io.reactivex.Completable
-import io.reactivex.Single
 
 @Dao
-abstract class ChillieOrderStepDao {
+interface ChillieOrderStepDao {
     @Query("SELECT * FROM chillie_order_step")
-    abstract fun selectAll(): Single<List<ChillieOrderStep>>
+    suspend fun selectAll(): List<ChillieOrderStep>
 
     @Query("SELECT * FROM chillie_order_step WHERE order_id=:orderId")
-    abstract fun selectAllByChillieOrderId(orderId: Long): Single<List<ChillieOrderStep>>
+    suspend fun selectAllByChillieOrderId(orderId: Long): List<ChillieOrderStep>
 
     @Query("SELECT * FROM chillie_order_step WHERE id=:id")
-    abstract fun selectById(id: Long): Single<ChillieOrderStep>
+    suspend fun selectById(id: Long): ChillieOrderStep
 
     @Query("SELECT * FROM chillie_order_step WHERE txn_id=:txnId OR txn_fee_id=:txnId")
-    abstract fun selectByTxnId(txnId: Long): Single<ChillieOrderStep>
-
-    @Query("SELECT * FROM chillie_order_step WHERE id=:id")
-    abstract fun selectByIdSynchronously(id: Long): ChillieOrderStep
+    suspend fun selectByTxnId(txnId: Long): ChillieOrderStep
 
     @Insert
-    abstract fun insertAll(orderStep: List<ChillieOrderStep>): Completable
+    suspend fun insertAll(orderStep: List<ChillieOrderStep>)
 
     @Insert
-    abstract fun insert(orderStep: ChillieOrderStep): Single<Long>
+    suspend fun insert(orderStep: ChillieOrderStep): Long
 
     @Update
-    abstract fun update(orderStep: ChillieOrderStep): Single<Int>
+    suspend fun update(orderStep: ChillieOrderStep): Int
 
     @Query("DELETE FROM chillie_order_step WHERE id=:id")
-    abstract fun delete(id: Long): Single<Int>
+    suspend fun delete(id: Long): Int
 }

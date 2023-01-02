@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp"
+    app:cardMaxElevation="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/wallet_select_name"
+            style="@style/SubTitleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorSecondary"
+            android:gravity="center"
+            android:text="Wallet Name"
+            android:textColor="?attr/colorOnSecondary"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/wallet_select_address_card"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="2dp"
+            app:cardMaxElevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/wallet_select_name"
+            app:layout_constraintWidth_percent=".6">
+
+            <TextView
+                android:id="@+id/wallet_select_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:ellipsize="middle"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="0x125907169571360972360972096739268209467"
+                android:textStyle="bold" />
+
+        </androidx.cardview.widget.CardView>
+
+
+        <TextView
+            android:id="@+id/wallet_select_balance"
+            style="@style/SubTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:gravity="center"
+            android:visibility="invisible"
+            android:text="1.012 BNB"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/wallet_select_address_card" />
+
+        <ProgressBar
+            android:id="@+id/progress_balance_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="@id/img_wallet_select_bnb_logo"
+            app:layout_constraintBottom_toBottomOf="@id/img_wallet_select_bnb_logo"
+            app:layout_constraintEnd_toEndOf="@id/wallet_select_balance" />
+
+        <ImageView
+            android:id="@+id/img_wallet_select_bnb_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="32dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/logo_bnb"
+            app:layout_constraintBottom_toBottomOf="@id/wallet_select_balance"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/wallet_select_balance" />
+
+        <TextView
+            android:id="@+id/wallet_select_balance_eth"
+            style="@style/SubTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+
+            android:layout_marginEnd="32dp"
+            android:gravity="center"
+            android:text="Coming Soon"
+            android:textColor="@color/bleh"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/wallet_select_balance" />
+
+        <ImageView
+            android:id="@+id/img_wallet_select_eth_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="32dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/logo_eth"
+            app:layout_constraintBottom_toBottomOf="@id/wallet_select_balance_eth"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/wallet_select_balance_eth" />
+
+        <TextView
+            android:id="@+id/wallet_select_balance_matic"
+            style="@style/SubTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+
+            android:layout_marginEnd="32dp"
+            android:gravity="center"
+            android:text="Coming Soon"
+            android:textColor="@color/bleh"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/wallet_select_balance_eth" />
+
+        <ImageView
+            android:id="@+id/img_wallet_select_matic_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="32dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/logo_matic"
+            app:layout_constraintBottom_toBottomOf="@id/wallet_select_balance_matic"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/wallet_select_balance_matic" />
+
+        <TextView
+            android:id="@+id/wallet_select_balance_avax"
+            style="@style/SubTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+
+            android:layout_marginEnd="32dp"
+            android:gravity="center"
+            android:text="Coming Soon"
+            android:textColor="@color/bleh"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/img_wallet_select_matic_logo" />
+
+        <ImageView
+            android:id="@+id/img_wallet_select_avax_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="32dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/logo_avax"
+            app:layout_constraintBottom_toBottomOf="@id/wallet_select_balance_avax"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/wallet_select_balance_avax" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

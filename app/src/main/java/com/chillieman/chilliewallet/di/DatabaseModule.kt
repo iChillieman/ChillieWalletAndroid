@@ -3,6 +3,7 @@ package com.chillieman.chilliewallet.di
 import android.content.Context
 import androidx.room.Room
 import com.chillieman.chilliewallet.db.ChillieDatabase
+import com.chillieman.chilliewallet.db.ChillieMigrations
 import com.chillieman.chilliewallet.db.dao.AuthDao
 import com.chillieman.chilliewallet.db.dao.AuthDatumDao
 import com.chillieman.chilliewallet.db.dao.BalanceDao
@@ -33,8 +34,8 @@ class DatabaseModule {
             context,
             ChillieDatabase::class.java, ChillieDatabase.DATABASE_NAME
         )
-            .createFromAsset("database/data_alpha.db")
-            .fallbackToDestructiveMigration()
+            .addCallback(ChillieMigrations.DATABASE_ON_CREATE)
+//            .addMigrations(ChillieMigrations.MIGRATION_1_2)
             .build()
     }
 
