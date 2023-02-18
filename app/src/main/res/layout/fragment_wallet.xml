@@ -5,7 +5,7 @@
     android:id="@+id/refresh_wallet"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.wallet.WalletFragment">
+    tools:context=".ui.wallet.WalletFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/content"
@@ -17,7 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:text="@string/loading"
+            android:text="10.52 BNB"
+            android:textColor="?attr/colorSecondary"
             android:textSize="32sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +35,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_wallet_balance"
-            app:layout_constraintWidth_percent=".8">
+            app:layout_constraintWidth_percent=".95">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
@@ -48,7 +49,8 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="middle"
                     android:maxLines="1"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:text="0x1237519823629813247124521543626236234" />
 
                 <TextView
                     android:id="@+id/tv_wallet_address_note"
@@ -60,16 +62,117 @@
                     android:textSize="12sp"
                     android:textStyle="italic" />
             </androidx.appcompat.widget.LinearLayoutCompat>
+
+
         </androidx.cardview.widget.CardView>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_wallet_token_list"
-            android:layout_width="match_parent"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_token_list"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="8dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:cardMaxElevation="6dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/card" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tab_selected"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:background="?attr/colorPrimaryVariant"
+                    android:text="BNB"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/rv_wallet_token_list"
+                    app:layout_constraintEnd_toStartOf="@id/tab_eth"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:background="?attr/colorSecondary"
+                    app:layout_constraintBottom_toBottomOf="@id/tab_selected"
+                    app:layout_constraintEnd_toEndOf="@id/tab_selected"
+                    app:layout_constraintStart_toStartOf="@id/tab_selected" />
+
+                <TextView
+                    android:id="@+id/tab_eth"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="ETH"
+                    android:textColor="@color/bleh"
+                    app:layout_constraintBottom_toTopOf="@id/rv_wallet_token_list"
+                    app:layout_constraintEnd_toStartOf="@id/tab_matic"
+                    app:layout_constraintStart_toEndOf="@id/tab_selected"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tab_matic"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="MATIC"
+                    android:textColor="@color/bleh"
+                    app:layout_constraintBottom_toTopOf="@id/rv_wallet_token_list"
+                    app:layout_constraintEnd_toStartOf="@id/tab_custom"
+                    app:layout_constraintStart_toEndOf="@id/tab_eth"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tab_custom"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="+ New"
+                    android:textColor="@color/bleh"
+                    app:layout_constraintBottom_toTopOf="@id/rv_wallet_token_list"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tab_matic"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_wallet_token_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+
+                    android:background="?attr/colorPrimaryVariant"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tab_selected"
+                    tools:itemCount="12"
+                    tools:listitem="@layout/item_token" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:background="@color/red"
+
+            android:src="@drawable/ic_baseline_add_circle_24"
+            app:fabCustomSize="64dp"
+            app:fabSize="auto"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:maxImageSize="76dp"
+            app:tint="?attr/colorPrimary" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

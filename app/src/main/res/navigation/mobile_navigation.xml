@@ -3,23 +3,147 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_wallet">
+    app:startDestination="@id/nav_splash">
+
 
     <fragment
-        android:id="@+id/navigation_wallet"
-        android:name="com.chillieman.chilliewallet.ui.main.wallet.WalletFragment"
+        android:id="@+id/nav_splash"
+        android:name="com.chillieman.chilliewallet.ui.splash.SplashFragment"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splash_to_welcome_auth"
+            app:destination="@+id/nav_welcome_auth_intro"
+            app:enterAnim="@anim/fade_in_slowly"
+            app:popEnterAnim="@anim/fade_in_slowly"
+            app:exitAnim="@anim/fade_out_slowly"
+            app:popExitAnim="@anim/fade_out_slowly"/>
+        <action
+            android:id="@+id/action_splash_to_welcome_wallet"
+            app:destination="@+id/nav_welcome_wallet_intro"
+            app:enterAnim="@anim/fade_in_slowly"
+            app:popEnterAnim="@anim/fade_in_slowly"
+            app:exitAnim="@anim/fade_out_slowly"
+            app:popExitAnim="@anim/fade_out_slowly"/>
+
+        <action
+            android:id="@+id/action_splash_to_wallet_select"
+            app:destination="@+id/nav_wallet_selection"
+            app:enterAnim="@anim/fade_in_slowly"
+            app:popEnterAnim="@anim/fade_in_slowly"
+            app:exitAnim="@anim/fade_out_slowly"
+            app:popExitAnim="@anim/fade_out_slowly"/>
+
+        <action
+            android:id="@+id/action_splash_to_main"
+            app:destination="@+id/nav_wallet"
+            app:enterAnim="@anim/fade_in_slowly"
+            app:popEnterAnim="@anim/fade_in_slowly"
+            app:exitAnim="@anim/fade_out_slowly"
+            app:popExitAnim="@anim/fade_out_slowly"/>
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/nav_welcome_auth_intro"
+        android:name="com.chillieman.chilliewallet.ui.welcome.text.WelcomeIntroAuthFragment"
+        tools:layout="@layout/fragment_text_slide">
+        <action
+            android:id="@+id/action_welcome_auth_to_password"
+            app:destination="@+id/nav_welcome_auth_password" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_welcome_auth_password"
+        android:name="com.chillieman.chilliewallet.ui.welcome.auth.WelcomeAuthPasswordFragment"
+        tools:layout="@layout/fragment_welcome_auth_password">
+        <action
+            android:id="@+id/action_welcome_auth_password_to_pin"
+            app:destination="@+id/nav_welcome_auth_pin" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_welcome_auth_pin"
+        android:name="com.chillieman.chilliewallet.ui.welcome.auth.WelcomeAuthPinFragment"
+        tools:layout="@layout/fragment_welcome_auth_pin">
+        <action
+            android:id="@+id/action_welcome_auth_pin_to_wallet_intro"
+            app:destination="@+id/nav_welcome_wallet_intro" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_welcome_wallet_intro"
+        android:name="com.chillieman.chilliewallet.ui.welcome.text.WelcomeIntroWalletFragment"
+        tools:layout="@layout/fragment_text_slide">
+        <action
+            android:id="@+id/action_welcome_wallet_intro_to_menu"
+            app:destination="@+id/nav_welcome_wallet_menu" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_welcome_wallet_menu"
+        android:name="com.chillieman.chilliewallet.ui.welcome.wallet.WelcomeWalletMenuFragment"
+        tools:layout="@layout/fragment_welcome_wallet_menu">
+        <action
+            android:id="@+id/action_welcome_wallet_menu_to_create"
+            app:destination="@+id/nav_welcome_wallet_create" />
+
+        <action
+            android:id="@+id/action_welcome_wallet_menu_to_import"
+            app:destination="@+id/nav_welcome_wallet_import" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_welcome_wallet_create"
+        android:name="com.chillieman.chilliewallet.ui.welcome.wallet.WelcomeWalletCreateFragment"
+        tools:layout="@layout/fragment_welcome_wallet_create">
+        <action
+            android:id="@+id/action_welcome_wallet_create_to_confirm"
+            app:destination="@+id/nav_welcome_wallet_confirm" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_welcome_wallet_confirm"
+        android:name="com.chillieman.chilliewallet.ui.welcome.wallet.WelcomeWalletConfirmFragment"
+        tools:layout="@layout/fragment_welcome_wallet_confirm">
+        <action
+            android:id="@+id/action_welcome_wallet_confirm_to_select"
+            app:destination="@+id/nav_wallet_selection" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_welcome_wallet_import"
+        android:name="com.chillieman.chilliewallet.ui.welcome.wallet.WelcomeWalletImportFragment"
+        tools:layout="@layout/fragment_welcome_wallet_import">
+        <action
+            android:id="@+id/action_welcome_wallet_import_to_selection"
+            app:destination="@+id/nav_wallet_selection" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_wallet_selection"
+        android:name="com.chillieman.chilliewallet.ui.wallet.list.WalletSelectionFragment"
+        tools:layout="@layout/fragment_wallet_selection">
+        <action
+            android:id="@+id/action_wallet_selection_to_main"
+            app:destination="@+id/nav_wallet" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_wallet"
+        android:name="com.chillieman.chilliewallet.ui.wallet.WalletFragment"
         android:label="@string/title_wallet"
         tools:layout="@layout/fragment_wallet" />
 
     <fragment
-        android:id="@+id/navigation_orders"
-        android:name="com.chillieman.chilliewallet.ui.main.orders.OrdersFragment"
+        android:id="@+id/nav_orders"
+        android:name="com.chillieman.chilliewallet.ui.orders.OrdersFragment"
         android:label="@string/title_orders"
         tools:layout="@layout/fragment_orders" />
 
     <fragment
-        android:id="@+id/navigation_settings"
-        android:name="com.chillieman.chilliewallet.ui.main.settings.SettingsFragment"
+        android:id="@+id/nav_settings"
+        android:name="com.chillieman.chilliewallet.ui.settings.SettingsFragment"
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings" />
 </navigation>

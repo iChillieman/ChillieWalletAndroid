@@ -1,12 +1,5 @@
 package com.chillieman.chilliewallet.model.contracts;
 
-import io.reactivex.Flowable;
-import io.reactivex.functions.Function;
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import org.web3j.abi.EventEncoder;
 import org.web3j.abi.TypeReference;
 import org.web3j.abi.datatypes.Address;
@@ -26,12 +19,22 @@ import org.web3j.tx.Contract;
 import org.web3j.tx.TransactionManager;
 import org.web3j.tx.gas.ContractGasProvider;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import io.reactivex.Flowable;
+import io.reactivex.functions.Function;
+
 //TODO: Ignore the below comments and convert this into Kotlin
+
 /**
  * <p>Auto generated code.
  * <p><strong>Do not modify!</strong>
  * <p>Please use the <a href="https://docs.web3j.io/command_line.html">web3j command line tools</a>,
- * or the org.web3j.codegen.SolidityFunctionWrapperGenerator in the 
+ * or the org.web3j.codegen.SolidityFunctionWrapperGenerator in the
  * <a href="https://github.com/web3j/web3j/tree/master/codegen">codegen module</a> to update.
  *
  * <p>Generated with web3j version 1.4.1.
@@ -44,8 +47,12 @@ public class IUniswapV2Factory extends Contract {
 
     public static final String FUNC_GETPAIR = "getPair";
 
-    public static final Event PAIRCREATED_EVENT = new Event("PairCreated", 
-            Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {}, new TypeReference<Address>(true) {}, new TypeReference<Address>() {}, new TypeReference<Uint256>() {}));
+    public static final Event PAIRCREATED_EVENT = new Event("PairCreated",
+            Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {
+            }, new TypeReference<Address>(true) {
+            }, new TypeReference<Address>() {
+            }, new TypeReference<Uint256>() {
+            }));
     ;
 
     @Deprecated
@@ -105,18 +112,19 @@ public class IUniswapV2Factory extends Contract {
 
     public RemoteFunctionCall<TransactionReceipt> createPair(String tokenA, String tokenB) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_CREATEPAIR, 
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, tokenA), 
-                new org.web3j.abi.datatypes.Address(160, tokenB)), 
+                FUNC_CREATEPAIR,
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, tokenA),
+                        new org.web3j.abi.datatypes.Address(160, tokenB)),
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<String> getPair(String tokenA, String tokenB) {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_GETPAIR, 
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, tokenA), 
-                new org.web3j.abi.datatypes.Address(160, tokenB)), 
-                Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {}));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_GETPAIR,
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, tokenA),
+                        new org.web3j.abi.datatypes.Address(160, tokenB)),
+                Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {
+                }));
         return executeRemoteCallSingleValueReturn(function, String.class);
     }
 

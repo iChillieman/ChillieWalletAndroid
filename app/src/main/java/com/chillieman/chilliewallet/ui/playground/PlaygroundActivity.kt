@@ -1,17 +1,26 @@
 package com.chillieman.chilliewallet.ui.playground
 
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.Toast
-import com.bumptech.glide.Glide
+import androidx.work.Constraints
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.ExistingWorkPolicy
+import androidx.work.NetworkType
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.chillieman.chilliewallet.R
 import com.chillieman.chilliewallet.databinding.ActivityPlaygroundBinding
-import com.chillieman.chilliewallet.model.ConnectionState
+import com.chillieman.chilliewallet.model.enums.ConnectionState
 import com.chillieman.chilliewallet.ui.base.BaseViewModelActivity
+import com.chillieman.chilliewallet.worker.ChillieWorker
+import dagger.hilt.android.AndroidEntryPoint
+import java.time.Duration
+import java.util.concurrent.TimeUnit
 
+@AndroidEntryPoint
 class PlaygroundActivity :
     BaseViewModelActivity<PlaygroundViewModel>(PlaygroundViewModel::class.java) {
     private lateinit var binding: ActivityPlaygroundBinding
@@ -37,23 +46,77 @@ class PlaygroundActivity :
 
 
 
-        binding.btnConnect.text = "Prefill DB"
+        binding.btnConnect.isEnabled = false
+        binding.btnConnect.text = "Connect to ETH Network"
         binding.btnConnect.setOnClickListener {
-            viewModel.fillAlphaDatabase()
 //            viewModel.connectToEthNetwork()
 
+
         }
 
+        viewModel.isDataFilled.observe(this) {
+            if (it) {
+                Toast.makeText(this, "Alpha DB is filled", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.btnLoadWalletInformation.text = "Start Work"
         binding.btnLoadWalletInformation.setOnClickListener {
-            viewModel.loadWallet()
+//            startService(Intent(this, AuthService::class.java))
+//            scheduleOneShotChillieWorker()
+            schedulePeriodicChillieWorker()
+//            viewModel.loadWallet()
+//            viewModel.importWallet(binding.etImportWallet.text.toString())
+
         }
 
+//        binding.btnSomethingElse.isEnabled = false
+        binding.btnSomethingElse.text = "Cancel Work"
         binding.btnSomethingElse.setOnClickListener {
-//            viewModel.getWalletInformation()
-            Toast.makeText(this, "Nothing to do!", Toast.LENGTH_SHORT).show()
+            WorkManager.getInstance(applicationContext)
+                .cancelUniqueWork(WORKER_NAME)
         }
 
     }
+
+    fun scheduleOneShotChillieWorker() {
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+
+        val oneShotWorkRequest = OneTimeWorkRequestBuilder<ChillieWorker>()
+            .setConstraints(constraints)
+            .build()
+
+
+        WorkManager.getInstance(applicationContext)
+            .enqueueUniqueWork(
+                WORKER_NAME,
+                ExistingWorkPolicy.KEEP,
+                oneShotWorkRequest
+            )
+
+
+    }
+
+    fun schedulePeriodicChillieWorker() {
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+
+        //For Periodic Calls:
+        val repeatingRequest = PeriodicWorkRequestBuilder<ChillieWorker>(15, TimeUnit.MINUTES)
+            .setConstraints(constraints)
+            .setInitialDelay(Duration.ZERO)
+            .build()
+
+        WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork(
+            WORKER_NAME,
+            ExistingPeriodicWorkPolicy.REPLACE,
+            repeatingRequest
+        )
+    }
+
 
     private fun observeLiveData() {
         viewModel.connectionState.observe(this) {
@@ -86,6 +149,7 @@ class PlaygroundActivity :
 
 
     companion object {
-        private const val TAG = "Chillie - AuthActivity"
+        private const val TAG = "ChilliePlayActivity"
+        private const val WORKER_NAME = "chillie_work"
     }
 }

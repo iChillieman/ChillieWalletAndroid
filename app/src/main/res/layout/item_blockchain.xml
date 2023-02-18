@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin_2_unit"
+    android:layout_marginEnd="@dimen/margin_2_unit"
+    android:layout_marginTop="@dimen/margin_2_unit"
+
+
+    app:cardCornerRadius="@dimen/margin_2_unit"
+    app:cardElevation="4dp"
+    app:cardMaxElevation="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/status_stripe"
+            android:layout_width="16dp"
+            android:layout_height="0dp"
+            android:background="@color/green"
+            app:layout_constraintBottom_toBottomOf="@id/img_blockchain_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/img_blockchain_icon" />
+
+
+        <ImageView
+            android:id="@+id/img_blockchain_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/margin_2_unit"
+            android:adjustViewBounds="true"
+            android:padding="@dimen/margin_1_unit"
+            android:src="@drawable/logo_bnb"
+            app:layout_constraintBottom_toBottomOf="@id/tv_token_balance"
+            app:layout_constraintStart_toEndOf="@id/status_stripe"
+            app:layout_constraintTop_toTopOf="@id/tv_blockchain_name" />
+
+        <TextView
+            android:id="@+id/tv_blockchain_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:ellipsize="end"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/img_blockchain_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Binance Smart Chain" />
+
+        <TextView
+            android:id="@+id/tv_token_balance"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_blockchain_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_blockchain_name"
+            tools:text="RPC URL Goes here" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

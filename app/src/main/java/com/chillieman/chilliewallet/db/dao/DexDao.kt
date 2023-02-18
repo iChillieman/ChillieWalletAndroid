@@ -5,35 +5,30 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.chillieman.chilliewallet.db.entity.Dex
-import io.reactivex.Completable
-import io.reactivex.Single
 
 @Dao
-abstract class DexDao {
+interface DexDao {
     @Query("SELECT * FROM dex")
-    abstract fun selectAll(): Single<List<Dex>>
+    suspend fun selectAll(): List<Dex>
 
-    @Query("SELECT * FROM dex WHERE blockchain_id=:blockChainId")
-    abstract fun selectAllByChainId(blockChainId: Long): Single<List<Dex>>
-
-    @Query("SELECT * FROM dex WHERE id=:id")
-    abstract fun selectById(id: Long): Single<Dex>
+    @Query("SELECT * FROM dex WHERE blockchain_id=:blockchainId")
+    suspend fun selectAllByChainId(blockchainId: Long): List<Dex>
 
     @Query("SELECT * FROM dex WHERE id=:id")
-    abstract fun selectByIdSynchronously(id: Long): Dex
+    suspend fun selectById(id: Long): Dex
 
-    @Query("SELECT * FROM dex WHERE blockchain_id=:blockChainId AND address_router=:address")
-    abstract fun selectByChainIdAndRouterAddress(blockChainId: Long, address: String): Single<Dex>
-
-    @Insert
-    abstract fun insert(dex: Dex): Single<Long>
+    @Query("SELECT * FROM dex WHERE blockchain_id=:blockchainId AND address_router=:address")
+    suspend fun selectByChainIdAndRouterAddress(blockchainId: Long, address: String): Dex
 
     @Insert
-    abstract fun insertAll(dexs: List<Dex>): Completable
+    suspend fun insert(dex: Dex): Long
+
+    @Insert
+    suspend fun insertAll(dexs: List<Dex>)
 
     @Update
-    abstract fun update(dex: Dex): Single<Int>
+    suspend fun update(dex: Dex): Int
 
     @Query("DELETE FROM dex WHERE id=:id")
-    abstract fun delete(id: Long): Single<Int>
+    suspend fun delete(id: Long): Int
 }

@@ -5,25 +5,21 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.chillieman.chilliewallet.db.entity.ChillieSetting
-import io.reactivex.Single
 
 @Dao
-abstract class SettingsDao {
+interface SettingsDao {
     @Query("SELECT * FROM settings")
-    abstract fun selectAll(): Single<List<ChillieSetting>>
+    suspend fun selectAll(): List<ChillieSetting>
 
     @Query("SELECT * FROM settings WHERE settings_key=:key")
-    abstract fun selectByKey(key: String): Single<ChillieSetting>
-
-    @Query("SELECT * FROM settings WHERE settings_key=:key")
-    abstract fun selectByKeySynchronously(key: String): ChillieSetting
+    suspend fun selectByKey(key: String): ChillieSetting
 
     @Insert
-    abstract fun insert(wallet: ChillieSetting): Single<Long>
+    suspend fun insert(wallet: ChillieSetting): Long
 
     @Update
-    abstract fun update(wallet: ChillieSetting): Single<Int>
+    suspend fun update(wallet: ChillieSetting): Int
 
     @Query("DELETE FROM settings WHERE settings_key=:key")
-    abstract fun delete(key: String): Single<Int>
+    suspend fun delete(key: String): Int
 }

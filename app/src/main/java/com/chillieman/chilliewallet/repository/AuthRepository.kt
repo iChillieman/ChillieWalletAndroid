@@ -4,10 +4,10 @@ import android.util.Log
 import com.chillieman.chilliewallet.db.dao.AuthDao
 import com.chillieman.chilliewallet.db.dao.AuthDatumDao
 import com.chillieman.chilliewallet.db.entity.Authentication
-import com.chillieman.chilliewallet.definitions.AuthenticationDefinitions.DEFAULT_ID
-import com.chillieman.chilliewallet.manager.EncryptionManager
-import io.reactivex.Single
-import java.util.*
+import com.chillieman.chilliewallet.model.enums.AuthStatus
+import com.chillieman.chilliewallet.util.EncryptionManager
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -18,106 +18,86 @@ class AuthRepository
     private val authDatumDao: AuthDatumDao,
     private val encryptionManager: EncryptionManager
 ) {
-    fun isAuthSet(): Single<Boolean> {
-        return authDao.select().map {
-            true
-        }.onErrorReturnItem(false)
+    private val _authState = MutableStateFlow(AuthStatus.INIT)
+    val authState: StateFlow<AuthStatus>
+        get() = _authState
+
+    var timeWhenUnlocked = 0L
+        private set
+
+    fun updatedUnlockedTime() {
+        timeWhenUnlocked = System.currentTimeMillis()
     }
 
-    fun createStartingPin(pin: String): Single<Long> {
-        // If this is the first time Creating the Pin, you need to create a random password for wallets
-        var pinId: Long? = null
-        return encryptionManager.encryptMessage(pin)
-            .flatMap {
-                authDatumDao.insert(it)
-            }.flatMap {
-                pinId = it
-                val randomBytes = ByteArray(256)
-                Random().nextBytes(randomBytes)
-                Log.d("Chillieman Rules", "Wallet Password: ${String(randomBytes)}")
-                encryptionManager.encryptMessage(String(randomBytes))
-            }.flatMap {
-                authDatumDao.insert(it)
-            }.flatMap {
-                authDao.insert(Authentication(DEFAULT_ID, pinId!!, it, null))
-            }
+    fun setAuthenticationStatus(status: AuthStatus) {
+        Log.d("AuthRepo", "Auth Repo - Setting Auth State to $status")
+        _authState.value = status
     }
 
-    fun updatePassphrase(newPassphrase: String): Single<Int> {
-        var newPassphraseId: Long? = null
-        return encryptionManager.encryptMessage(newPassphrase)
-            .flatMap {
-                authDatumDao.insert(it)
-            }.flatMap {
-                newPassphraseId = it
-                authDao.select()
-            }.flatMap {
-                authDao.update(
-                    Authentication(
-                        it.id,
-                        it.pinId,
-                        it.walletPasswordId,
-                        newPassphraseId
-                    )
-                )
-            }
-    }
 
-    fun updatePin(newPin: String): Single<Int> {
-        var newPinId: Long? = null
-        return encryptionManager.encryptMessage(newPin)
-            .flatMap {
-                authDatumDao.insert(it)
-            }.flatMap {
-                newPinId = it
-                authDao.select()
-            }.flatMap {
-                authDao.update(
-                    Authentication(
-                        it.id,
-                        newPinId!!,
-                        it.walletPasswordId,
-                        it.userPasswordId
-                    )
-                )
-            }
-    }
+    suspend fun isAuthCreated(): Boolean = authDao.count() > 0
 
-    fun checkAuthPin(pin: String): Single<Boolean> {
-        return authDao.select().flatMap {
-            val datum = authDatumDao.selectByIdSynchronously(it.pinId)
-            encryptionManager.decryptMessage(datum)
-        }.map {
-            pin == it
+    suspend fun createAuthData(password: String, pin: String) {
+        val encryptedPassword = encryptionManager.encryptMessage(password)
+        val encryptedPin = encryptionManager.encryptMessage(pin)
+
+        val passwordId = authDatumDao.insert(encryptedPassword)
+        val pinId = authDatumDao.insert(encryptedPin)
+        val newAuth = Authentication(
+            pinId = pinId,
+            passwordId = passwordId
+        )
+
+        if (isAuthCreated()) {
+            authDao.clear()
         }
+
+        authDao.insert(newAuth)
     }
 
-    fun getWalletPassword(): Single<String> {
-        return authDao.select().flatMap {
-            val datum = authDatumDao.selectByIdSynchronously(it.walletPasswordId)
-            encryptionManager.decryptMessage(datum)
-        }
+
+    suspend fun updatePassword(newPassword: String): Boolean {
+        if (!isAuthCreated()) return false
+
+        val newDatum = encryptionManager.encryptMessage(newPassword)
+        val existingAuth = authDao.select()
+
+        authDatumDao.delete(existingAuth.passwordId)
+
+        val passwordId = authDatumDao.insert(newDatum)
+        authDao.update(existingAuth.copy(passwordId = passwordId))
+
+        return true
     }
 
-    fun isPassphraseSet(): Single<Boolean> {
-        return authDao.select().map {
-            it.userPasswordId != null
-        }
+    suspend fun updatePinCode(newPin: String): Boolean {
+        if (!isAuthCreated()) return false
+
+        val newDatum = encryptionManager.encryptMessage(newPin)
+        val existingAuth = authDao.select()
+
+        authDatumDao.delete(existingAuth.pinId)
+
+        val passwordId = authDatumDao.insert(newDatum)
+        authDao.update(existingAuth.copy(pinId = passwordId))
+
+        return true
     }
 
-    fun checkAuthPassword(password: String): Single<Boolean> {
-        return authDao.select().flatMap {
-            if (it.userPasswordId == null) {
-                throw IllegalStateException("You're checking the Auth Password, but none exists!")
-            }
-            val datum = authDatumDao.selectByIdSynchronously(it.userPasswordId)
-            encryptionManager.decryptMessage(datum)
-        }.map {
-            password == it
-        }
+    suspend fun isUserPasswordCorrect(password: String): Boolean {
+        val auth = authDao.select()
+        val datum = authDatumDao.selectById(auth.passwordId)
+        return encryptionManager.decryptMessage(datum) == password
     }
 
-    fun resetAuthentication(): Single<Int> {
-        return authDao.delete()
+    suspend fun isUserPinCorrect(pin: String): Boolean {
+        val auth = authDao.select()
+        val datum = authDatumDao.selectById(auth.pinId)
+        return encryptionManager.decryptMessage(datum) == pin
+    }
+
+    suspend fun resetAuthentication() {
+        authDao.clear()
+        authDatumDao.clear()
     }
 }

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name=".ChillieApplication"
@@ -13,7 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChillieWallet"
         tools:ignore="LockedOrientationActivity">
-
 
         <service
             android:name=".service.AuthService"
@@ -26,54 +26,37 @@
             android:exported="false" />
 
         <activity
-            android:name=".ui.blockchain.BlockchainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.dex.DexActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.strategies.ChillieChainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.order.OrderActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.token.TokenActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.newwallet.NewWalletActivity"
-            android:exported="false"
-            android:label="@string/title_activity_new_wallet"
-            android:theme="@style/Theme.ChillieWallet.NoActionBar" />
-
-        <activity
-            android:name=".ui.playground.PlaygroundActivity"
-            android:exported="true"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.auth.AuthActivity"
-            android:label="@string/title_activity_auth"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.ChillieWallet.NoActionBar" />
-        <activity
             android:name=".ui.barcode.BarcodeActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.ChillieWallet.NoActionBar">
+            android:theme="@style/Theme.ChillieWallet.NoActionBar"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.playground.PlaygroundActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.ChillieWallet.NoActionBar"
+            android:exported="true"/>
+
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="portrait"
             tools:replace="screenOrientation" />
+
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            tools:node="remove">
+        </provider>
     </application>
 
 </manifest>

@@ -1,40 +1,10 @@
 package com.chillieman.chilliewallet.service
 
-import android.app.Service
-import android.content.Intent
-import android.os.Binder
-import android.os.IBinder
-import android.util.Log
-import com.chillieman.chilliewallet.db.entity.PricePoint
-import com.chillieman.chilliewallet.definitions.TokenDefinitions
-import com.chillieman.chilliewallet.manager.WalletManager
-import com.chillieman.chilliewallet.model.contracts.IUniswapV2Factory
-import com.chillieman.chilliewallet.model.contracts.IUniswapV2Pair
-import com.chillieman.chilliewallet.model.contracts.IUniswapV2Router02
-import com.chillieman.chilliewallet.repository.*
-import com.chillieman.chilliewallet.ui.playground.PlaygroundViewModel
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import org.web3j.abi.EventEncoder
-import org.web3j.crypto.Credentials
-import org.web3j.protocol.Web3j
-import org.web3j.protocol.core.DefaultBlockParameter
-import org.web3j.protocol.core.methods.request.EthFilter
-import org.web3j.protocol.http.HttpService
-import org.web3j.tx.gas.DefaultGasProvider
-import java.math.BigDecimal
-import java.math.BigInteger
-import java.math.RoundingMode
-import java.util.*
-import javax.inject.Inject
-import kotlin.collections.HashMap
-
 class TransactionService : BaseService() {
 //    private val binder = TransactionBinder()
 //
 //    @Inject
-//    lateinit var blockChainRepo: BlockChainRepository
+//    lateinit var blockchainRepo: BlockchainRepository
 //
 //    @Inject
 //    lateinit var pricePointRepository: PricePointRepository
@@ -67,10 +37,10 @@ class TransactionService : BaseService() {
 //
 //        // Establish Web3 Connection(s), per Chain:
 //
-//        blockChainRepo.fetchAlBlockChains()
+//        blockchainRepo.fetchAlBlockchains()
 //            .map {
-//                it.forEach { blockChain ->
-//                    web3Connections[blockChain.id] = Web3j.build(HttpService(blockChain.nodeUrl))
+//                it.forEach { blockchain ->
+//                    web3Connections[blockchain.id] = Web3j.build(HttpService(blockchain.nodeUrl))
 //                }
 //            }
 //            .subscribeOn(Schedulers.io())

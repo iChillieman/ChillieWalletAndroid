@@ -4,10 +4,10 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.chillieman.chilliewallet.definitions.ChillieOrderDefinitions.StepColumns
 import com.chillieman.chilliewallet.definitions.ChillieOrderDefinitions.STEP_TABLE_NAME
-import com.chillieman.chilliewallet.model.ChillieOrderAction
-import com.chillieman.chilliewallet.model.ChillieOrderStepState
+import com.chillieman.chilliewallet.definitions.ChillieOrderDefinitions.StepColumns
+import com.chillieman.chilliewallet.model.enums.ChillieOrderAction
+import com.chillieman.chilliewallet.model.enums.ChillieOrderStepState
 import java.math.BigInteger
 
 @Entity(
@@ -16,7 +16,7 @@ import java.math.BigInteger
         Index(StepColumns.ID, unique = true)
     ]
 )
-class ChillieOrderStep(
+data class ChillieOrderStep(
     @field:ColumnInfo(name = StepColumns.ORDER_ID)
     val chillieOrderId: Long,
     @field:ColumnInfo(name = StepColumns.ACTION)
@@ -46,36 +46,4 @@ class ChillieOrderStep(
     @field:PrimaryKey(autoGenerate = true)
     @field:ColumnInfo(name = StepColumns.ID)
     val id: Long = 0L
-) {
-    fun copy(
-        chillieOrderId: Long = this.chillieOrderId,
-        action: ChillieOrderAction = this.action,
-        value: BigInteger = this.value,
-        startingPriceInWei: BigInteger = this.startingPriceInWei,
-        targetPriceInWei: BigInteger = this.targetPriceInWei,
-        targetMovementPercentage: Int = this.targetMovementPercentage,
-        state: ChillieOrderStepState = this.state,
-        stopLossPriceInWei: BigInteger? = this.stopLossPriceInWei,
-        stopLossPercentage: Int? = this.stopLossPercentage,
-        txnId: Long? = this.txnId,
-        feeInWei: BigInteger? = this.feeInWei,
-        isFeePaid: Boolean? = this.isFeePaid,
-        txnFeeId: Long? = this.txnFeeId,
-        id: Long = this.id
-    ) = ChillieOrderStep(
-        chillieOrderId,
-        action,
-        value,
-        startingPriceInWei,
-        targetPriceInWei,
-        targetMovementPercentage,
-        state,
-        stopLossPriceInWei,
-        stopLossPercentage,
-        txnId,
-        feeInWei,
-        isFeePaid,
-        txnFeeId,
-        id
-    )
-}
+)

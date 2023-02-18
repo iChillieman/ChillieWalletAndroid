@@ -2,35 +2,33 @@ package com.chillieman.chilliewallet.db.dao
 
 import androidx.room.*
 import com.chillieman.chilliewallet.db.entity.Token
-import io.reactivex.Completable
-import io.reactivex.Single
 
 @Dao
-abstract class TokenDao {
+interface TokenDao {
     @Query("SELECT * FROM token")
-    abstract fun selectAll(): Single<List<Token>>
+    suspend fun selectAll(): List<Token>
 
     @Query("SELECT * FROM token WHERE id=:id")
-    abstract fun selectById(id: Long): Single<Token>
+    suspend fun selectById(id: Long): Token
 
-    @Query("SELECT * FROM token WHERE id=:id")
-    abstract fun selectByIdSynchronously(id: Long): Token
+    @Query("SELECT * FROM token WHERE address=:address AND blockchain_id=:blockchainId")
+    suspend fun selectByAddressAndBlockchainId(address: String, blockchainId: Long): Token
 
-    @Query("SELECT * FROM token WHERE address=:tokenAddress")
-    abstract fun selectByAddress(tokenAddress: String): Single<Token>
-
-    @Query("SELECT * FROM token WHERE address=:tokenAddress")
-    abstract fun selectByAddressSynchronously(tokenAddress: String): Token
+    @Query("SELECT COUNT(*) FROM token WHERE address=:address AND blockchain_id=:blockchainId")
+    suspend fun countByAddressAndBlockchainId(address: String, blockchainId: Long): Int
 
     @Insert
-    abstract fun insert(token: Token): Single<Long>
+    suspend fun insert(token: Token): Long
 
     @Insert
-    abstract fun insertAll(tokens: List<Token>): Completable
+    suspend fun insertAll(tokens: List<Token>)
 
     @Update
-    abstract fun update(token: Token): Single<Int>
+    suspend fun update(token: Token): Int
 
     @Query("DELETE FROM token WHERE id=:id")
-    abstract fun delete(id: Long): Single<Int>
+    suspend fun delete(id: Long): Int
+
+    @Query("DELETE FROM token")
+    suspend fun clear(): Int
 }

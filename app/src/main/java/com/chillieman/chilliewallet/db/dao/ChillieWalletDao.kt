@@ -2,28 +2,27 @@ package com.chillieman.chilliewallet.db.dao
 
 import androidx.room.*
 import com.chillieman.chilliewallet.db.entity.ChillieWallet
-import io.reactivex.Single
 
 @Dao
-abstract class ChillieWalletDao {
+interface ChillieWalletDao {
     @Query("SELECT * FROM chillie_wallet")
-    abstract fun selectAll(): Single<List<ChillieWallet>>
+    suspend fun selectAll(): List<ChillieWallet>
 
     @Query("SELECT * FROM chillie_wallet WHERE id=:id")
-    abstract fun selectById(id: Long): Single<ChillieWallet>
-
-    @Query("SELECT * FROM chillie_wallet WHERE id=:id")
-    abstract fun selectByIdSynchronously(id: Long): ChillieWallet
+    suspend fun selectById(id: Long): ChillieWallet
 
     @Insert
-    abstract fun insert(wallet: ChillieWallet): Single<Long>
+    suspend fun insert(wallet: ChillieWallet): Long
 
     @Update
-    abstract fun update(wallet: ChillieWallet): Single<Int>
+    suspend fun update(wallet: ChillieWallet): Int
 
     @Query("SELECT COUNT(*) FROM chillie_wallet")
-    abstract fun count(): Single<Long>
+    suspend fun count(): Long
 
     @Query("DELETE FROM chillie_wallet WHERE id=:id")
-    abstract fun delete(id: Long): Int
+    suspend fun delete(id: Long): Int
+
+    @Query("DELETE FROM chillie_wallet")
+    suspend fun clear(): Int
 }

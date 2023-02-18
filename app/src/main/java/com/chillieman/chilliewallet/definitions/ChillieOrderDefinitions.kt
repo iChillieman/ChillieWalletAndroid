@@ -5,7 +5,7 @@ object ChillieOrderDefinitions {
 
     object Columns {
         const val ID = "id"
-        const val TOKEN_ADDRESS = "token_address"
+        const val TOKEN_ID = "token_id"
         const val WALLET_ID = "wallet_id"
         const val ORDER_STATE = "state"
         const val TIMESTAMP = "timestamp"

@@ -5,16 +5,17 @@ import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
-import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
 import com.chillieman.chilliewallet.databinding.ActivityBarcodeBinding
 import com.chillieman.chilliewallet.ui.base.BaseActivity
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.integration.android.IntentIntegrator
 import com.journeyapps.barcodescanner.BarcodeEncoder
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class BarcodeActivity : BaseActivity() {
+    // TODO - CHILLIEMAN - CONVERT TO FRAGMENT
     private lateinit var binding: ActivityBarcodeBinding
     var scannedValue = ""
 

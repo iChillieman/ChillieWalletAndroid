@@ -5,25 +5,24 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.chillieman.chilliewallet.db.entity.AuthDatum
-import io.reactivex.Single
 
 @Dao
-abstract class AuthDatumDao {
+interface AuthDatumDao {
     @Query("SELECT * FROM auth_datum")
-    abstract fun selectAll(): Single<AuthDatum>
+    suspend fun selectAll(): AuthDatum
 
     @Query("SELECT * FROM auth_datum WHERE id=:id")
-    abstract fun selectById(id: Long): Single<AuthDatum>
-
-    @Query("SELECT * FROM auth_datum WHERE id=:id")
-    abstract fun selectByIdSynchronously(id: Long): AuthDatum
+    suspend fun selectById(id: Long): AuthDatum
 
     @Insert
-    abstract fun insert(datum: AuthDatum): Single<Long>
+    suspend fun insert(datum: AuthDatum): Long
 
     @Update
-    abstract fun update(datum: AuthDatum): Single<Int>
+    suspend fun update(datum: AuthDatum): Int
 
-    @Query("DELETE FROM auth")
-    abstract fun delete(): Single<Int>
+    @Query("DELETE FROM auth_datum WHERE id=:id")
+    suspend fun delete(id: Long): Int
+
+    @Query("DELETE FROM auth_datum")
+    suspend fun clear(): Int
 }

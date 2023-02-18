@@ -3,4 +3,13 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="pin_number_circle">60dp</dimen>
+
+
+    <dimen name="margin_1_unit">4dp</dimen>
+    <dimen name="margin_2_unit">8dp</dimen>
+    <dimen name="margin_4_unit">16dp</dimen>
+    <dimen name="margin_8_unit">32dp</dimen>
+    <dimen name="margin_16_unit">64dp</dimen>
+    <dimen name="margin_32_unit">128dp</dimen>
 </resources>

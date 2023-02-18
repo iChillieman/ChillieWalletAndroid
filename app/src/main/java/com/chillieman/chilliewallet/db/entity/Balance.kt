@@ -4,8 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.chillieman.chilliewallet.definitions.BalanceDefinitions.TABLE_NAME
 import com.chillieman.chilliewallet.definitions.BalanceDefinitions.Columns
+import com.chillieman.chilliewallet.definitions.BalanceDefinitions.TABLE_NAME
 import java.math.BigInteger
 
 @Entity(
@@ -16,23 +16,23 @@ import java.math.BigInteger
 
 )
 class Balance(
+    @field:ColumnInfo(name = Columns.BLOCKCHAIN_ID)
+    val blockchainId: Long,
     @field:ColumnInfo(name = Columns.WALLET_ID)
     val walletId: Long,
-    @field:ColumnInfo(name = Columns.TOKEN_ADDRESS)
+    @field:ColumnInfo(name = Columns.TOKEN_ID)
     val tokenId: Long,
     @field:ColumnInfo(name = Columns.TOTAL_BALANCE)
     val balance: BigInteger,
-    @field:ColumnInfo(name = Columns.TOKENS_IN_ORDER)
-    val balanceInOrders: BigInteger,
+    @field:ColumnInfo(name = Columns.VALUE_IN_WEI)
+    val valueInEthWei: BigInteger,
+    @field:ColumnInfo(name = Columns.TIMESTAMP)
+    val timestamp: Long,
+    @field:ColumnInfo(name = Columns.IS_GLOBAL_WATCHER)
+    val isGlobalPriceWatcher: Boolean,
     @field:PrimaryKey(autoGenerate = true)
     @field:ColumnInfo(name = Columns.ID)
     val id: Long = 0L
 ) {
-    fun copy(
-        walletId: Long = this.walletId,
-        tokenId: Long = this.tokenId,
-        balance: BigInteger = this.balance,
-        balanceInOrders: BigInteger = this.balanceInOrders,
-        id: Long = this.id
-    ) = Balance(walletId, tokenId, balance, balanceInOrders, id)
+    fun isBalanceForMainETH(): Boolean = tokenId == 0L
 }

@@ -1,12 +1,5 @@
 package com.chillieman.chilliewallet.model.contracts;
 
-import io.reactivex.Flowable;
-import io.reactivex.functions.Function;
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import org.web3j.abi.EventEncoder;
 import org.web3j.abi.FunctionEncoder;
 import org.web3j.abi.TypeReference;
@@ -29,12 +22,22 @@ import org.web3j.tx.Contract;
 import org.web3j.tx.TransactionManager;
 import org.web3j.tx.gas.ContractGasProvider;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import io.reactivex.Flowable;
+import io.reactivex.functions.Function;
+
 //TODO: Ignore the below comments and convert this into Kotlin
+
 /**
  * <p>Auto generated code.
  * <p><strong>Do not modify!</strong>
  * <p>Please use the <a href="https://docs.web3j.io/command_line.html">web3j command line tools</a>,
- * or the org.web3j.codegen.SolidityFunctionWrapperGenerator in the 
+ * or the org.web3j.codegen.SolidityFunctionWrapperGenerator in the
  * <a href="https://github.com/web3j/web3j/tree/master/codegen">codegen module</a> to update.
  *
  * <p>Generated with web3j version 1.4.1.
@@ -67,24 +70,30 @@ public class ChillieWalletContract extends Contract {
 
     public static final String FUNC_UNISWAPV2ROUTER = "uniswapV2Router";
 
-    public static final Event CHILLIEWALLETSEASONENDED_EVENT = new Event("ChillieWalletSeasonEnded", 
+    public static final Event CHILLIEWALLETSEASONENDED_EVENT = new Event("ChillieWalletSeasonEnded",
             Arrays.<TypeReference<?>>asList());
     ;
 
-    public static final Event CHILLIEWALLETSEASONSTARTED_EVENT = new Event("ChillieWalletSeasonStarted", 
-            Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
+    public static final Event CHILLIEWALLETSEASONSTARTED_EVENT = new Event("ChillieWalletSeasonStarted",
+            Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {
+            }));
     ;
 
-    public static final Event CHILLIEWALLETTAXESPROCESSED_EVENT = new Event("ChillieWalletTaxesProcessed", 
+    public static final Event CHILLIEWALLETTAXESPROCESSED_EVENT = new Event("ChillieWalletTaxesProcessed",
             Arrays.<TypeReference<?>>asList());
     ;
 
-    public static final Event PAIDWALLETSEASONFEES_EVENT = new Event("PaidWalletSeasonFees", 
-            Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {}, new TypeReference<Uint256>() {}));
+    public static final Event PAIDWALLETSEASONFEES_EVENT = new Event("PaidWalletSeasonFees",
+            Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {
+            }, new TypeReference<Uint256>() {
+            }));
     ;
 
-    public static final Event PAIDWALLETTAXES_EVENT = new Event("PaidWalletTaxes", 
-            Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {}, new TypeReference<Uint256>() {}, new TypeReference<Bytes32>() {}));
+    public static final Event PAIDWALLETTAXES_EVENT = new Event("PaidWalletTaxes",
+            Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {
+            }, new TypeReference<Uint256>() {
+            }, new TypeReference<Bytes32>() {
+            }));
     ;
 
     @Deprecated
@@ -264,91 +273,98 @@ public class ChillieWalletContract extends Contract {
 
     public RemoteFunctionCall<TransactionReceipt> activateAccountForCurrentChillieWalletSeason(BigInteger amount) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_ACTIVATEACCOUNTFORCURRENTCHILLIEWALLETSEASON, 
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(amount)), 
+                FUNC_ACTIVATEACCOUNTFORCURRENTCHILLIEWALLETSEASON,
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(amount)),
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<TransactionReceipt> chillieEndWalletSeason() {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_CHILLIEENDWALLETSEASON, 
-                Arrays.<Type>asList(), 
+                FUNC_CHILLIEENDWALLETSEASON,
+                Arrays.<Type>asList(),
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<TransactionReceipt> chillieProcessWalletTaxes() {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_CHILLIEPROCESSWALLETTAXES, 
-                Arrays.<Type>asList(), 
+                FUNC_CHILLIEPROCESSWALLETTAXES,
+                Arrays.<Type>asList(),
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<TransactionReceipt> chillieStartWalletSeason(BigInteger seasonFee) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_CHILLIESTARTWALLETSEASON, 
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(seasonFee)), 
+                FUNC_CHILLIESTARTWALLETSEASON,
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(seasonFee)),
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<String> chillieToken() {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_CHILLIETOKEN, 
-                Arrays.<Type>asList(), 
-                Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {}));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_CHILLIETOKEN,
+                Arrays.<Type>asList(),
+                Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {
+                }));
         return executeRemoteCallSingleValueReturn(function, String.class);
     }
 
     public RemoteFunctionCall<String> chillieman() {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_CHILLIEMAN, 
-                Arrays.<Type>asList(), 
-                Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {}));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_CHILLIEMAN,
+                Arrays.<Type>asList(),
+                Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {
+                }));
         return executeRemoteCallSingleValueReturn(function, String.class);
     }
 
     public RemoteFunctionCall<BigInteger> getChillieWalletSeasonFee() {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_GETCHILLIEWALLETSEASONFEE, 
-                Arrays.<Type>asList(), 
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_GETCHILLIEWALLETSEASONFEE,
+                Arrays.<Type>asList(),
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {
+                }));
         return executeRemoteCallSingleValueReturn(function, BigInteger.class);
     }
 
     public RemoteFunctionCall<Boolean> isAuthorizedToUseWallet(String walletUser) {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_ISAUTHORIZEDTOUSEWALLET, 
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, walletUser)), 
-                Arrays.<TypeReference<?>>asList(new TypeReference<Bool>() {}));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_ISAUTHORIZEDTOUSEWALLET,
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, walletUser)),
+                Arrays.<TypeReference<?>>asList(new TypeReference<Bool>() {
+                }));
         return executeRemoteCallSingleValueReturn(function, Boolean.class);
     }
 
     public RemoteFunctionCall<Boolean> isChillieWalletSeasonActive() {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_ISCHILLIEWALLETSEASONACTIVE, 
-                Arrays.<Type>asList(), 
-                Arrays.<TypeReference<?>>asList(new TypeReference<Bool>() {}));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_ISCHILLIEWALLETSEASONACTIVE,
+                Arrays.<Type>asList(),
+                Arrays.<TypeReference<?>>asList(new TypeReference<Bool>() {
+                }));
         return executeRemoteCallSingleValueReturn(function, Boolean.class);
     }
 
     public RemoteFunctionCall<Boolean> isTransactionPayedFor(byte[] transaction) {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_ISTRANSACTIONPAYEDFOR, 
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes32(transaction)), 
-                Arrays.<TypeReference<?>>asList(new TypeReference<Bool>() {}));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_ISTRANSACTIONPAYEDFOR,
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes32(transaction)),
+                Arrays.<TypeReference<?>>asList(new TypeReference<Bool>() {
+                }));
         return executeRemoteCallSingleValueReturn(function, Boolean.class);
     }
 
     public RemoteFunctionCall<TransactionReceipt> payChillieWalletTax(BigInteger amount, byte[] transaction) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_PAYCHILLIEWALLETTAX, 
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(amount), 
-                new org.web3j.abi.datatypes.generated.Bytes32(transaction)), 
+                FUNC_PAYCHILLIEWALLETTAX,
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(amount),
+                        new org.web3j.abi.datatypes.generated.Bytes32(transaction)),
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<String> uniswapV2Router() {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_UNISWAPV2ROUTER, 
-                Arrays.<Type>asList(), 
-                Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {}));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_UNISWAPV2ROUTER,
+                Arrays.<Type>asList(),
+                Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {
+                }));
         return executeRemoteCallSingleValueReturn(function, String.class);
     }
 

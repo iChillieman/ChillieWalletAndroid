@@ -5,28 +5,24 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.chillieman.chilliewallet.db.entity.Balance
-import io.reactivex.Single
 
 @Dao
-abstract class BalanceDao {
+interface BalanceDao {
     @Query("SELECT * FROM balance")
-    abstract fun selectAll(): Single<List<Balance>>
+    suspend fun selectAll(): List<Balance>
 
     @Query("SELECT * FROM balance WHERE wallet_id=:walletId")
-    abstract fun selectAllForWallet(walletId: Long): Single<List<Balance>>
+    suspend fun selectAllForWallet(walletId: Long): List<Balance>
 
     @Query("SELECT * FROM balance WHERE id=:id")
-    abstract fun selectById(id: Long): Single<Balance>
-
-    @Query("SELECT * FROM balance WHERE id=:id")
-    abstract fun selectByIdSynchronously(id: Long): Balance
+    suspend fun selectById(id: Long): Balance
 
     @Insert
-    abstract fun insert(balance: Balance): Single<Long>
+    suspend fun insert(balance: Balance): Long
 
     @Update
-    abstract fun update(balance: Balance): Single<Int>
+    suspend fun update(balance: Balance): Int
 
     @Query("DELETE FROM balance WHERE id=:id")
-    abstract fun delete(id: Long): Single<Int>
+    suspend fun delete(id: Long): Int
 }

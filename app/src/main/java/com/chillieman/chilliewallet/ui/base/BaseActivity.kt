@@ -1,5 +1,5 @@
 package com.chillieman.chilliewallet.ui.base
 
-import dagger.android.support.DaggerAppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 
-open class BaseActivity : DaggerAppCompatActivity()
+open class BaseActivity : AppCompatActivity()

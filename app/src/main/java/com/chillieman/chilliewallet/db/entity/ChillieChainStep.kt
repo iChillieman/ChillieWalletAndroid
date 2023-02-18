@@ -6,7 +6,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.chillieman.chilliewallet.definitions.ChillieChainDefinitions.STEP_TABLE_NAME
 import com.chillieman.chilliewallet.definitions.ChillieChainDefinitions.StepColumns
-import com.chillieman.chilliewallet.model.ChillieOrderAction
+import com.chillieman.chilliewallet.model.enums.ChillieOrderAction
 import java.math.BigInteger
 
 @Entity(
@@ -31,22 +31,4 @@ class ChillieChainStep(
     @field:PrimaryKey(autoGenerate = true)
     @field:ColumnInfo(name = StepColumns.ID)
     val id: Long = 0L
-) {
-    fun copy(
-        chillieChainId: Long = this.chillieChainId,
-        action: ChillieOrderAction = this.action,
-        value: BigInteger = this.value,
-        desiredMovementPercent: Int? = this.desiredMovementPercent,
-        stopLossPercentage: Int? = this.stopLossPercentage,
-        specificEthPrice: BigInteger? = this.specificEthPrice,
-        id: Long = this.id
-    ) = ChillieChainStep(
-        chillieChainId,
-        action,
-        value,
-        desiredMovementPercent,
-        stopLossPercentage,
-        specificEthPrice,
-        id
-    )
-}
+)

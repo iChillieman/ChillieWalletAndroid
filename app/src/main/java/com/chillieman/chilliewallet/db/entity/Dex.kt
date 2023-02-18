@@ -13,9 +13,9 @@ import com.chillieman.chilliewallet.definitions.DexDefinitions.TABLE_NAME
         Index(Columns.ID)
     ]
 )
-class Dex(
+data class Dex(
     @field:ColumnInfo(name = Columns.BLOCKCHAIN_ID)
-    val blockChainId: Long,
+    val blockchainId: Long,
     @field:ColumnInfo(name = Columns.NAME)
     val name: String,
     @field:ColumnInfo(name = Columns.ADDRESS_ROUTER)
@@ -24,16 +24,11 @@ class Dex(
     val addressFactory: String,
     @field:ColumnInfo(name = Columns.LOGO_URL)
     val logoUrl: String? = null,
+    @field:ColumnInfo(name = Columns.TAX_RATE_BUY)
+    val taxRateBuy: Double? = null,
+    @field:ColumnInfo(name = Columns.TAX_RATE_SELL)
+    val taxRateSell: Double? = null,
     @field:PrimaryKey(autoGenerate = true)
     @field:ColumnInfo(name = Columns.ID)
     val id: Long = 0L
-) {
-    fun copy(
-        blockChainId: Long = this.blockChainId,
-        name: String = this.name,
-        addressRouter: String = this.addressRouter,
-        addressFactory: String = this.addressFactory,
-        logoUrl: String? = this.logoUrl,
-        id: Long = this.id
-    ) = Dex(blockChainId, name, addressRouter, addressFactory, logoUrl, id)
-}
+)

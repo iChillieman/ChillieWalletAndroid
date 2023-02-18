@@ -13,10 +13,17 @@
     <color name="yeller_200">#FFDAC503</color>
     <color name="teal_700">#FF018786</color>
     <color name="yeller_700">#FF868701</color>
+    <color name="trans">#00000000</color>
     <color name="black">#FF000000</color>
+    <color name="black_secondary">#FF222222</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="white_secondary">#FFEEEEEE</color>
+    <color name="bleh">#777</color>
 
 
-    <color name="red">#F00</color>
-    <color name="green">#0F0</color>
+    <color name="pure_red">#F00</color>
+    <color name="red">#700</color>
+    <color name="green">#070</color>
+    <color name="grey">#777</color>
+    <color name="separate">#CCC</color>
 </resources>
