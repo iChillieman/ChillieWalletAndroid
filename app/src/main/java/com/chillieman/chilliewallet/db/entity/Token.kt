@@ -15,7 +15,7 @@ import com.chillieman.chilliewallet.definitions.TokenDefinitions.TABLE_NAME
 )
 class Token(
     @field:ColumnInfo(name = Columns.BLOCKCHAIN_ID)
-    val blockChainId: Long,
+    val blockchainId: Long,
     @field:ColumnInfo(name = Columns.ADDRESS)
     val address: String,
     @field:ColumnInfo(name = Columns.NAME)

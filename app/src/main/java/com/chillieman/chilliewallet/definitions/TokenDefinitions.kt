@@ -29,14 +29,14 @@ object TokenDefinitions {
         object BNB {
             const val NAME = "WBNB"
             const val DECIMALS = STANDARD_DECIMALS
-            const val CHAIN_ID = BlockChainDefinitions.Binance.CHAIN_ID
+            const val CHAIN_ID = BlockchainDefinitions.Binance.CHAIN_ID
             const val ADDRESS = "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c"
         }
 
         object TestBNB {
             const val NAME = "WBNB [T]"
             const val DECIMALS = STANDARD_DECIMALS
-            const val CHAIN_ID = BlockChainDefinitions.BinanceTestnet.CHAIN_ID
+            const val CHAIN_ID = BlockchainDefinitions.BinanceTestnet.CHAIN_ID
             const val ADDRESS = "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd"
         }
     }
@@ -49,7 +49,7 @@ object TokenDefinitions {
             const val NAME = "ChillieWallet"
             const val SYMBOL = "CHLL"
             const val DECIMALS = STANDARD_DECIMALS
-            const val CHAIN_ID = BlockChainDefinitions.Binance.CHAIN_ID
+            const val CHAIN_ID = BlockchainDefinitions.Binance.CHAIN_ID
             const val ADDRESS = "0x86b09825416612809e00947D0fEE05EC5853f62B"
         }
 
@@ -57,7 +57,7 @@ object TokenDefinitions {
             const val NAME = "ChillieWallet [T]"
             const val SYMBOL = "tCHLL"
             const val DECIMALS = STANDARD_DECIMALS
-            const val CHAIN_ID = BlockChainDefinitions.BinanceTestnet.CHAIN_ID
+            const val CHAIN_ID = BlockchainDefinitions.BinanceTestnet.CHAIN_ID
             const val ADDRESS = "" // TODO CHILLIE - FILL ME IN
         }
     }
@@ -67,7 +67,7 @@ object TokenDefinitions {
         const val DECIMALS = 18
         const val NAME = "PancakeSwap"
         const val SYMBOL = "CAKE"
-        const val CHAIN_ID = BlockChainDefinitions.Binance.CHAIN_ID
+        const val CHAIN_ID = BlockchainDefinitions.Binance.CHAIN_ID
         const val ADDRESS = "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82"
         const val LOGO_URL =
             "https://assets-cdn.trustwallet.com/blockchains/binance/assets/CAKE-435/logo.png"

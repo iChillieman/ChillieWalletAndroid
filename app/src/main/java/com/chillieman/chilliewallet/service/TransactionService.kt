@@ -4,7 +4,7 @@ class TransactionService : BaseService() {
 //    private val binder = TransactionBinder()
 //
 //    @Inject
-//    lateinit var blockChainRepo: BlockChainRepository
+//    lateinit var blockchainRepo: BlockchainRepository
 //
 //    @Inject
 //    lateinit var pricePointRepository: PricePointRepository
@@ -37,10 +37,10 @@ class TransactionService : BaseService() {
 //
 //        // Establish Web3 Connection(s), per Chain:
 //
-//        blockChainRepo.fetchAlBlockChains()
+//        blockchainRepo.fetchAlBlockchains()
 //            .map {
-//                it.forEach { blockChain ->
-//                    web3Connections[blockChain.id] = Web3j.build(HttpService(blockChain.nodeUrl))
+//                it.forEach { blockchain ->
+//                    web3Connections[blockchain.id] = Web3j.build(HttpService(blockchain.nodeUrl))
 //                }
 //            }
 //            .subscribeOn(Schedulers.io())

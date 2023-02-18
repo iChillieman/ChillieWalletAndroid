@@ -7,7 +7,8 @@ import com.chillieman.chilliewallet.db.ChillieMigrations
 import com.chillieman.chilliewallet.db.dao.AuthDao
 import com.chillieman.chilliewallet.db.dao.AuthDatumDao
 import com.chillieman.chilliewallet.db.dao.BalanceDao
-import com.chillieman.chilliewallet.db.dao.BlockChainDao
+import com.chillieman.chilliewallet.db.dao.BlockchainDao
+import com.chillieman.chilliewallet.db.dao.BlockchainNodeDao
 import com.chillieman.chilliewallet.db.dao.ChillieChainDao
 import com.chillieman.chilliewallet.db.dao.ChillieChainStepDao
 import com.chillieman.chilliewallet.db.dao.ChillieOrderDao
@@ -43,8 +44,12 @@ class DatabaseModule {
     fun provideAuthDao(chillieDatabase: ChillieDatabase): AuthDao = chillieDatabase.authDao()
 
     @Provides
-    fun provideBlockChainDao(chillieDatabase: ChillieDatabase): BlockChainDao =
-        chillieDatabase.blockChainDao()
+    fun provideBlockchainDao(chillieDatabase: ChillieDatabase): BlockchainDao =
+        chillieDatabase.blockchainDao()
+
+    @Provides
+    fun provideBlockchainNodeDao(chillieDatabase: ChillieDatabase): BlockchainNodeDao =
+        chillieDatabase.blockchainNodeDao()
 
     @Provides
     fun provideWalletDao(chillieDatabase: ChillieDatabase): ChillieWalletDao =
@@ -97,4 +102,5 @@ class DatabaseModule {
     @Provides
     fun provideTokenWatchDao(chillieDatabase: ChillieDatabase): TokenWatchDao =
         chillieDatabase.tokenWatchDao()
+
 }

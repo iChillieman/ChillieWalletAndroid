@@ -1,4 +1,4 @@
-package com.chillieman.chilliewallet.model
+package com.chillieman.chilliewallet.model.enums
 
 import androidx.annotation.StringRes
 import com.chillieman.chilliewallet.R

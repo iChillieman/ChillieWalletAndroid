@@ -11,11 +11,11 @@ interface TokenDao {
     @Query("SELECT * FROM token WHERE id=:id")
     suspend fun selectById(id: Long): Token
 
-    @Query("SELECT * FROM token WHERE address=:address AND blockchain_id=:blockChainId")
-    suspend fun selectByAddressAndBlockChainId(address: String, blockChainId: Long): Token
+    @Query("SELECT * FROM token WHERE address=:address AND blockchain_id=:blockchainId")
+    suspend fun selectByAddressAndBlockchainId(address: String, blockchainId: Long): Token
 
-    @Query("SELECT COUNT(*) FROM token WHERE address=:address AND blockchain_id=:blockChainId")
-    suspend fun countByAddressAndBlockChainId(address: String, blockChainId: Long): Int
+    @Query("SELECT COUNT(*) FROM token WHERE address=:address AND blockchain_id=:blockchainId")
+    suspend fun countByAddressAndBlockchainId(address: String, blockchainId: Long): Int
 
     @Insert
     suspend fun insert(token: Token): Long

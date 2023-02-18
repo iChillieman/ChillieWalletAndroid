@@ -10,8 +10,8 @@ class DexRepository
 @Inject constructor(
     private val dexDao: DexDao
 ) {
-    suspend fun getAllDexByBlockChainId(blockChainId: Long): List<Dex> {
-        return dexDao.selectAllByChainId(blockChainId)
+    suspend fun getAllDexByBlockchainId(blockchainId: Long): List<Dex> {
+        return dexDao.selectAllByChainId(blockchainId)
     }
 
     suspend fun insertNewDex(dex: Dex): Dex {

@@ -11,9 +11,9 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chillieman.chilliewallet.databinding.FragmentWalletBinding
 import com.chillieman.chilliewallet.ui.base.BaseSharedViewModelFragment
-import com.chillieman.chilliewallet.ui.wallet.tokenlist.TokenForList
-import com.chillieman.chilliewallet.ui.wallet.tokenlist.TokenListAdapter
-import com.chillieman.chilliewallet.ui.wallet.tokenlist.TokenSelectedListener
+import com.chillieman.chilliewallet.ui.token.list.TokenForList
+import com.chillieman.chilliewallet.ui.token.list.TokenListAdapter
+import com.chillieman.chilliewallet.ui.token.list.TokenSelectedListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

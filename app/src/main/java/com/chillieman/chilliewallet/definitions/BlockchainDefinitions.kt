@@ -1,16 +1,17 @@
 package com.chillieman.chilliewallet.definitions
 
-object BlockChainDefinitions {
+object BlockchainDefinitions {
     const val TABLE_NAME = "block_chain"
     const val NODE_TABLE_NAME = "block_chain_node"
 
     object Columns {
         const val NAME = "name"
         const val SYMBOL = "symbol"
-        const val CHAIN_ID = "id"
+        const val BLOCKCHAIN_ID = "id"
         const val EXPLORER = "explorer"
         const val IS_TESTNET = "is_testnet"
         const val LOGO_URL = "logo_url"
+        const val SELECTED_NODE = "selected_node"
         const val LAST_BLOCK_SYNC = "last_block_synced"
     }
 
@@ -31,7 +32,7 @@ object BlockChainDefinitions {
     }
 
     object BinanceTestnet {
-        const val NAME = "Smart Chain Testnet"
+        const val NAME = "Smart Chain"
         const val SYMBOL = "tBNB"
         const val CHAIN_ID = 97L
         const val DEFAULT_NODE_URL = "https://data-seed-prebsc-1-s1.binance.org:8545/"

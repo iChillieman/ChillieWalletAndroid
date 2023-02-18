@@ -2,7 +2,7 @@ package com.chillieman.chilliewallet.di
 
 import android.app.Application
 import android.content.Context
-import com.chillieman.chilliewallet.definitions.BlockChainDefinitions
+import com.chillieman.chilliewallet.definitions.BlockchainDefinitions
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,7 +34,7 @@ class ApplicationModule {
     // TODO - CHILLIEMAN - STOP INJECTING Web3j instances!
     @Provides
     internal fun provideWeb3(): Web3j =
-        Web3j.build(HttpService(BlockChainDefinitions.Binance.DEFAULT_NODE_URL))
+        Web3j.build(HttpService(BlockchainDefinitions.Binance.DEFAULT_NODE_URL))
 
     @Provides
     internal fun provideKeyStore(): KeyStore {

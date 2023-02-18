@@ -1,4 +1,4 @@
-package com.chillieman.chilliewallet.model
+package com.chillieman.chilliewallet.model.enums
 
 enum class ProcessingStatus {
     NOT_STARTED,

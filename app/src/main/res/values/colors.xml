@@ -21,6 +21,9 @@
     <color name="bleh">#777</color>
 
 
-    <color name="red">#F00</color>
-    <color name="green">#0F0</color>
+    <color name="pure_red">#F00</color>
+    <color name="red">#700</color>
+    <color name="green">#070</color>
+    <color name="grey">#777</color>
+    <color name="separate">#CCC</color>
 </resources>

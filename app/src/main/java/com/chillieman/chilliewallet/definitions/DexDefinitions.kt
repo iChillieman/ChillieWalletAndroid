@@ -17,7 +17,7 @@ object DexDefinitions {
 
     object PancakeSwap {
         const val NAME = "PancakeSwap"
-        const val BLOCKCHAIN_ID = BlockChainDefinitions.Binance.CHAIN_ID
+        const val BLOCKCHAIN_ID = BlockchainDefinitions.Binance.CHAIN_ID
         const val ADDRESS_ROUTER = "0x10ED43C718714eb63d5aA57B78B54704E256024E"
         const val ADDRESS_FACTORY = "0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73"
         const val LOGO_URL = PANCAKE_LOGO_URL
@@ -25,7 +25,7 @@ object DexDefinitions {
 
     object PancakeSwapTestnet {
         const val NAME = "PancakeSwap [Testnet]"
-        const val BLOCKCHAIN_ID = BlockChainDefinitions.BinanceTestnet.CHAIN_ID
+        const val BLOCKCHAIN_ID = BlockchainDefinitions.BinanceTestnet.CHAIN_ID
         const val ADDRESS_ROUTER = "0xD99D1c33F9fC3444f8101754aBC46c52416550D1"
         const val ADDRESS_FACTORY = "0x6725F303b657a9451d8BA641348b6761A6CC7a17"
         const val LOGO_URL = PANCAKE_LOGO_URL

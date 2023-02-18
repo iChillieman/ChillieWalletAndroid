@@ -8,8 +8,16 @@
         <item name="android:textSize">32sp</item>
     </style>
 
+    <style name="LargeSubTitleText" parent="@android:style/TextAppearance">
+        <item name="android:textSize">28sp</item>
+    </style>
+
     <style name="SubTitleText" parent="@android:style/TextAppearance">
         <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="BigText" parent="@android:style/TextAppearance">
+        <item name="android:textSize">20sp</item>
     </style>
 
 

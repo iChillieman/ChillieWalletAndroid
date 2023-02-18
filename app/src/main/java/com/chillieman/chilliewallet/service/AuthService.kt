@@ -12,7 +12,7 @@ import androidx.core.app.NotificationCompat
 import com.chillieman.chilliewallet.R
 import com.chillieman.chilliewallet.definitions.UtilDefinitions.ONE_MINUTE
 import com.chillieman.chilliewallet.definitions.UtilDefinitions.ONE_SECOND
-import com.chillieman.chilliewallet.model.AuthStatus
+import com.chillieman.chilliewallet.model.enums.AuthStatus
 import com.chillieman.chilliewallet.repository.AuthRepository
 import com.chillieman.chilliewallet.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint

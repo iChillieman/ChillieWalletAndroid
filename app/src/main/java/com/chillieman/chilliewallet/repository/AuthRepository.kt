@@ -4,7 +4,7 @@ import android.util.Log
 import com.chillieman.chilliewallet.db.dao.AuthDao
 import com.chillieman.chilliewallet.db.dao.AuthDatumDao
 import com.chillieman.chilliewallet.db.entity.Authentication
-import com.chillieman.chilliewallet.model.AuthStatus
+import com.chillieman.chilliewallet.model.enums.AuthStatus
 import com.chillieman.chilliewallet.util.EncryptionManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

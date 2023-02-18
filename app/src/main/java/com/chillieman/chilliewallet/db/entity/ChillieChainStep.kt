@@ -6,7 +6,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.chillieman.chilliewallet.definitions.ChillieChainDefinitions.STEP_TABLE_NAME
 import com.chillieman.chilliewallet.definitions.ChillieChainDefinitions.StepColumns
-import com.chillieman.chilliewallet.model.ChillieOrderAction
+import com.chillieman.chilliewallet.model.enums.ChillieOrderAction
 import java.math.BigInteger
 
 @Entity(

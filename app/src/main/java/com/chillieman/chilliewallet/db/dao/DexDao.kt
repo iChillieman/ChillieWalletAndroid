@@ -11,14 +11,14 @@ interface DexDao {
     @Query("SELECT * FROM dex")
     suspend fun selectAll(): List<Dex>
 
-    @Query("SELECT * FROM dex WHERE blockchain_id=:blockChainId")
-    suspend fun selectAllByChainId(blockChainId: Long): List<Dex>
+    @Query("SELECT * FROM dex WHERE blockchain_id=:blockchainId")
+    suspend fun selectAllByChainId(blockchainId: Long): List<Dex>
 
     @Query("SELECT * FROM dex WHERE id=:id")
     suspend fun selectById(id: Long): Dex
 
-    @Query("SELECT * FROM dex WHERE blockchain_id=:blockChainId AND address_router=:address")
-    suspend fun selectByChainIdAndRouterAddress(blockChainId: Long, address: String): Dex
+    @Query("SELECT * FROM dex WHERE blockchain_id=:blockchainId AND address_router=:address")
+    suspend fun selectByChainIdAndRouterAddress(blockchainId: Long, address: String): Dex
 
     @Insert
     suspend fun insert(dex: Dex): Long

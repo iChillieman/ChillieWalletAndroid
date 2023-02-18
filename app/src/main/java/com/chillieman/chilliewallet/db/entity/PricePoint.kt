@@ -8,6 +8,10 @@ import com.chillieman.chilliewallet.definitions.PricePointDefinitions.Columns
 import com.chillieman.chilliewallet.definitions.PricePointDefinitions.TABLE_NAME
 import java.math.BigInteger
 
+
+/**
+ * NOTE - If a price point has a DEX_ID and TOKEN_ID of NOT
+ */
 @Entity(
     tableName = TABLE_NAME,
     indices = [
@@ -20,13 +24,9 @@ class PricePoint(
     @field:ColumnInfo(name = Columns.TOKEN_ID)
     val tokenId: Long,
     @field:ColumnInfo(name = Columns.PRICE_IN_ETH)
-    val priceInEth: BigInteger,
+    val priceInWei: BigInteger, // How many ETH can you get with 1 Token? (In WEI)
     @field:ColumnInfo(name = Columns.PRICE_IN_TOKEN)
-    val ethPriceByToken: BigInteger,
-    @field:ColumnInfo(name = Columns.PRECISION)
-    val precision: Int,
-    @field:ColumnInfo(name = Columns.CURRENT_BLOCK)
-    val currentBlock: BigInteger,
+    val priceInTokens: BigInteger, // How many tokens can you get with 1 eth?
     @field:ColumnInfo(name = Columns.TIMESTAMP)
     val timestamp: Long,
     @field:ColumnInfo(name = Columns.IS_GLOBAL_WATCHER)

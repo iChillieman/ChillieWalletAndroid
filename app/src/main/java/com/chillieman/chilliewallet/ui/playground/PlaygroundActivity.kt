@@ -1,22 +1,23 @@
 package com.chillieman.chilliewallet.ui.playground
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.ExistingWorkPolicy
 import androidx.work.NetworkType
+import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.chillieman.chilliewallet.R
 import com.chillieman.chilliewallet.databinding.ActivityPlaygroundBinding
-import com.chillieman.chilliewallet.model.ConnectionState
-import com.chillieman.chilliewallet.service.AuthService
+import com.chillieman.chilliewallet.model.enums.ConnectionState
 import com.chillieman.chilliewallet.ui.base.BaseViewModelActivity
 import com.chillieman.chilliewallet.worker.ChillieWorker
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.Duration
 import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
@@ -45,11 +46,11 @@ class PlaygroundActivity :
 
 
 
+        binding.btnConnect.isEnabled = false
         binding.btnConnect.text = "Connect to ETH Network"
         binding.btnConnect.setOnClickListener {
-//            viewModel.fillAlphaDatabase()
 //            viewModel.connectToEthNetwork()
-            scheduleExampleWorker()
+
 
         }
 
@@ -59,10 +60,11 @@ class PlaygroundActivity :
             }
         }
 
-        binding.btnLoadWalletInformation.text = "Start Service"
+        binding.btnLoadWalletInformation.text = "Start Work"
         binding.btnLoadWalletInformation.setOnClickListener {
-            startService(Intent(this, AuthService::class.java))
-            scheduleExampleWorker()
+//            startService(Intent(this, AuthService::class.java))
+//            scheduleOneShotChillieWorker()
+            schedulePeriodicChillieWorker()
 //            viewModel.loadWallet()
 //            viewModel.importWallet(binding.etImportWallet.text.toString())
 
@@ -72,23 +74,45 @@ class PlaygroundActivity :
         binding.btnSomethingElse.text = "Cancel Work"
         binding.btnSomethingElse.setOnClickListener {
             WorkManager.getInstance(applicationContext)
-                .cancelUniqueWork("chillie_work")
-
+                .cancelUniqueWork(WORKER_NAME)
         }
 
     }
 
-    fun scheduleExampleWorker() {
+    fun scheduleOneShotChillieWorker() {
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
-        val repeatingRequest = PeriodicWorkRequestBuilder<ChillieWorker>(15, TimeUnit.MINUTES)
+
+        val oneShotWorkRequest = OneTimeWorkRequestBuilder<ChillieWorker>()
             .setConstraints(constraints)
             .build()
 
+
+        WorkManager.getInstance(applicationContext)
+            .enqueueUniqueWork(
+                WORKER_NAME,
+                ExistingWorkPolicy.KEEP,
+                oneShotWorkRequest
+            )
+
+
+    }
+
+    fun schedulePeriodicChillieWorker() {
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+
+        //For Periodic Calls:
+        val repeatingRequest = PeriodicWorkRequestBuilder<ChillieWorker>(15, TimeUnit.MINUTES)
+            .setConstraints(constraints)
+            .setInitialDelay(Duration.ZERO)
+            .build()
+
         WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork(
-            "chillie_work",
-            ExistingPeriodicWorkPolicy.KEEP,
+            WORKER_NAME,
+            ExistingPeriodicWorkPolicy.REPLACE,
             repeatingRequest
         )
     }
@@ -126,5 +150,6 @@ class PlaygroundActivity :
 
     companion object {
         private const val TAG = "ChilliePlayActivity"
+        private const val WORKER_NAME = "chillie_work"
     }
 }

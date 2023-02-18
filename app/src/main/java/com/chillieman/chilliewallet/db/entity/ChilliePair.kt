@@ -17,7 +17,7 @@ import java.math.BigInteger
 )
 class ChilliePair(
     @field:ColumnInfo(name = Columns.BLOCKCHAIN_ID)
-    val blockChainId: Long,
+    val blockchainId: Long,
     @field:ColumnInfo(name = Columns.ADDRESS)
     val address: String,
     @field:ColumnInfo(name = Columns.TOKEN_0)

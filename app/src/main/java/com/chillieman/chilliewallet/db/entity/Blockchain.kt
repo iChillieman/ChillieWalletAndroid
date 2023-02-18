@@ -3,14 +3,14 @@ package com.chillieman.chilliewallet.db.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.chillieman.chilliewallet.definitions.BlockChainDefinitions.Columns
-import com.chillieman.chilliewallet.definitions.BlockChainDefinitions.TABLE_NAME
+import com.chillieman.chilliewallet.definitions.BlockchainDefinitions.Columns
+import com.chillieman.chilliewallet.definitions.BlockchainDefinitions.TABLE_NAME
 import java.math.BigInteger
 
 @Entity(tableName = TABLE_NAME)
-class BlockChain(
+class Blockchain(
     @PrimaryKey
-    @field:ColumnInfo(name = Columns.CHAIN_ID)
+    @field:ColumnInfo(name = Columns.BLOCKCHAIN_ID)
     val id: Long,
     @field:ColumnInfo(name = Columns.NAME)
     val name: String,
@@ -22,6 +22,8 @@ class BlockChain(
     val isTestnet: Boolean,
     @field:ColumnInfo(name = Columns.LOGO_URL)
     val logoUrl: String = "",
+    @field:ColumnInfo(name = Columns.SELECTED_NODE)
+    val selectedNodeId: Long? = null,
     @field:ColumnInfo(name = Columns.LAST_BLOCK_SYNC)
     val lastBlockSynced: BigInteger? = null
 )

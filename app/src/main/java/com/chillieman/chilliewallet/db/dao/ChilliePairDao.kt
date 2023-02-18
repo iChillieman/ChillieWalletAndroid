@@ -11,8 +11,8 @@ interface ChilliePairDao {
     @Query("SELECT * FROM pairs")
     suspend fun selectAll(): List<ChilliePair>
 
-    @Query("SELECT * FROM pairs WHERE blockchain_id=:blockChainId")
-    suspend fun selectAllByChainId(blockChainId: Long): List<ChilliePair>
+    @Query("SELECT * FROM pairs WHERE blockchain_id=:blockchainId")
+    suspend fun selectAllByChainId(blockchainId: Long): List<ChilliePair>
 
     @Query("SELECT * FROM pairs WHERE id=:id")
     suspend fun selectById(id: Long): ChilliePair

@@ -1,4 +1,4 @@
-package com.chillieman.chilliewallet.ui.wallet.tokenlist
+package com.chillieman.chilliewallet.ui.token.list
 
 interface TokenSelectedListener {
     fun onTokenSelected(tokenForList: TokenForList)

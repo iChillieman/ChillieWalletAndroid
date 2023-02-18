@@ -1,4 +1,4 @@
-package com.chillieman.chilliewallet.ui.wallet.tokenlist
+package com.chillieman.chilliewallet.ui.token.list
 
 data class TokenForList(
     val name: String,

@@ -3,7 +3,7 @@ package com.chillieman.chilliewallet.db
 import android.util.Log
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.chillieman.chilliewallet.definitions.BlockChainDefinitions
+import com.chillieman.chilliewallet.definitions.BlockchainDefinitions
 import com.chillieman.chilliewallet.definitions.DexDefinitions
 
 object ChillieMigrations {
@@ -19,48 +19,48 @@ object ChillieMigrations {
         // Block Chains:
         database.execSQL(
             """
-            INSERT INTO ${BlockChainDefinitions.TABLE_NAME} (
-                ${BlockChainDefinitions.Columns.NAME},
-                ${BlockChainDefinitions.Columns.SYMBOL},
-                ${BlockChainDefinitions.Columns.CHAIN_ID},
-                ${BlockChainDefinitions.Columns.EXPLORER},
-                ${BlockChainDefinitions.Columns.IS_TESTNET},
-                ${BlockChainDefinitions.Columns.LOGO_URL},
-                ${BlockChainDefinitions.Columns.LAST_BLOCK_SYNC}
+            INSERT INTO ${BlockchainDefinitions.TABLE_NAME} (
+                ${BlockchainDefinitions.Columns.NAME},
+                ${BlockchainDefinitions.Columns.SYMBOL},
+                ${BlockchainDefinitions.Columns.BLOCKCHAIN_ID},
+                ${BlockchainDefinitions.Columns.EXPLORER},
+                ${BlockchainDefinitions.Columns.IS_TESTNET},
+                ${BlockchainDefinitions.Columns.LOGO_URL},
+                ${BlockchainDefinitions.Columns.LAST_BLOCK_SYNC}
             ) VALUES (
-                '${BlockChainDefinitions.Binance.NAME}',
-                '${BlockChainDefinitions.Binance.SYMBOL}',
-                ${BlockChainDefinitions.Binance.CHAIN_ID},
-                '${BlockChainDefinitions.Binance.EXPLORER}',
+                '${BlockchainDefinitions.Binance.NAME}',
+                '${BlockchainDefinitions.Binance.SYMBOL}',
+                ${BlockchainDefinitions.Binance.CHAIN_ID},
+                '${BlockchainDefinitions.Binance.EXPLORER}',
                 FALSE,
-                '${BlockChainDefinitions.Binance.LOGO_URL}',
+                '${BlockchainDefinitions.Binance.LOGO_URL}',
                 NULL
             ), (
-                '${BlockChainDefinitions.BinanceTestnet.NAME}',
-                '${BlockChainDefinitions.BinanceTestnet.SYMBOL}',
-                ${BlockChainDefinitions.BinanceTestnet.CHAIN_ID},
-                '${BlockChainDefinitions.BinanceTestnet.EXPLORER}',
+                '${BlockchainDefinitions.BinanceTestnet.NAME}',
+                '${BlockchainDefinitions.BinanceTestnet.SYMBOL}',
+                ${BlockchainDefinitions.BinanceTestnet.CHAIN_ID},
+                '${BlockchainDefinitions.BinanceTestnet.EXPLORER}',
                 TRUE,
-                '${BlockChainDefinitions.BinanceTestnet.LOGO_URL}',
+                '${BlockchainDefinitions.BinanceTestnet.LOGO_URL}',
                 NULL
             )
         """.trimIndent()
         )
 
-        // BlockChain Nodes:
+        // Blockchain Nodes:
         database.execSQL(
             """
-            INSERT INTO ${BlockChainDefinitions.NODE_TABLE_NAME} (
-                ${BlockChainDefinitions.NodeColumns.BLOCKCHAIN_ID},
-                ${BlockChainDefinitions.NodeColumns.NODE_URL},
-                ${BlockChainDefinitions.NodeColumns.LAST_PING}
+            INSERT INTO ${BlockchainDefinitions.NODE_TABLE_NAME} (
+                ${BlockchainDefinitions.NodeColumns.BLOCKCHAIN_ID},
+                ${BlockchainDefinitions.NodeColumns.NODE_URL},
+                ${BlockchainDefinitions.NodeColumns.LAST_PING}
             ) VALUES (
-                ${BlockChainDefinitions.Binance.CHAIN_ID},
-                '${BlockChainDefinitions.Binance.DEFAULT_NODE_URL}',
+                ${BlockchainDefinitions.Binance.CHAIN_ID},
+                '${BlockchainDefinitions.Binance.DEFAULT_NODE_URL}',
                 NULL
             ), (
-                ${BlockChainDefinitions.BinanceTestnet.CHAIN_ID},
-                '${BlockChainDefinitions.BinanceTestnet.DEFAULT_NODE_URL}',
+                ${BlockchainDefinitions.BinanceTestnet.CHAIN_ID},
+                '${BlockchainDefinitions.BinanceTestnet.DEFAULT_NODE_URL}',
                 NULL
             )
         """.trimIndent()
@@ -107,7 +107,7 @@ object ChillieMigrations {
 //    }
 //
 //    fun populateVersion2Upgrade(database: SupportSQLiteDatabase) {
-//        //Execute INSERT statements to add new DEX's and BlockChains.
+//        //Execute INSERT statements to add new DEX's and Blockchains.
 //
 //    }
 }

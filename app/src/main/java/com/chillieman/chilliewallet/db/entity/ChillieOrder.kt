@@ -6,7 +6,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.chillieman.chilliewallet.definitions.ChillieOrderDefinitions.Columns
 import com.chillieman.chilliewallet.definitions.ChillieOrderDefinitions.TABLE_NAME
-import com.chillieman.chilliewallet.model.ChillieOrderState
+import com.chillieman.chilliewallet.model.enums.ChillieOrderState
 
 @Entity(
     tableName = TABLE_NAME,

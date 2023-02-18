@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:adjustViewBounds="true"
-            android:src="@mipmap/ic_chillie_wallet_foreground"
+            android:src="@drawable/logo_bnb"
             app:layout_constraintBottom_toBottomOf="@id/tv_token_balance"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_token_name" />
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:ellipsize="end"
-            tools:text="ChillieWallet (CHLL)"
+            tools:text="BNB ShitToken (SHTY)"
             app:layout_constraintEnd_toStartOf="@id/tv_token_worth"
             app:layout_constraintStart_toEndOf="@id/img_token_icon"
             app:layout_constraintTop_toTopOf="parent" />

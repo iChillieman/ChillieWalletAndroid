@@ -4,15 +4,17 @@ import android.util.Log
 import com.chillieman.chilliewallet.db.PrefillUtil
 import com.chillieman.chilliewallet.db.dao.AuthDao
 import com.chillieman.chilliewallet.db.dao.AuthDatumDao
+import com.chillieman.chilliewallet.db.dao.BalanceDao
 import com.chillieman.chilliewallet.db.dao.ChillieWalletDao
 import com.chillieman.chilliewallet.db.dao.DexDao
 import com.chillieman.chilliewallet.db.dao.TokenDao
 import com.chillieman.chilliewallet.db.dao.TokenWatchDao
-import com.chillieman.chilliewallet.db.entity.BlockChain
+import com.chillieman.chilliewallet.db.entity.Balance
+import com.chillieman.chilliewallet.db.entity.Blockchain
 import com.chillieman.chilliewallet.db.entity.ChillieWallet
 import com.chillieman.chilliewallet.db.entity.Token
 import com.chillieman.chilliewallet.db.entity.TokenWatch
-import com.chillieman.chilliewallet.definitions.BlockChainDefinitions
+import com.chillieman.chilliewallet.definitions.BlockchainDefinitions
 import com.chillieman.chilliewallet.definitions.DexDefinitions
 import com.chillieman.chilliewallet.util.EncryptionManager
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,6 +33,7 @@ class ChillieWalletRepository
     private val chillieWalletDao: ChillieWalletDao,
     private val authDao: AuthDao,
     private val authDatumDao: AuthDatumDao,
+    private val balanceDao: BalanceDao,
     private val dexDao: DexDao,
     private val tokenDao: TokenDao,
     private val tokenWatchDao: TokenWatchDao,
@@ -40,9 +43,9 @@ class ChillieWalletRepository
         Log.d("Chillieman", "ChillieWalletRepository INIT!")
     }
 
-    private val _selectedBlockChain = MutableStateFlow<BlockChain?>(null)
-    val selectedBlockChain: StateFlow<BlockChain?>
-        get() = _selectedBlockChain
+    private val _selectedBlockchain = MutableStateFlow<Blockchain?>(null)
+    val selectedBlockchain: StateFlow<Blockchain?>
+        get() = _selectedBlockchain
 
     private val _selectedWallet = MutableStateFlow<ChillieWallet?>(null)
     val selectedWallet: StateFlow<ChillieWallet?>
@@ -139,7 +142,7 @@ class ChillieWalletRepository
         val startTime = System.currentTimeMillis()
         val credentials = Bip44WalletUtils.loadBip44Credentials("", getWalletSeedPhrase(wallet))
         val elapsedTime = System.currentTimeMillis() - startTime
-        Log.d("Chillieman", "Chillieman - Time to fetch Credentials: ${elapsedTime}ms")
+        Log.d("Chillieman", "Chillieman - Time Taken to fetch Credentials: ${elapsedTime}ms")
 
         return credentials
     }
@@ -205,7 +208,7 @@ class ChillieWalletRepository
 
     private suspend fun prefillTokensForWalletAlpha(walletId: Long) {
         val cakeSwapId = dexDao.selectByChainIdAndRouterAddress(
-            BlockChainDefinitions.Binance.CHAIN_ID,
+            BlockchainDefinitions.Binance.CHAIN_ID,
             DexDefinitions.PancakeSwap.ADDRESS_ROUTER
         ).id
 
@@ -218,11 +221,11 @@ class ChillieWalletRepository
 
     private suspend fun insertTokenForUser(token: Token, walletId: Long, dexId: Long) {
         val tokenId =
-            if (tokenDao.countByAddressAndBlockChainId(token.address, token.blockChainId) == 0) {
+            if (tokenDao.countByAddressAndBlockchainId(token.address, token.blockchainId) == 0) {
                 // Only add a Token Record if none exist.
                 tokenDao.insert(token)
             } else {
-                tokenDao.selectByAddressAndBlockChainId(token.address, token.blockChainId).id
+                tokenDao.selectByAddressAndBlockchainId(token.address, token.blockchainId).id
             }
 
         tokenWatchDao.insert(
@@ -233,6 +236,8 @@ class ChillieWalletRepository
             )
         )
     }
+
+    suspend fun insertBalanceRecord(balance: Balance) = balanceDao.insert(balance)
 
     companion object {
         private const val TAG = "ChillieWalletRepo"

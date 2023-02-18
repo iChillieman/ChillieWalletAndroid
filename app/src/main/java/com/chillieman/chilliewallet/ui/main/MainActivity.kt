@@ -8,7 +8,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.chillieman.chilliewallet.R
 import com.chillieman.chilliewallet.databinding.ActivityMainBinding
-import com.chillieman.chilliewallet.model.AuthStatus
+import com.chillieman.chilliewallet.model.enums.AuthStatus
 import com.chillieman.chilliewallet.ui.base.BaseViewModelActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint

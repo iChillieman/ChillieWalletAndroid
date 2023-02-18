@@ -4,10 +4,10 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.chillieman.chilliewallet.definitions.BlockChainDefinitions
+import com.chillieman.chilliewallet.definitions.BlockchainDefinitions
 import com.chillieman.chilliewallet.definitions.DexDefinitions
 import com.chillieman.chilliewallet.definitions.TokenDefinitions
-import com.chillieman.chilliewallet.model.ConnectionState
+import com.chillieman.chilliewallet.model.enums.ConnectionState
 import com.chillieman.chilliewallet.model.contracts.IERC20
 import com.chillieman.chilliewallet.model.contracts.IERC20.APPROVAL_EVENT
 import com.chillieman.chilliewallet.model.contracts.IERC20.TRANSFER_EVENT
@@ -15,7 +15,7 @@ import com.chillieman.chilliewallet.model.contracts.IUniswapV2Factory
 import com.chillieman.chilliewallet.model.contracts.IUniswapV2Pair
 import com.chillieman.chilliewallet.model.contracts.IUniswapV2Pair.SYNC_EVENT
 import com.chillieman.chilliewallet.model.contracts.IUniswapV2Router02
-import com.chillieman.chilliewallet.repository.BlockChainRepository
+import com.chillieman.chilliewallet.repository.BlockchainRepository
 import com.chillieman.chilliewallet.repository.ChillieWalletRepository
 import com.chillieman.chilliewallet.repository.DexRepository
 import com.chillieman.chilliewallet.repository.PricePointRepository
@@ -48,7 +48,7 @@ class PlaygroundViewModel
     private val chillieWalletRepository: ChillieWalletRepository,
     private val pricePointRepository: PricePointRepository,
     private val dexRepo: DexRepository,
-    private val blockchainRepo: BlockChainRepository,
+    private val blockchainRepo: BlockchainRepository,
     private val walletFolder: File,
 ) : BaseViewModel() {
     private val _connectionState = MutableLiveData<ConnectionState>().apply {
@@ -81,7 +81,7 @@ class PlaygroundViewModel
     private var job: Job? = null
     private val tokenJobs = mutableListOf<Job>()
 
-    private val web3: Web3j by lazy { Web3j.build(HttpService(BlockChainDefinitions.Binance.DEFAULT_NODE_URL)) }
+    private val web3: Web3j by lazy { Web3j.build(HttpService(BlockchainDefinitions.Binance.DEFAULT_NODE_URL)) }
 
     override fun onCleared() {
         super.onCleared()

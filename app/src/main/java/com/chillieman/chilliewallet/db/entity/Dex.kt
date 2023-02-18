@@ -15,7 +15,7 @@ import com.chillieman.chilliewallet.definitions.DexDefinitions.TABLE_NAME
 )
 data class Dex(
     @field:ColumnInfo(name = Columns.BLOCKCHAIN_ID)
-    val blockChainId: Long,
+    val blockchainId: Long,
     @field:ColumnInfo(name = Columns.NAME)
     val name: String,
     @field:ColumnInfo(name = Columns.ADDRESS_ROUTER)

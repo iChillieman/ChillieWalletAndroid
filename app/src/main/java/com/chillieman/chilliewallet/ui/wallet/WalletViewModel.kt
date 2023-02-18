@@ -7,11 +7,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.chillieman.chilliewallet.db.entity.ChillieWallet
 import com.chillieman.chilliewallet.db.entity.Token
+import com.chillieman.chilliewallet.definitions.BlockchainDefinitions
 import com.chillieman.chilliewallet.model.contracts.IERC20
 import com.chillieman.chilliewallet.repository.ChillieWalletRepository
 import com.chillieman.chilliewallet.ui.base.BaseViewModel
-import com.chillieman.chilliewallet.ui.wallet.select.WalletSelectionItem
-import com.chillieman.chilliewallet.ui.wallet.tokenlist.TokenForList
+import com.chillieman.chilliewallet.ui.wallet.list.WalletSelectionItem
+import com.chillieman.chilliewallet.ui.token.list.TokenForList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -26,6 +27,7 @@ import kotlinx.coroutines.withContext
 import org.web3j.crypto.Credentials
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.core.DefaultBlockParameterName
+import org.web3j.protocol.http.HttpService
 import org.web3j.tx.gas.DefaultGasProvider
 import org.web3j.utils.Convert
 import java.math.BigDecimal
@@ -70,7 +72,7 @@ class WalletViewModel
     val walletSelectionList: LiveData<List<WalletSelectionItem>>
         get() = _walletSelectionList
 
-    var walletJob: Job? = null
+    private var walletJob: Job? = null
 
     override fun onCleared() {
         super.onCleared()
@@ -176,11 +178,13 @@ class WalletViewModel
     ): List<TokenForList> {
         return flow {
             tokens.forEach { token ->
+                Log.w("Chillie", "Making WEB 3 Instance: ${token.address}")
+                val localWeb3j = Web3j.build(HttpService(BlockchainDefinitions.Binance.DEFAULT_NODE_URL))
                 Log.w("Chillie", "Loading: ${token.address}")
 
                 val tokenContract = IERC20.load(
                     token.address,
-                    web3j,
+                    localWeb3j,
                     creds,
                     DefaultGasProvider()
                 )
@@ -243,9 +247,8 @@ class WalletViewModel
             Log.w("Chillie", "Finished Loading: ${token.address}")
         }
 
-        val blahhh = getTokenBalances(creds, tokens)
         withContext(Dispatchers.Main) {
-            _tokensForList.value = blahhh
+            _tokensForList.value = tokensForList
         }
     }
 

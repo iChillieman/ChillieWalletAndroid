@@ -1,4 +1,4 @@
-package com.chillieman.chilliewallet.ui.wallet.tokenlist
+package com.chillieman.chilliewallet.ui.token.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

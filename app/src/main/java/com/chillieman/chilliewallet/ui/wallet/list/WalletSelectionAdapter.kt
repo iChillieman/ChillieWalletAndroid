@@ -1,4 +1,4 @@
-package com.chillieman.chilliewallet.ui.wallet.select
+package com.chillieman.chilliewallet.ui.wallet.list
 
 import android.view.LayoutInflater
 import android.view.View
