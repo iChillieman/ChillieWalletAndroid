@@ -15,6 +15,12 @@
         android:theme="@style/Theme.ChillieWallet"
         tools:ignore="LockedOrientationActivity">
 
+        <activity
+            android:name=".ui.SandboxActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.ChillieWallet.NoActionBar"
+            android:exported="true"/>
+
         <service
             android:name=".service.AuthService"
             android:enabled="true"

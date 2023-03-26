@@ -26,4 +26,13 @@
     <color name="green">#070</color>
     <color name="grey">#777</color>
     <color name="separate">#CCC</color>
+
+    <!-- @mountaindewbyok Colors -->
+    <color name="dewby_night_separate">#464646</color>
+    <color name="dewby_night_background">#1a1a1a</color>
+    <color name="dewby_night_title_top">#520092</color>
+    <color name="dewby_night_button">#8133ab</color>
+    <color name="dewby_night_accent">#d78edd</color>
+    <color name="dewby_night_red">#dd2d42</color>
+
 </resources>

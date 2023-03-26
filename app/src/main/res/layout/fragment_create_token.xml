@@ -7,14 +7,16 @@
     <TextView
         android:id="@+id/tv_create_token_title"
         style="@style/LargeSubTitleText"
-        android:letterSpacing=".1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_4_unit"
         android:ellipsize="middle"
-        android:textStyle="bold"
-        android:textAllCaps="true"
+        android:gravity="center"
+        android:letterSpacing=".1"
+        android:padding="@dimen/margin_4_unit"
+        android:background="@drawable/bg_dewby_gradiant_night_title"
         android:text="Import Token"
+        android:textAllCaps="true"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,12 +31,12 @@
 
 
     <TextView
-        style="@style/SubTitleText"
+        android:id="@+id/blockchain_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_4_unit"
         android:text="Blockchain:"
         app:layout_constraintBottom_toBottomOf="@id/token_blockchain_container"
-        app:layout_constraintEnd_toStartOf="@id/token_blockchain_container"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/token_blockchain_container" />
 
@@ -100,38 +102,38 @@
 
     <TextView
         android:id="@+id/tv_token_address_label"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_2_unit"
         android:layout_marginTop="@dimen/margin_8_unit"
         android:layout_marginEnd="@dimen/margin_2_unit"
         android:text="Token Address: "
+        app:layout_constraintStart_toStartOf="@id/blockchain_label"
         app:layout_constraintTop_toBottomOf="@id/token_blockchain_container" />
 
-    <EditText
+    <TextView
         android:id="@+id/et_token_address"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_2_unit"
+
         android:layout_marginEnd="@dimen/margin_2_unit"
         android:ellipsize="middle"
         android:maxLines="1"
         android:singleLine="true"
         android:text="0xTypicalHoneyPotShitCoinAddressGoesHereAndIfItsTooLongAddEllipse"
         app:layout_constraintEnd_toStartOf="@id/container_token_paste"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tv_token_address_label"
         app:layout_constraintTop_toBottomOf="@id/tv_token_address_label" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/container_token_paste"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginEnd="@dimen/margin_2_unit"
+
         app:cardBackgroundColor="?attr/colorSecondary"
         app:cardCornerRadius="@dimen/margin_4_unit"
-        app:layout_constraintTop_toTopOf="@id/tv_token_address_label"
         app:layout_constraintBottom_toBottomOf="@+id/et_token_address"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="@id/token_blockchain_container"
+        app:layout_constraintTop_toTopOf="@id/tv_token_address_label">
 
         <ImageView
             android:id="@+id/btn_token_create_paste"
@@ -157,8 +159,8 @@
             android:id="@+id/container_token_information"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/margin_8_unit">
+            android:layout_margin="@dimen/margin_4_unit"
+            android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_token_name_information"
@@ -180,7 +182,8 @@
                         android:id="@+id/tv_create_token_name_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Name: " />
+                        android:text="Name: "
+                        android:textColor="?attr/colorSecondary" />
 
                     <TextView
                         android:id="@+id/tv_create_token_name_value"
@@ -189,8 +192,6 @@
                         android:layout_weight="1"
                         android:gravity="end"
                         android:text="Typical Non-Utility ShitCoin"
-                        android:textColor="?attr/colorSecondary"
-                        android:textSize="14dp"
                         android:textStyle="bold" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -215,7 +216,8 @@
                         android:id="@+id/tv_create_token_symbol_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Symbol: " />
+                        android:text="Symbol: "
+                        android:textColor="?attr/colorSecondary" />
 
                     <TextView
                         android:id="@+id/tv_create_token_symbol_value"
@@ -224,7 +226,7 @@
                         android:layout_weight="1"
                         android:gravity="end"
                         android:text="TNUS"
-                        android:textColor="?attr/colorSecondary"
+
                         android:textStyle="bold" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -249,7 +251,8 @@
                         android:id="@+id/tv_create_token_decimal_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Decimals: " />
+                        android:text="Decimals: "
+                        android:textColor="?attr/colorSecondary" />
 
                     <TextView
                         android:id="@+id/tv_create_token_decimal_value"
@@ -258,7 +261,7 @@
                         android:layout_weight="1"
                         android:gravity="end"
                         android:text="17"
-                        android:textColor="?attr/colorSecondary"
+
                         android:textStyle="bold" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -283,7 +286,8 @@
                         android:id="@+id/tv_create_token_buy_tax_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Est. Buy Tax: " />
+                        android:text="Est. Buy Tax: "
+                        android:textColor="?attr/colorSecondary" />
 
                     <TextView
                         android:id="@+id/tv_create_token_buy_tax_value"
@@ -292,7 +296,7 @@
                         android:layout_weight="1"
                         android:gravity="end"
                         android:text="25%"
-                        android:textColor="?attr/colorSecondary"
+
                         android:textStyle="bold" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -323,7 +327,8 @@
                             android:id="@+id/tv_create_token_sell_tax_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Est. Sell Tax: " />
+                            android:text="Est. Sell Tax: "
+                            android:textColor="?attr/colorSecondary" />
 
                         <TextView
                             android:id="@+id/tv_create_token_sell_tax_value"
@@ -332,30 +337,68 @@
                             android:layout_weight="1"
                             android:gravity="end"
                             android:text="100%"
-                            android:textColor="?attr/colorSecondary"
+
                             android:textStyle="bold" />
 
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/tv_create_token_sell_tax_warning"
-                        style="@style/BigText"
-                        android:layout_width="match_parent"
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin_4_unit"
-                        android:gravity="center"
-                        android:text="HoneyPot Detected!!"
-                        android:textColor="@color/pure_red"
-                        app:layout_constraintTop_toBottomOf="@id/container_sell_tax_information" />
+                        android:layout_marginTop="@dimen/margin_4_unit"
+                        app:cardBackgroundColor="?attr/colorOnSecondary"
+                        app:cardCornerRadius="@dimen/margin_1_unit"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/container_sell_tax_information">
+
+                        <LinearLayout
+                            android:id="@+id/container_sell_red_flag"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/margin_1_unit">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/baseline_outlined_flag_24" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/baseline_outlined_flag_24" />
+
+                            <TextView
+                                android:id="@+id/tv_create_token_sell_tax_warning"
+                                style="@style/BigText"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="HONEYPOT DETECTED!!"
+                                android:textColor="@color/pure_red"
+                                app:layout_constraintTop_toBottomOf="@id/container_sell_tax_information" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/baseline_outlined_flag_24" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/baseline_outlined_flag_24" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
             </androidx.cardview.widget.CardView>
-
         </LinearLayout>
-
-
     </ScrollView>
 
 
